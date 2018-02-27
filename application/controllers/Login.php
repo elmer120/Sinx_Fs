@@ -22,13 +22,14 @@ class Login extends CI_Controller {
     {
             parent::__construct();
 			$this->load->library('session');
+			$this->load->helper('url');
 			$this->load->library('form_validation');
 	}
 	
 	public function index()
 	{
 		//se l'utente è già loggato faccio un redirect alla index
-		if( $this->session->has_userdata('isLoggedIn') ) {
+		if(isset($_SESSION['user'])) {
 			redirect('/index');
 		} else { //altrimenti mostro il la pagina di login
 			$this->load->view('login');
@@ -50,7 +51,7 @@ class Login extends CI_Controller {
 		 if(isset($username) && isset($password))
 		 {
 			 //li controllo chiamando il metodo del controller (che valorizza anche la sessione)
-			 if(true)
+			 if($this->User_model->validate_user($username,$password))
 			 {
 				 
 				 //redirect alla index
@@ -59,10 +60,15 @@ class Login extends CI_Controller {
 			 }
 			 else
 			 {
+				
 				$data['error']="Username o password errati!";
 				$this->load->view('login',$data);
 			 }
 
 		 }
+	}
+	public function logout()
+	{
+		session_destroy();
 	}
 }

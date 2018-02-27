@@ -8,8 +8,8 @@
     <input type="input" name="username" /><br />
 
     <label for="password">password</label>
-    <input type="password" name="password"></input><br />
+    <input type="password" name="password" value="admin"></input><br />
 
     <input type="submit" name="submit" value="Accedi" />
-
+    <label><?if (isset($error)){echo $error;}?></label>
 </form>

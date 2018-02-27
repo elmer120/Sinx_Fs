@@ -21,13 +21,19 @@ class Index extends CI_Controller {
 
     public function __construct()
     {
-            parent::__construct();
-            $this->load->library('session');
+			parent::__construct();
+			$this->load->library('session');		
+		//se l'utente non è loggato faccio un redirect al login
+		if(!isset($_SESSION['user'])) {
+			redirect('/login');
+		}
     }
 
 	public function index()
 	{
-        
-		$this->load->view('index');
+		
+		var_dump(unserialize($_SESSION['user']));
+        $this->load->view('index');
+		
 	}
 }
