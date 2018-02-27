@@ -7,7 +7,8 @@ class User_model extends CI_Model {
     public function __construct()
     {
             parent::__construct();
-			$this->load->library('session');
+            $this->load->library('session');
+            $this->load->database();
     }
     
     public function create_user()
@@ -23,9 +24,50 @@ class User_model extends CI_Model {
         return $this->db->insert('user',$data);
     }
     
-    public function validate_user()
+    //Controlla le credenziali dell'utente
+    public function validate_user($username,$password)
     {
+        $this->db->select('*');
+        $this->db->from('utenti');
+        $this->db->where('username',$username);
+        $query = $this->db->get();
+        $result_username = $query->row();
         
+        //se l'username esiste
+        if(isset($result_username))
+        {
+            //controllo la password
+            $this->db->select('*');
+            $this->db->from('utenti');
+            $this->db->where('password',$password);
+            $query = $this->db->get();
+            $result_password = $query->row();
+            
+            //se la password esiste
+            if(isset($result_password))
+            {
+                //valorizzo la sessione
+
+            }
+            
+        }
+        else
+        {
+            return FALSE;
+        }
+
+
+        foreach ($query->result_array() as $row)
+        {
+            echo $row['title'];
+            echo $row['name'];
+            echo $row['email'];
+        }
+    }
+
+    public function delete_user()
+    {
+
     }
 
 }

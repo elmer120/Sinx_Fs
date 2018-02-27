@@ -8,7 +8,7 @@
     <input type="input" name="username" /><br />
 
     <label for="password">password</label>
-    <textarea name="password"></textarea><br />
+    <input type="password" name="password"></input><br />
 
     <input type="submit" name="submit" value="Accedi" />
 

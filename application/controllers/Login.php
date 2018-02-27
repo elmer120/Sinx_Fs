@@ -36,10 +36,11 @@ class Login extends CI_Controller {
 		
 	}
 
+	//al tentativo di login
 	public function login_user()
 	{
 		//creo un istanza del modello che accederà al db
-
+		$this->load->model('User_model');
 
 		//recupero username e password da post
 		 $username = $this->input->post('username');
