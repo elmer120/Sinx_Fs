@@ -74,14 +74,6 @@ class User_model extends CI_Model {
         {
             return FALSE;
         }
-
-
-        foreach ($query->result_array() as $row)
-        {
-            echo $row['title'];
-            echo $row['name'];
-            echo $row['email'];
-        }
     }
 
     public function delete_user()

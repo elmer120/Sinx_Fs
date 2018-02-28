@@ -1,0 +1,40 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+  <title>Sinx</title>
+        <!--carico semantic-ui e jquery-->
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/semantic/semantic.min.css');?>">
+        <script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+        <script src="<?php echo base_url('assets/semantic/semantic.min.js');?>"></script>
+</head>
+<body>
+
+<div class="ui inverted menu">
+      <a href="#" class="header item">
+        <img class="logo" src="immagini/logo.png"/>
+        <div class="ui teal left pointing label">
+          <?php echo lang('presentation_sw');?>
+        </div> 
+      </a>
+      
+      <div class="item">
+        <h5><?php ?> </h5>
+      </div>
+      
+      <div class="item right">
+        <div class="ui inverted red button">
+          <i class="sign out icon"></i>
+          <?php ?>
+            <a href="logout.php" ></a>
+        </div>
+      </div>
+</div>

@@ -22,18 +22,21 @@ class Index extends CI_Controller {
     public function __construct()
     {
 			parent::__construct();
-			$this->load->library('session');		
-		//se l'utente non è loggato faccio un redirect al login
-		if(!isset($_SESSION['user'])) {
-			redirect('/login');
-		}
+				
+			//se l'utente non è loggato faccio un redirect al login
+			if(!isset($_SESSION['user'])) {
+				redirect('/login');
+			}
+			//carico la lingua selezionata
+			$this->lang->load('header', 'italian');	
     }
 
 	public function index()
 	{
-		
-		var_dump(unserialize($_SESSION['user']));
-        $this->load->view('index');
+				
+		echo base_url('assets');
+		$this->load->view('template/header');
+        //$this->load->view('index');
 		
 	}
 }
