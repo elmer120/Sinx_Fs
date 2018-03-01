@@ -22,18 +22,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <a href="#" class="header item">
         <img class="logo" src="immagini/logo.png"/>
         <div class="ui teal left pointing label">
-          <?php echo lang('presentation_sw');?>
+          <?php echo lang('version');?>
         </div> 
       </a>
       
       <div class="item">
-        <h5><?php ?> </h5>
+        <h5><?php  echo lang('presentation_sw'); ?> </h5>
       </div>
       
       <div class="item right">
         <div class="ui inverted red button">
           <i class="sign out icon"></i>
-          <?php ?>
+          <?php  echo lang('logout');?>
             <a href="logout.php" ></a>
         </div>
       </div>

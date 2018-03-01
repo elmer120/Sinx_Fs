@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Index extends CI_Controller {
+class Anagrafica extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -38,8 +38,8 @@ class Index extends CI_Controller {
 		
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
+		
 		$this->load->view('index');
-		$this->load->view('template/side_bar');
 		
 	}
 }

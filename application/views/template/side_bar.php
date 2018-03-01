@@ -2,8 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
-<div class="ten wide column"> 
+<div class="three wide column"> 
 
-pagina
+sidebar
 
 </div>
