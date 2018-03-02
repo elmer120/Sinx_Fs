@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 02, 2018 alle 08:11
+-- Creato il: Mar 02, 2018 alle 22:10
 -- Versione del server: 10.1.30-MariaDB
--- Versione PHP: 7.2.1
+-- Versione PHP: 7.2.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -42,17 +42,17 @@ CREATE TABLE `appuntamenti` (
 --
 
 CREATE TABLE `comuni` (
-  `id_com` int(6) UNSIGNED NOT NULL,
-  `id_pro` int(4) UNSIGNED NOT NULL,
+  `id` int(6) UNSIGNED NOT NULL,
+  `fk_provincia` int(10) NOT NULL,
   `cap` int(8) UNSIGNED NOT NULL,
-  `comune` varchar(200) CHARACTER SET latin1 NOT NULL
+  `name` varchar(200) CHARACTER SET latin1 NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dump dei dati per la tabella `comuni`
 --
 
-INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
+INSERT INTO `comuni` (`id`, `fk_provincia`, `cap`, `name`) VALUES
 (1, 1, 66040, 'Altino'),
 (2, 1, 66044, 'Archi'),
 (3, 1, 66010, 'Ari'),
@@ -1641,7 +1641,7 @@ INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
 (1586, 21, 43100, 'Parma'),
 (1587, 21, 43047, 'Pellegrino Parmense'),
 (1588, 21, 43010, 'Polesine Parmense');
-INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
+INSERT INTO `comuni` (`id`, `fk_provincia`, `cap`, `name`) VALUES
 (1589, 21, 43010, 'Roccabianca'),
 (1590, 21, 43038, 'Sala Baganza'),
 (1591, 21, 43039, 'Salsomaggiore Terme'),
@@ -3242,7 +3242,7 @@ INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
 (3186, 42, 26040, 'Bonemerse'),
 (3187, 42, 26020, 'Bordolano'),
 (3188, 42, 26030, 'Ca\' d\'Andrea');
-INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
+INSERT INTO `comuni` (`id`, `fk_provincia`, `cap`, `name`) VALUES
 (3189, 42, 26030, 'Calvatone'),
 (3190, 42, 26010, 'Camisano'),
 (3191, 42, 26010, 'Campagnola Cremasca'),
@@ -4774,7 +4774,7 @@ INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
 (4717, 59, 14022, 'Castelnuovo Don Bosco'),
 (4718, 59, 14044, 'Castel Rocchero'),
 (4719, 59, 14010, 'Cellarengo');
-INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
+INSERT INTO `comuni` (`id`, `fk_provincia`, `cap`, `name`) VALUES
 (4720, 59, 14010, 'Celle Enomondo'),
 (4721, 59, 14020, 'Cerreto d\'Asti'),
 (4722, 59, 14030, 'Cerro Tanaro'),
@@ -6398,7 +6398,7 @@ INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
 (6340, 80, 92021, 'Aragona'),
 (6341, 80, 92010, 'Bivona'),
 (6342, 80, 92010, 'Burgio');
-INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
+INSERT INTO `comuni` (`id`, `fk_provincia`, `cap`, `name`) VALUES
 (6343, 80, 92010, 'Calamonaci'),
 (6344, 80, 92010, 'Caltabellotta'),
 (6345, 80, 92020, 'Camastra'),
@@ -7934,7 +7934,7 @@ INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
 (7875, 108, 30038, 'Spinea'),
 (7876, 108, 30039, 'Stra'),
 (7877, 108, 30025, 'Teglio Veneto');
-INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
+INSERT INTO `comuni` (`id`, `fk_provincia`, `cap`, `name`) VALUES
 (7878, 108, 30020, 'Torre di Mosto'),
 (7879, 108, 30100, 'Venezia'),
 (7880, 108, 30030, 'Vigonovo'),
@@ -8163,20 +8163,42 @@ INSERT INTO `comuni` (`id_com`, `id_pro`, `cap`, `comune`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `persone`
+--
+
+CREATE TABLE `persone` (
+  `id` int(60) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `surname` varchar(25) DEFAULT NULL,
+  `address` varchar(40) DEFAULT NULL,
+  `phone` varchar(10) DEFAULT NULL,
+  `phone_ext` varchar(10) DEFAULT NULL,
+  `datebirth` date DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `avatar` varchar(100) DEFAULT NULL,
+  `fk_comune` int(11) DEFAULT NULL,
+  `fk_associato` int(11) DEFAULT NULL,
+  `fk_direttivo` int(11) DEFAULT NULL,
+  `fk_collaboratore` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='anagrafica';
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `province`
 --
 
 CREATE TABLE `province` (
-  `id_pro` int(4) UNSIGNED NOT NULL,
-  `id_reg` int(3) UNSIGNED NOT NULL,
-  `nome_provincia` varchar(200) CHARACTER SET latin1 NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `fk_regione` int(10) UNSIGNED NOT NULL,
+  `name` varchar(200) CHARACTER SET latin1 NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dump dei dati per la tabella `province`
 --
 
-INSERT INTO `province` (`id_pro`, `id_reg`, `nome_provincia`) VALUES
+INSERT INTO `province` (`id`, `fk_regione`, `name`) VALUES
 (1, 1, 'Chieti'),
 (2, 1, 'L\'Aquila'),
 (3, 1, 'Pescara'),
@@ -8295,15 +8317,15 @@ INSERT INTO `province` (`id_pro`, `id_reg`, `nome_provincia`) VALUES
 --
 
 CREATE TABLE `regioni` (
-  `id_reg` int(3) UNSIGNED NOT NULL,
-  `nome_regione` varchar(200) CHARACTER SET latin1 NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(200) CHARACTER SET latin1 NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
 -- Dump dei dati per la tabella `regioni`
 --
 
-INSERT INTO `regioni` (`id_reg`, `nome_regione`) VALUES
+INSERT INTO `regioni` (`id`, `name`) VALUES
 (1, 'Abruzzo'),
 (2, 'Basilicata'),
 (3, 'Calabria'),
@@ -8324,51 +8346,6 @@ INSERT INTO `regioni` (`id_reg`, `nome_regione`) VALUES
 (18, 'Umbria'),
 (19, 'Valle d\'Aosta/Vallâ€še d\'Aoste'),
 (20, 'Veneto');
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `tb_anagrafe`
---
-
-CREATE TABLE `tb_anagrafe` (
-  `ntessera` varchar(60) NOT NULL,
-  `id_anagrafe` int(9) NOT NULL,
-  `nome` varchar(150) DEFAULT NULL,
-  `cognome` varchar(25) DEFAULT NULL,
-  `indirizzo` varchar(40) DEFAULT NULL,
-  `cap` varchar(55) DEFAULT NULL,
-  `citta` varchar(25) DEFAULT NULL,
-  `provincia` varchar(25) DEFAULT NULL,
-  `tel` varchar(10) DEFAULT NULL,
-  `tel2` varchar(10) DEFAULT NULL,
-  `datan` varchar(10) DEFAULT NULL,
-  `classe` varchar(25) DEFAULT NULL,
-  `nomerif` varchar(25) DEFAULT NULL,
-  `materia` varchar(25) DEFAULT NULL,
-  `mansione` varchar(25) DEFAULT NULL,
-  `email` varchar(30) DEFAULT NULL,
-  `tipologia` varchar(5) DEFAULT NULL,
-  `note` varchar(150) DEFAULT NULL,
-  `immagine` varchar(100) DEFAULT NULL,
-  `associato` varchar(2) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dump dei dati per la tabella `tb_anagrafe`
---
-
-INSERT INTO `tb_anagrafe` (`ntessera`, `id_anagrafe`, `nome`, `cognome`, `indirizzo`, `cap`, `citta`, `provincia`, `tel`, `tel2`, `datan`, `classe`, `nomerif`, `materia`, `mansione`, `email`, `tipologia`, `note`, `immagine`, `associato`) VALUES
-('78', 1, 'test', '', '', '', '', '', '', '', '--', 'Presidente', '', '', '', '', 'Stud', '', 'personal.gif', 'si'),
-('98', 2, 'jhhj', '', '', '', '', '', '', '', '--', 'Vicepresidente', '', '', '', '', 'Stud', '', 'personal.gif', 'si'),
-('1', 3, 'Marco', 'Pedrazzi', 'lesi 24', '85010 - Abriola', 'Trentino-Alto Adige', 'Arezzo', '046868227', '3389330420', '13-12-1989', 'Vicepresidente', 'FSDFS', '', '', 'marco@gmail.com', 'Stud', '', 'personal.gif', 'si'),
-('1', 4, 'Marco', 'Pedrazzi', 'lesi 24', '51021 - Abetone', 'Trentino-Alto Adige', 'Ascoli Piceno', '45654', '3389330420', '13-12-1989', '', 'FSDFS', 'Ordinario', '', 'marco.pedrazzi1989@gmail.com', 'Ins', '', 'personal.gif', 'si'),
-('1', 5, 'Marco', '', '', '', '', '', '', '', '--', 'Consigliere', '', '', '', '', 'Stud', '', 'personal.gif', 'si'),
-('1', 6, 'Marco', '', '', '', '', '', '', '', '--', '', '', 'Ordinario', '', '', 'Ins', '', 'personal.gif', 'si'),
-('98', 7, 'Marco', '', '', '', '', '', '', '', '--', NULL, '', NULL, 'h', '', 'Extra', '', 'personal.gif', NULL),
-('999', 9, 'Marco', 'Pedrazzi', 'Via lesi,24', '38068 - Rovereto', 'Trentino-Alto Adige', 'Trento', '3933893304', '3933893304', '13-12-1989', 'Revisore dei Conti', '', '', '', 'pedrazzi2009@gmail.com', 'Stud', '', 'personal.gif', 'si'),
-('fe', 10, 'fsdfsd', '', '', '', '', '', '', '', '--', 'Presidente', '', '', '', '', 'Stud', '', 'personal.gif', 'si'),
-('A2', 11, 'Marco', '', 'Via lesi,24', '', '', '', '3389330420', '3933893304', '--', 'Revisore dei Conti', '', '', '', 'pedrazzi2009@gmail.com', 'Stud', '', 'personal.gif', 'si');
 
 -- --------------------------------------------------------
 
@@ -9451,7 +9428,7 @@ CREATE TABLE `utenti` (
 --
 
 INSERT INTO `utenti` (`id`, `username`, `password`, `name`, `image`, `email`, `level`, `create_date`, `last_access`) VALUES
-(1, 'admin', '$2y$10$OgCCykgsj/uvUjLgdmBg7OM430zJYUfk.1dmgjOjT73ET5a3MHY.O', 'elmer', '', '', 1, '0000-00-00 00:00:00', '2018-03-01 18:10:17');
+(1, 'admin', '$2y$10$OgCCykgsj/uvUjLgdmBg7OM430zJYUfk.1dmgjOjT73ET5a3MHY.O', 'elmer', '', '', 1, '0000-00-00 00:00:00', '2018-03-02 08:30:07');
 
 --
 -- Indici per le tabelle scaricate
@@ -9467,25 +9444,27 @@ ALTER TABLE `appuntamenti`
 -- Indici per le tabelle `comuni`
 --
 ALTER TABLE `comuni`
-  ADD PRIMARY KEY (`id_com`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_provincia` (`fk_provincia`),
+  ADD KEY `fk_provincia_2` (`fk_provincia`);
+
+--
+-- Indici per le tabelle `persone`
+--
+ALTER TABLE `persone`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indici per le tabelle `province`
 --
 ALTER TABLE `province`
-  ADD PRIMARY KEY (`id_pro`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indici per le tabelle `regioni`
 --
 ALTER TABLE `regioni`
-  ADD PRIMARY KEY (`id_reg`);
-
---
--- Indici per le tabelle `tb_anagrafe`
---
-ALTER TABLE `tb_anagrafe`
-  ADD PRIMARY KEY (`id_anagrafe`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indici per le tabelle `tb_anagrafe_associaz`
@@ -9585,25 +9564,19 @@ ALTER TABLE `appuntamenti`
 -- AUTO_INCREMENT per la tabella `comuni`
 --
 ALTER TABLE `comuni`
-  MODIFY `id_com` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8102;
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8102;
 
 --
 -- AUTO_INCREMENT per la tabella `province`
 --
 ALTER TABLE `province`
-  MODIFY `id_pro` int(4) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT per la tabella `regioni`
 --
 ALTER TABLE `regioni`
-  MODIFY `id_reg` int(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
-
---
--- AUTO_INCREMENT per la tabella `tb_anagrafe`
---
-ALTER TABLE `tb_anagrafe`
-  MODIFY `id_anagrafe` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT per la tabella `tb_anagrafe_associaz`
