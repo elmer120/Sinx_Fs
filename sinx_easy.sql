@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.7
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mar 02, 2018 alle 22:10
+-- Creato il: Mar 05, 2018 alle 08:17
 -- Versione del server: 10.1.30-MariaDB
--- Versione PHP: 7.2.2
+-- Versione PHP: 7.2.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,6 +34,46 @@ CREATE TABLE `appuntamenti` (
   `testo` text NOT NULL,
   `str_data` varchar(10) NOT NULL DEFAULT '0'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `associati`
+--
+
+CREATE TABLE `associati` (
+  `id` int(11) NOT NULL,
+  `n_card` int(11) NOT NULL,
+  `create_date` timestamp NULL DEFAULT NULL,
+  `privacy` tinyint(1) NOT NULL,
+  `active` tinyint(1) NOT NULL,
+  `note` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fk_tipo_associato` int(11) NOT NULL,
+  `fk_cariche_direttivo` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `cariche_direttivo`
+--
+
+CREATE TABLE `cariche_direttivo` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `collaboratori`
+--
+
+CREATE TABLE `collaboratori` (
+  `id` int(11) NOT NULL,
+  `mansione` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `note` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -8170,6 +8210,7 @@ CREATE TABLE `persone` (
   `id` int(60) NOT NULL,
   `name` varchar(150) NOT NULL,
   `surname` varchar(25) DEFAULT NULL,
+  `fiscal_code` varchar(16) DEFAULT NULL,
   `address` varchar(40) DEFAULT NULL,
   `phone` varchar(10) DEFAULT NULL,
   `phone_ext` varchar(10) DEFAULT NULL,
@@ -8178,9 +8219,15 @@ CREATE TABLE `persone` (
   `avatar` varchar(100) DEFAULT NULL,
   `fk_comune` int(11) DEFAULT NULL,
   `fk_associato` int(11) DEFAULT NULL,
-  `fk_direttivo` int(11) DEFAULT NULL,
   `fk_collaboratore` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='anagrafica';
+
+--
+-- Dump dei dati per la tabella `persone`
+--
+
+INSERT INTO `persone` (`id`, `name`, `surname`, `fiscal_code`, `address`, `phone`, `phone_ext`, `datebirth`, `email`, `avatar`, `fk_comune`, `fk_associato`, `fk_collaboratore`) VALUES
+(0, 'marco', 'pedrazzi', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -8386,59 +8433,6 @@ CREATE TABLE `tb_anagrafe_associaz` (
 
 INSERT INTO `tb_anagrafe_associaz` (`id_anagrafe`, `nome`, `indirizzo`, `numero`, `cap`, `citta`, `provincia`, `tel`, `fax`, `cf`, `email`, `PEC`, `webPEC`, `webmail`, `sito`, `facebook`, `instagram`, `twitter`, `youtube`, `banca`, `IBAN`, `BIC`, `HomeBanking`, `IscrizioneODVoAPS`) VALUES
 (1, 'rufa  softair', 'Via s.valentino', '8', '38068', 'Trambileno', 'TN', '393389330420', '', 'codice fiscale', 'pedrazzi2009@gmail.com', '', '', 'pedrazzi2009@gmail.com', 'http://www.rufasoftair.it', '', '', '', '', '', '', '', '', '56');
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `tb_classe`
---
-
-CREATE TABLE `tb_classe` (
-  `id_classe` int(9) NOT NULL,
-  `classe` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dump dei dati per la tabella `tb_classe`
---
-
-INSERT INTO `tb_classe` (`id_classe`, `classe`) VALUES
-(1, 'Presidente'),
-(2, 'Vicepresidente'),
-(3, 'Consigliere'),
-(4, 'Revisore dei Conti'),
-(5, 'Presidente'),
-(6, 'Vicepresidente'),
-(7, 'Consigliere'),
-(8, 'Revisore dei Conti'),
-(9, 'Presidente'),
-(10, 'Vicepresidente'),
-(11, 'Consigliere'),
-(12, 'Revisore dei Conti'),
-(13, 'Presidente'),
-(14, 'Vicepresidente'),
-(15, 'Consigliere'),
-(16, 'Revisore dei Conti'),
-(17, 'Presidente'),
-(18, 'Vicepresidente'),
-(19, 'Consigliere'),
-(20, 'Revisore dei Conti'),
-(21, 'Presidente'),
-(22, 'Vicepresidente'),
-(23, 'Consigliere'),
-(24, 'Revisore dei Conti'),
-(25, 'Presidente'),
-(26, 'Vicepresidente'),
-(27, 'Consigliere'),
-(28, 'Revisore dei Conti'),
-(29, 'Presidente'),
-(30, 'Vicepresidente'),
-(31, 'Consigliere'),
-(32, 'Revisore dei Conti'),
-(33, 'Presidente'),
-(34, 'Vicepresidente'),
-(35, 'Consigliere'),
-(36, 'Revisore dei Conti');
 
 -- --------------------------------------------------------
 
@@ -8651,32 +8645,6 @@ CREATE TABLE `tb_fatture` (
   `modpaga` varchar(500) NOT NULL,
   `totale` decimal(8,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Struttura della tabella `tb_materia`
---
-
-CREATE TABLE `tb_materia` (
-  `id_materia` int(9) NOT NULL,
-  `materia` varchar(25) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dump dei dati per la tabella `tb_materia`
---
-
-INSERT INTO `tb_materia` (`id_materia`, `materia`) VALUES
-(1, 'Ordinario'),
-(2, 'Ordinario'),
-(3, 'Ordinario'),
-(4, 'Ordinario'),
-(5, 'Ordinario'),
-(6, 'Ordinario'),
-(7, 'Ordinario'),
-(8, 'Ordinario'),
-(9, 'Ordinario');
 
 -- --------------------------------------------------------
 
@@ -9408,6 +9376,32 @@ CREATE TABLE `tb_tot_progetto` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `tipo_associato`
+--
+
+CREATE TABLE `tipo_associato` (
+  `id` int(11) NOT NULL,
+  `nome` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dump dei dati per la tabella `tipo_associato`
+--
+
+INSERT INTO `tipo_associato` (`id`, `nome`) VALUES
+(1, 'Ordinario'),
+(2, 'Ordinario'),
+(3, 'Ordinario'),
+(4, 'Ordinario'),
+(5, 'Ordinario'),
+(6, 'Ordinario'),
+(7, 'Ordinario'),
+(8, 'Ordinario'),
+(9, 'Ordinario');
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `utenti`
 --
 
@@ -9428,7 +9422,7 @@ CREATE TABLE `utenti` (
 --
 
 INSERT INTO `utenti` (`id`, `username`, `password`, `name`, `image`, `email`, `level`, `create_date`, `last_access`) VALUES
-(1, 'admin', '$2y$10$OgCCykgsj/uvUjLgdmBg7OM430zJYUfk.1dmgjOjT73ET5a3MHY.O', 'elmer', '', '', 1, '0000-00-00 00:00:00', '2018-03-02 08:30:07');
+(1, 'admin', '$2y$10$OgCCykgsj/uvUjLgdmBg7OM430zJYUfk.1dmgjOjT73ET5a3MHY.O', 'elmer', '', '', 1, '0000-00-00 00:00:00', '2018-03-04 15:39:49');
 
 --
 -- Indici per le tabelle scaricate
@@ -9438,6 +9432,26 @@ INSERT INTO `utenti` (`id`, `username`, `password`, `name`, `image`, `email`, `l
 -- Indici per le tabelle `appuntamenti`
 --
 ALTER TABLE `appuntamenti`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indici per le tabelle `associati`
+--
+ALTER TABLE `associati`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_tipo_associato` (`fk_tipo_associato`),
+  ADD KEY `fk_cariche_direttivo` (`fk_cariche_direttivo`);
+
+--
+-- Indici per le tabelle `cariche_direttivo`
+--
+ALTER TABLE `cariche_direttivo`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indici per le tabelle `collaboratori`
+--
+ALTER TABLE `collaboratori`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -9452,7 +9466,10 @@ ALTER TABLE `comuni`
 -- Indici per le tabelle `persone`
 --
 ALTER TABLE `persone`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_associato` (`fk_associato`),
+  ADD KEY `fk_comune` (`fk_comune`),
+  ADD KEY `fk_collaboratore` (`fk_collaboratore`);
 
 --
 -- Indici per le tabelle `province`
@@ -9473,12 +9490,6 @@ ALTER TABLE `tb_anagrafe_associaz`
   ADD PRIMARY KEY (`id_anagrafe`);
 
 --
--- Indici per le tabelle `tb_classe`
---
-ALTER TABLE `tb_classe`
-  ADD PRIMARY KEY (`id_classe`);
-
---
 -- Indici per le tabelle `tb_conto_economico`
 --
 ALTER TABLE `tb_conto_economico`
@@ -9495,12 +9506,6 @@ ALTER TABLE `tb_email`
 --
 ALTER TABLE `tb_fatture`
   ADD PRIMARY KEY (`id_riga_art`);
-
---
--- Indici per le tabelle `tb_materia`
---
-ALTER TABLE `tb_materia`
-  ADD PRIMARY KEY (`id_materia`);
 
 --
 -- Indici per le tabelle `tb_note`
@@ -9545,6 +9550,12 @@ ALTER TABLE `tb_tot_progetto`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indici per le tabelle `tipo_associato`
+--
+ALTER TABLE `tipo_associato`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indici per le tabelle `utenti`
 --
 ALTER TABLE `utenti`
@@ -9558,6 +9569,24 @@ ALTER TABLE `utenti`
 -- AUTO_INCREMENT per la tabella `appuntamenti`
 --
 ALTER TABLE `appuntamenti`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `associati`
+--
+ALTER TABLE `associati`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `cariche_direttivo`
+--
+ALTER TABLE `cariche_direttivo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT per la tabella `collaboratori`
+--
+ALTER TABLE `collaboratori`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -9585,12 +9614,6 @@ ALTER TABLE `tb_anagrafe_associaz`
   MODIFY `id_anagrafe` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT per la tabella `tb_classe`
---
-ALTER TABLE `tb_classe`
-  MODIFY `id_classe` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
-
---
 -- AUTO_INCREMENT per la tabella `tb_conto_economico`
 --
 ALTER TABLE `tb_conto_economico`
@@ -9607,12 +9630,6 @@ ALTER TABLE `tb_email`
 --
 ALTER TABLE `tb_fatture`
   MODIFY `id_riga_art` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT per la tabella `tb_materia`
---
-ALTER TABLE `tb_materia`
-  MODIFY `id_materia` int(9) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT per la tabella `tb_note`
@@ -9657,10 +9674,34 @@ ALTER TABLE `tb_tot_progetto`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT per la tabella `tipo_associato`
+--
+ALTER TABLE `tipo_associato`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT per la tabella `utenti`
 --
 ALTER TABLE `utenti`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Limiti per le tabelle scaricate
+--
+
+--
+-- Limiti per la tabella `associati`
+--
+ALTER TABLE `associati`
+  ADD CONSTRAINT `associati_ibfk_1` FOREIGN KEY (`fk_tipo_associato`) REFERENCES `tipo_associato` (`id`),
+  ADD CONSTRAINT `associati_ibfk_2` FOREIGN KEY (`fk_cariche_direttivo`) REFERENCES `cariche_direttivo` (`id`);
+
+--
+-- Limiti per la tabella `persone`
+--
+ALTER TABLE `persone`
+  ADD CONSTRAINT `persone_ibfk_1` FOREIGN KEY (`fk_associato`) REFERENCES `associati` (`id`),
+  ADD CONSTRAINT `persone_ibfk_2` FOREIGN KEY (`fk_collaboratore`) REFERENCES `collaboratori` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
