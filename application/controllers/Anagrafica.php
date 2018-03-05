@@ -39,7 +39,12 @@ class Anagrafica extends CI_Controller {
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
 		
-		$this->load->view('index');
+		$this->load->view('ins');
 		
+	}
+
+	public function create_associato()
+	{
+		$this->input->post('');
 	}
 }
