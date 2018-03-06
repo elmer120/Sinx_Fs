@@ -23,7 +23,7 @@ class Anagrafica_model extends CI_Model {
             'note' => $note,
         );
         $fk_associato=$this->db->insert_id('associato', $data);
-        create_person($fk_comune,$fk_associato,NULL,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar);
+        create_person($fk_comune,$fk_associato,NULL,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$create_date);
     }
 
     public function create_collaboratore($mansione,$note,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar)
@@ -33,11 +33,11 @@ class Anagrafica_model extends CI_Model {
             'note' => $note,
         );
         $fk_collaboratore=$this->db->insert_id('collaboratori', $data);
-        create_person($fk_comune,NULL,$fk_collaboratore,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar);
+        create_person($fk_comune,NULL,$fk_collaboratore,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$create_date);
     }
 
 
-    private function create_person($fk_comune,$fk_associato=NULL,$fk_collaboratore=NULL,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar)
+    private function create_person($fk_comune,$fk_associato=NULL,$fk_collaboratore=NULL,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$create_date)
     {
 
         $data = array(
@@ -50,6 +50,7 @@ class Anagrafica_model extends CI_Model {
             'datebirth' => $datebirth,
             'email' => $email,
             'avatar' => $avatar,
+            'create_date'=>$create_date,
             'fk_comune' => $fk_comune,
             'fk_collaboratore' => $fk_collaboratore,
             'fk_associato' => $fk_associato

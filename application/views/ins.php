@@ -17,38 +17,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <input type="text" name="surname" placeholder="Last Name">
   </div>
   <div class="field">
-    <div class="ui fluid search selection dropdown">
-        <input type="hidden" name="country">
-        <i class="dropdown icon"></i>
-    <div class="default text">Regione</div>
-        <div class="menu">
-            <div class="item" data-value="dz"><i class="dz flag"></i>Algeria</div>
-            <div class="item" data-value="as"><i class="as flag"></i>American Samoa</div
-        </div>
-    </div>
-    </div>
-    <div class="field">
-    <div class="ui fluid search selection dropdown">
-        <input type="hidden" name="country">
-        <i class="dropdown icon"></i>
-    <div class="default text">Provincia</div>
-        <div class="menu">
-            <div class="item" data-value="dz"><i class="dz flag"></i>Algeria</div>
-            <div class="item" data-value="as"><i class="as flag"></i>American Samoa</div
-        </div>
-    </div>
-    </div>
-    <div class="field">
-    <div class="ui fluid search selection dropdown">
-        <input type="hidden" name="country">
-        <i class="dropdown icon"></i>
-    <div class="default text">Comune</div>
-        <div class="menu">
-            <div class="item" data-value="dz"><i class="dz flag"></i>Algeria</div>
-            <div class="item" data-value="as"><i class="as flag"></i>American Samoa</div
-        </div>
-    </div>
-    </div>
+    <label>fiscal_code</label>
+    <input type="text" name="fiscal_code" placeholder="fiscal_code">
+  </div>
   <div class="field">
     <label>address</label>
     <input type="text" name="address" placeholder="address">
@@ -71,9 +42,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
   <div class="field">
     <div class="ui action input">
-    <input type="file" placeholder="file..">
+    <input type="file" name="avatar" placeholder="file..">
     <button class="ui button">Scegli</button>
-</div>
+  </div>
+    <div class="field">
+        <select id="select_regioni" class="ui search dropdown">
+        <option value="">Regione...</option>
+        </select>
+    </div>
+    <div class="field">
+        <select id="select_province" class="ui search dropdown">
+        <option value="">Provincia</option>
+        </select>
+    </div>
+    
+    <div class="field">
+        <select id="select_comuni" class="ui search dropdown">
+        <option value="">Comune</option>
+        </select>
+    </div>
   </div>
   <div class="field">
     <label>n_card</label>
