@@ -29,6 +29,7 @@ class Anagrafica extends CI_Controller {
 			}
 			//carico i model
 			$this->load->model('Luoghi_ajax_model');
+			$this->load->model('Anagrafica_model');
 			//carico la lingua selezionata
 			$this->lang->load('header', 'italian');
 			$this->lang->load('menu', 'italian');	
@@ -47,29 +48,26 @@ class Anagrafica extends CI_Controller {
 
 	public function create_associato()
 	{
-		//	surname	address	phone	phone_ext	datebirth	email	avatar	fk_comune	fk_associato	fk_collaboratore
-		//tb associati id	n_card	create_date	privacy	active	note	fk_tipo_associato	fk_cariche_direttivo
-		echo "ok";
 		var_dump($this->input->post());
 		//persona
-		$this->input->post('name');
-		$this->input->post('surname');
-		$this->input->post('fiscal_code');
-		$this->input->post('address');
-		$this->input->post('phone');
-		$this->input->post('phone_ext');
-		$this->input->post('datebirth');
-		$this->input->post('email');
-		$this->input->post('avatar');
-		$this->input->post('create_date');
-		$this->input->post('fk_comune');
+		$name = $this->input->post('name');
+		$surname = $this->input->post('surname');
+		$fiscal_code = $this->input->post('fiscal_code');
+		$address = $this->input->post('address');
+		$phone = $this->input->post('phone');
+		$phone_ext = $this->input->post('phone_ext');
+		$datebirth = $this->input->post('datebirth');
+		$email = $this->input->post('email');
+		$avatar = $this->input->post('avatar');
+		$fk_comune = $this->input->post('fk_comune');
 
 		//associato
-		$this->input->post('n_card');
-		$this->input->post('privacy');
-		$this->input->post('active');
-		$this->input->post('note');
-
+		$n_card = $this->input->post('n_card');
+		$privacy = $this->input->post('privacy');
+		$active = $this->input->post('active');
+		$note = $this->input->post('note');
+return;
+		$this->Anagrafica_model->create_associato($name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$n_card,$privacy,$active,$note);
 	}
 
 	 //richiamata da ajax ritorna tutte le regioni come tag option della select

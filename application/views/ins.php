@@ -6,7 +6,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 //tb persone id	name	surname	address	phone	phone_ext	datebirth	email	avatar	fk_comune	fk_associato	fk_collaboratore
 //tb associati id	n_card	create_date	privacy	active	note	fk_tipo_associato	fk_cariche_direttivo
-<?php echo form_open('Anagrafica/create_associato','class="ui form"');?>
+<?php echo form_open_multipart ('Anagrafica/create_associato','class="ui form"');?>
 <form class="ui form">
   <div class="field">
     <label>Name</label>
@@ -42,9 +42,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   </div>
   <div class="field">
     <div class="ui action input">
-    <input type="file" name="avatar" placeholder="file..">
-    <button class="ui button">Scegli</button>
-  </div>
+        <input type="file" name="avatar" placeholder="file..">
+    </div>
     <div class="field">
         <select id="select_regioni" class="ui search dropdown">
         <option value="">Regione...</option>
@@ -57,7 +56,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     </div>
     
     <div class="field">
-        <select id="select_comuni" class="ui search dropdown">
+        <select id="select_comuni" name="fk_comune" class="ui search dropdown">
         <option value="">Comune</option>
         </select>
     </div>
@@ -67,20 +66,26 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <input type="text" name="n_card" placeholder="n_card">
   </div>
   <div class="field">
-    <label>create_date</label>
-    <input type="text" name="create_date" placeholder="create_date">
-  </div>
-  <div class="field">
     <div class="ui toggle checkbox">
-      <input name="active" type="checkbox" tabindex="0" class="hidden">
+        <input name="privacy" type="hidden" value="0">
+        <input name="privacy" type="checkbox" class="hidden" value="1">
       <label>privacy</label>
     </div>
   </div>
   <div class="field">
     <div class="ui toggle checkbox">
-      <input name="active" type="checkbox" tabindex="0" class="hidden">
+        <input name='active' type='hidden' value='0'>
+        <input name="active" type="checkbox" class="hidden" value="1">
       <label>active</label>
     </div>
   </div>
+  <div class="field">
+    <label>note...</label>
+    <textarea name="note" rows="2" style="margin-top: 0px; margin-bottom: 0px; height: 79px;"></textarea>
+  </div>
   <button class="ui button" type="submit">Submit</button>
 </form>
+<script>
+$('.ui.checkbox')
+  .checkbox();
+</script>
