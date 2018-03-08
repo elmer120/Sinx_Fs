@@ -13,17 +13,16 @@ class Anagrafica_model extends CI_Model {
             $this->load->database();
     }
     
-    public function create_associato($n_card,$create_date,$privacy,$active,$note,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar)
+    public function create_associato($n_card,$privacy,$active,$note,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune)
     {
         $data = array(
             'n_card' => $n_card,
-            'create_date' => $create_date,
             'privacy' => $privacy,
             'active' => $active,
             'note' => $note,
         );
         $fk_associato=$this->db->insert_id('associato', $data);
-        create_person($fk_comune,$fk_associato,NULL,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$create_date);
+        $this->create_person($fk_comune,$fk_associato,NULL,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar);
     }
 
     public function create_collaboratore($mansione,$note,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar)
@@ -33,11 +32,11 @@ class Anagrafica_model extends CI_Model {
             'note' => $note,
         );
         $fk_collaboratore=$this->db->insert_id('collaboratori', $data);
-        create_person($fk_comune,NULL,$fk_collaboratore,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$create_date);
+        $this->create_person($fk_comune,NULL,$fk_collaboratore,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar);
     }
 
 
-    private function create_person($fk_comune,$fk_associato=NULL,$fk_collaboratore=NULL,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$create_date)
+    private function create_person($fk_comune,$fk_associato=NULL,$fk_collaboratore=NULL,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar)
     {
 
         $data = array(
@@ -50,7 +49,7 @@ class Anagrafica_model extends CI_Model {
             'datebirth' => $datebirth,
             'email' => $email,
             'avatar' => $avatar,
-            'create_date'=>$create_date,
+            'create_date'=>date("Y-m-d H:i:s"),
             'fk_comune' => $fk_comune,
             'fk_collaboratore' => $fk_collaboratore,
             'fk_associato' => $fk_associato

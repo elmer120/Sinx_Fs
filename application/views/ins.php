@@ -7,42 +7,52 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 //tb persone id	name	surname	address	phone	phone_ext	datebirth	email	avatar	fk_comune	fk_associato	fk_collaboratore
 //tb associati id	n_card	create_date	privacy	active	note	fk_tipo_associato	fk_cariche_direttivo
 <?php echo form_open_multipart ('Anagrafica/create_associato','class="ui form"');?>
+<?php echo validation_errors(); ?>
 <form class="ui form">
   <div class="field">
     <label>Name</label>
     <input type="text" name="name" placeholder="First Name">
+    <?php echo form_error('name'); ?>
   </div>
   <div class="field">
     <label>Surname</label>
     <input type="text" name="surname" placeholder="Last Name">
+    <?php echo form_error('surname'); ?>
   </div>
   <div class="field">
     <label>fiscal_code</label>
     <input type="text" name="fiscal_code" placeholder="fiscal_code">
+    <?php echo form_error('fiscal_code'); ?>
   </div>
   <div class="field">
     <label>address</label>
     <input type="text" name="address" placeholder="address">
+    <?php echo form_error('address'); ?>
   </div>
   <div class="field">
     <label>phone</label>
     <input type="text" name="phone" placeholder="phone">
+    <?php echo form_error('phone'); ?>
   </div>
   <div class="field">
     <label>phone_ext</label>
     <input type="text" name="phone_ext" placeholder="phone_ext">
+    <?php echo form_error('phone_ext'); ?>
   </div>
   <div class="field">
     <label>datebirth</label>
     <input type="date" name="datebirth" placeholder="datebirth">
+    <?php echo form_error('datebirth'); ?>
   </div>
   <div class="field">
     <label>email</label>
     <input type="text" name="email" placeholder="email">
+    <?php echo form_error('email'); ?>
   </div>
   <div class="field">
     <div class="ui action input">
         <input type="file" name="avatar" placeholder="file..">
+        <?php echo form_error('avatar'); ?>
     </div>
     <div class="field">
         <select id="select_regioni" class="ui search dropdown">
@@ -64,6 +74,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="field">
     <label>n_card</label>
     <input type="text" name="n_card" placeholder="n_card">
+    <?php echo form_error('n_card'); ?>
   </div>
   <div class="field">
     <div class="ui toggle checkbox">
@@ -82,6 +93,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <div class="field">
     <label>note...</label>
     <textarea name="note" rows="2" style="margin-top: 0px; margin-bottom: 0px; height: 79px;"></textarea>
+    <?php echo form_error('note'); ?>
   </div>
   <button class="ui button" type="submit">Submit</button>
 </form>
