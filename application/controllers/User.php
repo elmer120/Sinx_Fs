@@ -15,7 +15,6 @@ class User extends CI_Controller {
 	{
         $this->load->model('User_model');
         $this->User_model->create_user('admin','admin','elmer','','','1',time(),time());
-		
 	}
 
 }

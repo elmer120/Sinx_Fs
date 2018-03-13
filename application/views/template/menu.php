@@ -49,13 +49,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <?php echo lang('anagrafica'); ?>
             <i class="dropdown icon"></i>  
             <div class="menu">
-                <a class="item" href='./InsAnagrStud.php'>Axxx -<?php echo lang('direttivo'); ?></a>
-                <a class="item" href='./InsAnagrIns.php'>Axxx -<?php echo lang('associati'); ?></a>
-                <a class="item" href='./InsAnagrExtra.php'>Axxx -<?php echo lang('altri'); ?></a>
-                <a class="item" href='./InsAnagrFile.php'>Axxx -<?php echo lang('importa_csv'); ?></a>
-                <a class="item" href='./ricerca.php'>Aox- -<?php echo lang('cerca'); ?></a>
-                <a class="item" href='./Rubrica.php'>Aola -<?php echo lang('rubrica'); ?></a>
-                <a class="item" href='./pre_stampa_soci.php'>Aola -<?php echo lang('libro_soci'); ?></a>        
+                <a class="item" href='<? echo site_url("anagrafica/associati")?>'>Axxx -<?php echo lang('associati'); ?></a>
+                <a class="item" href='<? echo site_url("anagrafica/collaboratori")?>'>Axxx -<?php echo lang('altri'); ?></a>
+                <a class="item" href='<? echo site_url("anagrafica/csv")?>'>Axxx -<?php echo lang('importa_csv'); ?></a>
+                <a class="item" href='<? echo site_url("anagrafica/ricerca")?>'>Aox- -<?php echo lang('cerca'); ?></a>
+                <a class="item" href='<? echo site_url("anagrafica/rubrica")?>'>Aola -<?php echo lang('rubrica'); ?></a>
+                <a class="item" href='<? echo site_url("anagrafica/libro_soci")?>'>Aola -<?php echo lang('libro_soci'); ?></a>        
             </div>
         </div>
 

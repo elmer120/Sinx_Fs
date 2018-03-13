@@ -30,6 +30,7 @@ class Anagrafica extends CI_Controller {
 			//carico gli helpers
 			
 			//carico i model
+			$this->load->model('Tipi_ajax_model');
 			$this->load->model('Luoghi_ajax_model');
 			$this->load->model('Anagrafica_model');
 			//carico la lingua selezionata
@@ -40,17 +41,49 @@ class Anagrafica extends CI_Controller {
 	public function index()
 	{
 				
-		
+	}
+	
+	public function associati()
+	{
 		$this->load->view('template/header');
 		$this->load->view('template/menu');
-		
-		$this->load->view('ins');
-		
+		$this->load->view('associati');
 	}
+	public function collaboratori()
+	{
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		echo 'collaboratori';
+	}
+	public function csv()
+	{
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		echo 'csv';
+	}
+	public function ricerca()
+	{
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		echo 'ricerca';
+	}
+	public function rubrica()
+	{
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		echo 'rubrica';
+	}
+	public function libro_soci()
+	{
+		$this->load->view('template/header');
+		$this->load->view('template/menu');
+		echo 'libro_soci';
+	}
+	
 
 	public function create_associato()
 	{
-		
+		//var_dump($_REQUEST);return;
 		//load library form - upload(file)
 		$this->load->library('form_validation');
 		$this->load->library('upload');
@@ -82,11 +115,15 @@ class Anagrafica extends CI_Controller {
 		//associato
 		$this->form_validation->set_rules('n_card', 'n_card', 'trim|required');
         $this->form_validation->set_rules('privacy', 'privacy', 'trim');
-        $this->form_validation->set_rules('active', 'active', 'trim');
+		$this->form_validation->set_rules('active', 'active', 'trim');
+		$this->form_validation->set_rules('fk_tipo_associato', 'tipo associato', 'trim|required');
+        $this->form_validation->set_rules('fk_cariche_direttivo', 'carica direttivo', 'trim|required');
         $this->form_validation->set_rules('note', 'note', 'trim');
 
         //errore personalizzato per la regola required
-		$this->form_validation->set_message('required','{field} is required');
+		$this->form_validation->set_message('required','{field} is required!');
+		//errore tag delimitatore
+		$this->form_validation->set_error_delimiters('<div class="ui pointing red basic label">', '</div>');
 		            
             //se i parametri del form sono validati corretamente 
 			if ($this->form_validation->run() === TRUE)
@@ -108,7 +145,9 @@ class Anagrafica extends CI_Controller {
 				$privacy = $this->input->post('privacy');
 				$active = $this->input->post('active');
 				$note = $this->input->post('note');
-					
+				$fk_tipo_associato = $this->input->post('fk_tipo_associato');
+				$fk_cariche_direttivo = $this->input->post('fk_cariche_direttivo');
+				$fk_collaboratore=NULL;
 					
 					//se c'è un file
 					if(is_uploaded_file($_FILES['avatar']['tmp_name']))
@@ -119,7 +158,8 @@ class Anagrafica extends CI_Controller {
 						{   
 							$avatar = $this->upload->data('file_name');
 							//chiamo il model (passo anche il nome del file)
-							if($this->Anagrafica_model->create_associato($n_card,$privacy,$active,$note,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune))
+							if($this->Anagrafica_model->create_associato($n_card,$privacy,$active,$note,$name,$surname,
+							$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato,$fk_collaboratore,$fk_cariche_direttivo))
 							{
 								
 								echo "Inserimento avvenuto correttamente con file!";
@@ -141,7 +181,8 @@ class Anagrafica extends CI_Controller {
 					}
 					else
 					{
-						if($this->Anagrafica_model->create_associato($n_card,$privacy,$active,$note,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune))
+						if($this->Anagrafica_model->create_associato($n_card,$privacy,$active,$note,$name,$surname,
+						$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato,$fk_collaboratore,$fk_cariche_direttivo))
 							{
 								
 								echo "Inserimento avvenuto correttamente senza file!";
@@ -164,15 +205,38 @@ class Anagrafica extends CI_Controller {
 		return;
 	}
 
+	
+	//richiamata da ajax ritorna tutte le regioni come tag option della select
+	function get_tipi_associato()
+	{
+		$tipi=$this->Tipi_ajax_model->get_tipi_associato();
+		echo '<option value="">Tipo associato</option>'; //placeholder
+		for ($i=0; $i<count($tipi['id']); $i++)
+		{
+			echo '<option value='.$tipi['id'][$i].'>'.$tipi['name'][$i].'</option>';
+		}
+	}
+	//richiamata da ajax ritorna tutte le regioni come tag option della select
+	function get_cariche_direttivo()
+	{
+		$cariche=$this->Tipi_ajax_model->get_cariche_direttivo();
+		echo '<option value="">Carica direttivo</option>'; //placeholder
+		echo '<option>Nessuna</option>';
+		for ($i=0; $i<count($cariche['id']); $i++)
+		{		
+		echo '<option value='.$cariche['id'][$i].'>'.$cariche['name'][$i].'</option>';
+		}
+	}
+	
+
 
 	 //richiamata da ajax ritorna tutte le regioni come tag option della select
 	 function get_regioni()
 	 {
 		 $regioni=$this->Luoghi_ajax_model->get_regioni();
-		 echo '<option value="">Regione</option>';
+		 echo '<option value="">Regione</option>'; //placeholder
 		 for ($i=0; $i<count($regioni['id']); $i++)
 		 {
-			 
 			 echo '<option value='.$regioni['id'][$i].'>'.$regioni['name'][$i].'</option>';
 		 }
 	 }
@@ -183,10 +247,9 @@ class Anagrafica extends CI_Controller {
 	 {
 		 $id=$this->input->post('region_select');
 		 $province=$this->Luoghi_ajax_model->get_province($id);
-		 echo '<option value="" disabled selected>Scegli la tua provincia</option>';
+		 echo '<option value="" disabled selected>Scegli la tua provincia</option>'; //placeholder
 		 for ($i=0; $i<count($province['id']); $i++)
 		 {
-			 
 			 echo '<option value='.$province['id'][$i].'>'.$province['name'][$i].'</option>';
 		 }
 	 }
@@ -196,10 +259,9 @@ class Anagrafica extends CI_Controller {
 	 {
 		 $id=$this->input->post('provincia_select');
 		 $comuni=$this->Luoghi_ajax_model->get_comuni($id);
-		 echo '<option value="" disabled selected>Scegli il tuo comune</option>';
+		 echo '<option value="" disabled selected>Scegli il tuo comune</option>';//placeholder
 		 for ($i=0; $i<count($comuni['id']); $i++)
 		 {
-			 
 			 echo '<option value='.$comuni['id'][$i].'>'.$comuni['name'][$i].'</option>';
 		 }
 	 }

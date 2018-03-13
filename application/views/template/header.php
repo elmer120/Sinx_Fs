@@ -16,13 +16,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         crossorigin="anonymous"></script>
         <script src="<?php echo base_url('assets/semantic/semantic.min.js');?>"></script>
         <script src="<?php echo base_url('assets/js/luoghi.js');?>"></script>
+        <script src="<?php echo base_url('assets/js/tipi.js');?>"></script>
 
 </head>
 <body>
 
 <div class="ui inverted menu">
       <a href="#" class="header item">
-        <img class="logo" src="immagini/logo.png"/>
+        <img class="logo" src="<? echo site_url("assets/img/logo.png")?>"/>
         <div class="ui teal left pointing label">
           <?php echo lang('version');?>
         </div> 
@@ -33,10 +34,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </div>
       
       <div class="item right">
-        <div class="ui inverted red button">
-          <i class="sign out icon"></i>
+      <a href="<? echo site_url("login/logout")?>">
+      <button class="ui inverted red button">
+      <i class="sign out icon"></i>
           <?php  echo lang('logout');?>
-            <a href="logout.php" ></a>
-        </div>
+         
+      </button>
+      </a>
       </div>
 </div>

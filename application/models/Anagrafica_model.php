@@ -13,32 +13,84 @@ class Anagrafica_model extends CI_Model {
             $this->load->database();
     }
     
-    public function create_associato($n_card,$privacy,$active,$note,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune)
+    //popola associato nel db ritorna bool
+    public function create_associato($n_card=NULL,$privacy=NULL,$active=NULL,
+                                    $note=NULL,$name=NULL,$surname=NULL,
+                                    $fiscal_code=NULL,$address=NULL,$phone=NULL,
+                                    $phone_ext=NULL,$datebirth=NULL,$email=NULL,
+                                    $avatar=NULL,$fk_comune=NULL,$fk_tipo_associato=NULL,
+                                    $fk_collaboratore=NULL,$fk_cariche_direttivo=NULL)
     {
+        $fk_collaboratore=NULL;
+        //se l'associato non fa parte del direttivo, imposto l'fk a null
+        if($fk_cariche_direttivo=="Nessuna"){$fk_cariche_direttivo=NULL;}
+        //predispongo l'array per la query
         $data = array(
             'n_card' => $n_card,
             'privacy' => $privacy,
             'active' => $active,
             'note' => $note,
+            'fk_tipo_associato' => $fk_tipo_associato,
+            'fk_cariche_direttivo' => $fk_cariche_direttivo,
         );
-        $fk_associato=$this->db->insert_id('associato', $data);
-        $this->create_person($fk_comune,$fk_associato,NULL,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar);
+        //inserisco nel db l'associato
+        if($this->db->insert('associati', $data))
+        {
+            //recupero l'id
+            $fk_associato= $this->db->insert_id();
+            if($fk_associato!=0)
+            {
+                //inserisco la persona
+                if($this->create_person($fk_comune,$fk_associato,$fk_collaboratore,
+                                        $name,$surname,$fiscal_code,$address,$phone,
+                                        $phone_ext,$datebirth,$email,$avatar))
+                {
+                    return true;
+                }
+            }
+            
+        }
+        return false;
     }
 
-    public function create_collaboratore($mansione,$note,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar)
+    //popola il collaboratore nel db ritorna bool
+    public function create_collaboratore($mansione=NULL,$note=NULL,
+                                        $name=NULL,$surname=NULL,$fiscal_code=NULL,
+                                        $address=NULL,$phone=NULL,$phone_ext=NULL,
+                                        $datebirth=NULL,$email=NULL,$avatar=NULL,
+                                        $fk_comune=NULL,$fk_tipo_associato=NULL,$fk_collaboratore=NULL,
+                                        $fk_cariche_direttivo=NULL)
     {
+        $fk_associato=NULL;
+        //predispongo l'array per la query
         $data = array(
             'mansione' => $mansione,
             'note' => $note,
         );
-        $fk_collaboratore=$this->db->insert_id('collaboratori', $data);
-        $this->create_person($fk_comune,NULL,$fk_collaboratore,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar);
+         //inserisco nel db il collaboratore
+        if($this->db->insert('collaboratori', $data))
+        {
+            //recupero l'id
+            $fk_collaboratore=$this->db->insert_id();
+            if($fk_collaboratore!=0)
+            {
+                //inserisco la persona (null fk_tipo_associato)
+                if($this->create_person($fk_comune,$fk_associato,$fk_collaboratore,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
-
-    private function create_person($fk_comune,$fk_associato=NULL,$fk_collaboratore=NULL,$name,$surname,$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar)
+    //popola la persona nel db ritorna bool
+    private function create_person($fk_comune=NULL,$fk_associato=NULL,$fk_collaboratore=NULL,
+                                    $name=NULL,$surname=NULL,$fiscal_code=NULL,
+                                    $address=NULL,$phone=NULL,$phone_ext=NULL,
+                                    $datebirth=NULL,$email=NULL,$avatar=NULL)
     {
-
+        //predispongo l'array per la query
         $data = array(
             'name' => $name,
             'surname' => $surname,
@@ -53,67 +105,12 @@ class Anagrafica_model extends CI_Model {
             'fk_comune' => $fk_comune,
             'fk_collaboratore' => $fk_collaboratore,
             'fk_associato' => $fk_associato
-    );
-    
-    $this->db->insert('persone', $data);
-    
-    }
-    
-    //Controlla le credenziali dell'utente
-    public function validate_user($username,$password)
-    {
-        //seleziono l'utente
-        $this->db->select('username,password');
-        $this->db->from('utenti');
-        $this->db->where('username',$username);
-        $query = $this->db->get();
-        $result_obj = $query->row();
-        
-        //se ci sono risultati
-        if(isset($result_obj))
-        {
-            $result_password=$result_obj->password;
-
-            //se la password coincide
-            if(password_verify($password,$result_password))
-            {
-                //aggiorno l'ultimo accesso
-                $this->db->set('last_access', date("Y-m-d H:i:s"));
-                $this->db->where('username', $username);
-                $this->db->update('utenti');
-                //valorizzo la sessione
-                $this->set_session($username);
-
-                return TRUE;
-            }
-            else
-            {
-                return FALSE;
-            }
-            
-        }
-        else
-        {
-            return FALSE;
-        }
+            );
+    //inserisco la persona nel db
+    if($this->db->insert('persone', $data))
+    { return true;}
+    return false;
     }
 
-    public function delete_user()
-    {
-
-    }
-
-    //popolo la sessione
-    private function set_session($username)
-    {
-        //seleziono l'utente
-        $this->db->select('*');
-        $this->db->from('utenti');
-        $this->db->where('username',$username);
-        $query = $this->db->get();
-        //inserisco i dati nella var globale sessione
-        $_SESSION['user']=serialize($query->row_array());
-        
-    }
 
 }

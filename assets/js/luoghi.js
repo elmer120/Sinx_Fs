@@ -1,10 +1,10 @@
-var base_url="http://localhost/sinxEasy/";
+//var base_url="http://localhost/sinxEasy/";
 //form inizializzo le opzioni di selezione
    $(document).ready(function() {
        //faccio un chiamata ajax per popolare il select
             $.ajax({
                 type: 'POST',
-                url: "anagrafica/get_regioni",
+                url: "get_regioni",
                 data: '',
                 processData: false,
                 contentType: false,
@@ -21,7 +21,7 @@ var base_url="http://localhost/sinxEasy/";
        $('#select_regioni').change(function(){
           // faccio un chiamata ajax per popolare il select delle provincie
             $.ajax({
-               url: 'anagrafica/get_province',
+               url: 'get_province',
                 type: 'POST',
                 dataType : "text",
                 data: {"region_select" : $(this).val()},
@@ -43,7 +43,7 @@ var base_url="http://localhost/sinxEasy/";
        $('#select_province').change(function(){
           // faccio un chiamata ajax per popolare il select dei comuni
             $.ajax({
-               url: 'anagrafica/get_comuni',
+               url: 'get_comuni',
                 type: 'POST',
                 dataType : "text",
                 data: {"provincia_select" : $(this).val().toString()},

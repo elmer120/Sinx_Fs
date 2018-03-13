@@ -67,8 +67,20 @@ class Login extends CI_Controller {
 
 		 }
 	}
+
+	//uscita dall'applicazione
 	public function logout()
 	{
-		session_destroy();
+		//elimino la sessione
+		if(session_destroy())
+		{
+			header( "refresh:3; url=index" ); //redirect con ritardo
+			echo "Logout effettuato correttamente, attendere..."; //stampo messaggio
+		}
+		else //se la sessione resta intatta
+		{
+			echo "Problemi nell'uscita dall'applicazione";
+		}
+		
 	}
 }
