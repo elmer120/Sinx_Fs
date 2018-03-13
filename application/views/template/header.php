@@ -8,13 +8,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
   <title>Sinx</title>
-        <!--carico semantic-ui e jquery-->
-        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/semantic/semantic.min.css');?>">
-        <script
-        src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-        crossorigin="anonymous"></script>
-        <script src="<?php echo base_url('assets/semantic/semantic.min.js');?>"></script>
+        <!--carico inviscss-nature e jquery-->
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/inviscss_nature/css/inviscss-nature.min.css');?>">
+        <script src="<?php echo base_url('assets/inviscss_nature/js/inviscss.min.js');?>"></script>
+
         <script src="<?php echo base_url('assets/js/luoghi.js');?>"></script>
         <script src="<?php echo base_url('assets/js/tipi.js');?>"></script>
 
