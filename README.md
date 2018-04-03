@@ -1,7 +1,7 @@
 # Sinx_Fs - alpha
 Sinx From Scratch
 
-README NOT COMPLETE.....
+# Attenzione README INCOMPLETO!!!
 
 ```
 	Gestionale per Associazioni senza scopo di lucro
@@ -57,7 +57,8 @@ Give an example
 
 ## Distribuzione
 
-Add additional notes about how to deploy this on a live system
+Distribuito tramite il sistema di release di git-hub 
+[Clicca qui](https://github.com/elmer120/Sinx_Fs/releases)
 
 ## Fatto con
 
