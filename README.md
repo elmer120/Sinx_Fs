@@ -73,6 +73,10 @@ Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c6
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
+## Avanzamento
+
+[Changelog](https://github.com/elmer120/Sinx_Fs/blob/master/application/CHANGELOG)
+
 ## Autori
 
 * **Marco Pedrazzi** - *Initial work* - [link](https://github.com/elmer120)
