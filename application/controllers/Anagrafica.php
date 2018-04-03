@@ -45,42 +45,178 @@ class Anagrafica extends CI_Controller {
 	
 	public function associati()
 	{
-		$this->load->view('template/header');
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
 		$this->load->view('associati');
+		$this->load->view('template/side_bar');
+		$this->load->view('template/footer');
 	}
 	public function collaboratori()
 	{
-		$this->load->view('template/header');
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		echo 'collaboratori';
+		$this->load->view('collaboratori');
+		$this->load->view('template/side_bar');
+		$this->load->view('template/footer');
 	}
 	public function csv()
 	{
-		$this->load->view('template/header');
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
 		echo 'csv';
+		$this->load->view('template/side_bar');
+		$this->load->view('template/footer');
 	}
 	public function ricerca()
 	{
-		$this->load->view('template/header');
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
 		echo 'ricerca';
+		$this->load->view('template/side_bar');
+		$this->load->view('template/footer');
 	}
 	public function rubrica()
 	{
-		$this->load->view('template/header');
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
 		echo 'rubrica';
+		$this->load->view('template/side_bar');
+		$this->load->view('template/footer');
 	}
 	public function libro_soci()
 	{
-		$this->load->view('template/header');
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		echo 'libro_soci';
+		$this->load->view('libro_soci');
+		$this->load->view('template/side_bar');
+		$this->load->view('template/footer');
 	}
 	
+	public function create_collaboratore()
+	{
+		//var_dump($_REQUEST);return;
+		//load library form - upload(file)
+		$this->load->library('form_validation');
+		$this->load->library('upload');
+		 
+	    //configuro la libreria di upload
+		$config['upload_path']          = './assets/';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['max_size']             = '2048'; //in kb
+		$config['max_width']            = '512';
+		$config['max_height']           = '512';
+		$config['file_ext_tolower']     = TRUE; //estensione to lower es. win10
+		$config['overwrite']            = TRUE; //file stesso nome nn vengono sovrascritti
+		 
+		//aggiorno la libreria
+		$this->upload->initialize($config);
 
+		//configuro la libreria di validazione form
+		//set_rules(nome input,nome error,regola)
+		//persona
+        $this->form_validation->set_rules('name', 'Nome', 'trim|required');
+        $this->form_validation->set_rules('surname', 'surname', 'trim');
+        $this->form_validation->set_rules('fiscal_code', 'fiscal_code', 'trim');
+        $this->form_validation->set_rules('address', 'address', 'trim');
+		$this->form_validation->set_rules('phone', 'phone', 'trim');
+		$this->form_validation->set_rules('phone_ext', 'phone_ext', 'trim');
+        $this->form_validation->set_rules('datebirth', 'datebirth', 'trim');
+        $this->form_validation->set_rules('email', 'email', 'trim');
+        $this->form_validation->set_rules('avatar', 'avatar', 'trim');
+		//collaboratore
+		$this->form_validation->set_rules('mansione', 'mansione', 'trim|required');
+        $this->form_validation->set_rules('note', 'note', 'trim');
+
+        //errore personalizzato per la regola required
+		$this->form_validation->set_message('required','{field} is required!');
+		//errore tag delimitatore
+		$this->form_validation->set_error_delimiters('<div class="uk-alert-danger" uk-alert>', '</div>');
+		            
+            //se i parametri del form sono validati corretamente 
+			if ($this->form_validation->run() === TRUE)
+			{
+				//persona
+				$name = $this->input->post('name');
+				$surname = $this->input->post('surname');
+				$fiscal_code = $this->input->post('fiscal_code');
+				$address = $this->input->post('address');
+				$phone = $this->input->post('phone');
+				$phone_ext = $this->input->post('phone_ext');
+				$datebirth = $this->input->post('datebirth');
+				$email = $this->input->post('email');
+				$avatar = $this->input->post('avatar');
+				$fk_comune = $this->input->post('fk_comune');
+
+				//collaboratore
+				$mansione = $this->input->post('mansione');
+				$note = $this->input->post('note');
+				
+				
+					
+					//se c'è un file
+					if(is_uploaded_file($_FILES['avatar']['tmp_name']))
+					{
+						
+						//eseguo l'upload
+						if($this->upload->do_upload('avatar'))
+						{   
+							$avatar = $this->upload->data('file_name');
+							//chiamo il model (passo anche il nome del file)
+							if($this->Anagrafica_model->create_collaboratore($mansione,$note,$name,$surname,
+							$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato=NULL,$fk_collaboratore=NULL,$fk_cariche_direttivo=NULL))
+							{
+								
+								echo "Inserimento avvenuto correttamente con file!";
+								
+								return;
+							}
+							else
+							{
+								
+								echo "Errore nel inserimento nel db!";
+								return;
+							}         
+						}
+						else //upload fallito
+						{
+							
+							echo $this->upload->display_errors();
+						}
+
+					}
+					else
+					{
+						if($this->Anagrafica_model->create_collaboratore($mansione,$note,$name,$surname,
+						$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato=NULL,$fk_collaboratore=NULL,$fk_cariche_direttivo=NULL))
+						{
+								
+								echo "Inserimento avvenuto correttamente senza file!";
+								return;
+							}
+							else
+							{
+								
+								echo "Errore nel inserimento nel db!";
+								return;
+							}         
+					}
+			}
+			else
+			{
+				echo validation_errors('<div class="uk-alert-danger" uk-alert>', '</div>');
+				$this->index();
+			}
+
+		return;
+	}
+
+	
 	public function create_associato()
 	{
 		//var_dump($_REQUEST);return;
@@ -123,7 +259,7 @@ class Anagrafica extends CI_Controller {
         //errore personalizzato per la regola required
 		$this->form_validation->set_message('required','{field} is required!');
 		//errore tag delimitatore
-		$this->form_validation->set_error_delimiters('<div class="ui pointing red basic label">', '</div>');
+		$this->form_validation->set_error_delimiters('<div class="uk-alert-danger" uk-alert>', '</div>');
 		            
             //se i parametri del form sono validati corretamente 
 			if ($this->form_validation->run() === TRUE)
@@ -147,7 +283,7 @@ class Anagrafica extends CI_Controller {
 				$note = $this->input->post('note');
 				$fk_tipo_associato = $this->input->post('fk_tipo_associato');
 				$fk_cariche_direttivo = $this->input->post('fk_cariche_direttivo');
-				$fk_collaboratore=NULL;
+				
 					
 					//se c'è un file
 					if(is_uploaded_file($_FILES['avatar']['tmp_name']))
@@ -159,10 +295,11 @@ class Anagrafica extends CI_Controller {
 							$avatar = $this->upload->data('file_name');
 							//chiamo il model (passo anche il nome del file)
 							if($this->Anagrafica_model->create_associato($n_card,$privacy,$active,$note,$name,$surname,
-							$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato,$fk_collaboratore,$fk_cariche_direttivo))
+							$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato,$fk_collaboratore=NULL,$fk_cariche_direttivo))
 							{
 								
 								echo "Inserimento avvenuto correttamente con file!";
+								
 								return;
 							}
 							else
@@ -182,7 +319,7 @@ class Anagrafica extends CI_Controller {
 					else
 					{
 						if($this->Anagrafica_model->create_associato($n_card,$privacy,$active,$note,$name,$surname,
-						$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato,$fk_collaboratore,$fk_cariche_direttivo))
+						$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato,$fk_collaboratore=NULL,$fk_cariche_direttivo))
 							{
 								
 								echo "Inserimento avvenuto correttamente senza file!";
@@ -198,7 +335,7 @@ class Anagrafica extends CI_Controller {
 			}
 			else
 			{
-				echo validation_errors('<div class="error">','</div>');
+				echo validation_errors('<div class="uk-alert-danger" uk-alert>', '</div>');
 				$this->index();
 			}
 

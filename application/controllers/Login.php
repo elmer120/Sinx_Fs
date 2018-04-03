@@ -24,6 +24,9 @@ class Login extends CI_Controller {
 			$this->load->library('session');
 			$this->load->helper('url');
 			$this->load->library('form_validation');
+
+			//carico la lingua selezionata
+			$this->lang->load('header', 'italian');
 	}
 	
 	public function index()
@@ -32,6 +35,7 @@ class Login extends CI_Controller {
 		if(isset($_SESSION['user'])) {
 			redirect('/index');
 		} else { //altrimenti mostro il la pagina di login
+			$this->load->view('template/head');
 			$this->load->view('login');
 		}
 		
@@ -62,6 +66,7 @@ class Login extends CI_Controller {
 			 {
 				
 				$data['error']="Username o password errati!";
+				$this->load->view('template/head');
 				$this->load->view('login',$data);
 			 }
 

@@ -62,6 +62,7 @@ class Anagrafica_model extends CI_Model {
                                         $fk_cariche_direttivo=NULL)
     {
         $fk_associato=NULL;
+        $fk_cariche_direttivo=NULL;
         //predispongo l'array per la query
         $data = array(
             'mansione' => $mansione,

@@ -8,19 +8,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="uk-container"> <!-- container (padding) -->
 
             <h3 class="uk-text-center uk-heading-line"> <!-- titolo pagina -->
-                <span>Associati</span>
+                <span>Collaboratori</span>
             </h3>
+<!-- 
+name
+surname
+fiscal_code
+address
+phone
+phone_ext
+datebirth
+email
+avatar
+create_date
+fk_comune
+fk_associato
+fk_collaboratore
 
-<!-- tb persone id	name	surname	address	phone	phone_ext	datebirth	email	avatar	fk_comune	fk_associato	fk_collaboratore
-tb associati id	n_card	create_date	privacy	active	note	fk_tipo_associato	fk_cariche_direttivo -->
+tb collaboratori id mansione note -->
+<?php echo form_open_multipart ('Anagrafica/create_collaboratore','class="uk-form-horizontal"');?>
 
-
-<?php echo form_open_multipart ('Anagrafica/create_associato','class="uk-form-horizontal"');?>
-    
-    <fieldset class="uk-fieldset"> <!-- si occupa del padding nel form necessario per il form "orizzontali" -->
-
+      <fieldset class="uk-fieldset">
+        
       <label class="uk-form-label">Name</label>
-    <div class="uk-form-controls uk-margin">
+    <div class="uk-form-controls">
       <input class="uk-input uk-form-width-medium" type="text" name="name" placeholder="First Name" required>
       <?php echo form_error('name'); ?>
     </div>
@@ -91,36 +102,10 @@ tb associati id	n_card	create_date	privacy	active	note	fk_tipo_associato	fk_cari
       </select>
     </div>
   
-      <label class="uk-form-label">n_card</label>
+      <label class="uk-form-label">mansione</label>
     <div class="uk-form-controls">
-      <input class="uk-input uk-form-width-medium" type="text" name="n_card" placeholder="n_card" required>
-      <?php echo form_error('n_card'); ?>
-    </div>
-
-      <label class="uk-form-label">*privacy</label>
-    <div class="uk-form-controls">
-      <input class="uk-checkbox" name="privacy" type="hidden" value="1">
-      <input class="uk-checkbox" name="privacy" type="checkbox" value="0">
-    </div>
-  <br>
-      <label class="uk-form-label">*active</label>
-    <div class="uk-form-controls">
-      <input class="uk-checkbox" name="active" type="hidden" value="1">
-      <input class="uk-checkbox" name="active" type="checkbox" value="0">
-    </div>
-
-    <div class="uk-form-controls">
-      <select class="uk-select uk-form-width-medium" id="select_tipo" name="fk_tipo_associato" required>
-        <option value="">*Tipo associato...</option>
-      </select>
-      <?php echo form_error('fk_tipo_associato'); ?>
-    </div>
-    
-    <div class="uk-form-controls">  
-      <select class="uk-select uk-form-width-medium" id="select_carica" name="fk_cariche_direttivo" required>
-        <option value="">*Carica direttivo</option>
-      </select>
-      <?php echo form_error('fk_cariche_direttivo'); ?>
+      <input class="uk-input uk-form-width-medium" type="text" name="mansione" placeholder="Mansione" required>
+      <?php echo form_error('mansione'); ?>
     </div>
 
         <label class="uk-form-label">note...</label>
@@ -130,11 +115,11 @@ tb associati id	n_card	create_date	privacy	active	note	fk_tipo_associato	fk_cari
     </div>
 
     <button class="uk-button uk-button-default" type="submit">Submit</button>
-    </fieldset>
+
+</fieldset>
 </form>
 
-
-        </div> <!-- fine container -->
+</div> <!-- fine container -->
 
 </div> <!-- fine sezione -->
 

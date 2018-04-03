@@ -36,10 +36,12 @@ class Index extends CI_Controller {
 	{
 				
 		
-		$this->load->view('template/header');
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
 		$this->load->view('index');
 		$this->load->view('template/side_bar');
+		$this->load->view('template/footer');
 		
 	}
 }

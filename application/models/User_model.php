@@ -20,6 +20,7 @@ class User_model extends CI_Model {
             $this->load->database();
     }
     
+    //crea utente
     public function create_user($username,$password,$name,$image=NULL,$email=NULL,$level)
     {
         $data = array(
@@ -76,6 +77,7 @@ class User_model extends CI_Model {
         }
     }
 
+    //elimina utente
     public function delete_user()
     {
 
@@ -84,6 +86,7 @@ class User_model extends CI_Model {
     //popolo la sessione
     private function set_session($username)
     {
+        
         //seleziono l'utente
         $this->db->select('*');
         $this->db->from('utenti');
@@ -91,7 +94,6 @@ class User_model extends CI_Model {
         $query = $this->db->get();
         //inserisco i dati nella var globale sessione
         $_SESSION['user']=serialize($query->row_array());
-        
     }
 
 }

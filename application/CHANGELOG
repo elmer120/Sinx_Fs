@@ -1,0 +1,97 @@
+
+Linee guida numerazione delle versioni. 
+
+
+https://semver.org/lang/it/
+
+Dato un numero di versione MAJOR.MINOR.PATCH, incrementate la:
+
+versione MAJOR quando modificate l’API in modo non retrocompatibile,
+versione MINOR quando aggiungete funzionalità in modo retrocompatibile, e
+versione PATCH quando correggete bug in modo retrocompatibile.
+Sono disponibili etichette aggiuntive per il pre-release e i metadati di build come estensioni al formato MAJOR.MINOR.PATCH.
+
+etichette pre-release:
+
+ALPHA   le funzionalità non sono ancora state completamente implementate e che presenta sicuramente una lunga serie di bug che dovranno essere risolti.
+BETA    è una versione non definitiva, ma già testata dagli esperti. Contiene già la maggior parte delle funzionalità, Solitamente contiene ancora diversi bug.
+RC      E’ la versione quasi definitiva di un software e solitamente comprende tutte le funzionalità e spesso anche le grafiche definitive.
+        fino alla distribuzione della versione stabile vengono concentrati sulla risoluzione di eventuali problemi.
+BUILD   Alla fine di questo percorso per lo sviluppo del software viene rilasciata la versione definitiva.
+
+Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-beta.2 < 1.0.0-beta.11 < 1.0.0-rc.1 < 1.0.0.
+
+--  Una versione di pre-rilascio indica che la versione è instabile e 
+    potrebbe non soddisfare i requisiti di compatibilità intesi come 
+    indicato dalla versione normale ad essa associata. 
+
+--  Come dovrei gestire revisioni nella fase iniziale 0.y.z di sviluppo?
+    La cosa più semplice da fare è cominciare da 0.1.0 con il rilascio di sviluppo iniziale e 
+    poi incrementare la versione minor per ogni successivo rilascio.
+
+--  Come faccio a sapere quando rilasciare la 1.0.0?
+    Se il vostro software è usato in produzione, dovrebbe probabilmente già essere alla 1.0.0. Se avete un’API stabile dalla quale gli utenti sono diventati dipendenti, dovreste essere alla 1.0.0. Se vi state preoccupando molto relativamente alla retrocompatibilità, dovreste probabilmente già essere alla 1.0.0.
+
+
+0.1.0-alpha
+-- installazione codeigniter
+-- ricerca e test di diversi framework css per il frontend
+-- ui kit sembra il più adeguato
+-- costruzione login
+-- definizione tabelle database
+-- costruzione impalcatura header sidebar menu e footer
+-- aggiunta responsività
+-- costruzione anagrafica - associati
+-- costruzione anagrafica - collaboratori
+
+0.2.0-alpha
+-- aggiunta grafica login
+-- aggiunti radio button lingua login
+-- aggiunto background login
+-- aggiunta badge versione
+
+
+0.3.0-alpha
+-- risolto errore chiamate ajax
+-- sistemato template head.php
+
+0.4.0-alpha
+-- nel menu desktop/mobile aggiunto info sul associazione gestita
+-- nel menu desktop/mobile info sul utente loggato
+
+
+0.5.0-alpha
+-- badge versione in lowercase
+-- icone su menu
+-- titolo form anagrafica
+
+0.6.0-alpha
+-- aggiunta section ai form già completati in anagrafica
+-- aggiunto container a form inserimento anagrafica
+-- risolto innerjoin multiplo con Active record in stampa_model get_associati
+
+0.7.0-alpha
+-- parzialmente completata stampa libro soci 
+-- aggiunta conferma logout
+-- aggiunto orologio nella sidebar
+
+0.8.0-alpha
+-- header per tutte le stampe nome associazione ecc
+-- footer per tutte le stampe data/ora generazione e nome e link software
+-- aggiunto titolo su stampa libro soci
+-- bozza link rapidi
+
+Roadmap to 1.0.0:
+-- libro soci (carica direttivo mancante left join??)
+-- libro soci altri campi necessari
+-- organizzare le view in directory pagine,stampa,ecc.
+-- aggiungere breadcrumb
+-- aggiungere tooltip su elementi non descritti
+-- multilingua + testo dinamico
+-- anagrafica minorenni
+-- cancellare commenti superflui
+-- data e calendario nella sidebar
+-- link rapidi a siti esterni su footer menu
+-- archivio contabilità anni precedenti
+-- footer
+-- aggiungere stringa di sicurezza php su tutte le view
