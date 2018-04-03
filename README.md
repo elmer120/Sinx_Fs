@@ -1,22 +1,32 @@
-# Sinx_Fs 
-![alt text](https://github.com/elmer120/Sinx_Fs/blob/master/assets/img/logo.png)
-
+# Sinx_Fs - alpha
 Sinx From Scratch
-One Paragraph of project description goes here
+
+README NOT COMPLETE.....
+
+*******************************************************
+
+	Gestionale per Associazioni senza scopo di lucro
+	SITO MANCANTE
+	
+********************************************************
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-### Prerequisites
 
-What things you need to install the software and how to install them
+
+### Requisiti
 
 ```
-Give examples
+	Xampp V.3.2.2
+		- Apache/2.4.29
+		- PHP 7.2.1
+			- Estensione PHP: mysqli
+			- php.ini riga n° 455 = error_reporting=E_ALL  & ~E_NOTICE
+			- php.ini riga n° 192 = short_open_tag=On
 ```
 
-### Installing
+### Installazione
 
 A step by step series of examples that tell you have to get a development env running
 
@@ -74,13 +84,17 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Marco Pedrazzi** - *Initial work* - [link](https://github.com/elmer120)
 
 See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
 
-## License
+## Licenza
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+Rilasciato tramite GNU GPL V3(General Public License).
+Maggiori informazioni [LICENSE.md](LICENSE.md)
+Nessuna garanzia. Nessun supporto. Versione alpha.
+	
+È possibile utilizzare e / o modificare qualsiasi parte del codice.
 
 ## Acknowledgments
 
