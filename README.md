@@ -3,17 +3,17 @@ Sinx From Scratch
 
 README NOT COMPLETE.....
 
-*******************************************************
-
+```
 	Gestionale per Associazioni senza scopo di lucro
 	SITO MANCANTE
-	
-********************************************************
-
-## Getting Started
+```
 
 
+## Iniziare
 
+LINK FORUM
+LINK MANUALE
+LINK SITO
 
 ### Requisiti
 
@@ -27,6 +27,8 @@ README NOT COMPLETE.....
 ```
 
 ### Installazione
+
+LINK MANUALE
 
 A step by step series of examples that tell you have to get a development env running
 
@@ -44,45 +46,33 @@ until finished
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
 
-Explain how to run the automated tests for this system
+### Test
 
-### Break down into end to end tests
-
-Explain what these tests test and why
+Testato su Chrome V..... 
 
 ```
 Give an example
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
+## Distribuzione
 
 Add additional notes about how to deploy this on a live system
 
-## Built With
+## Fatto con
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [UikitV3](https://github.com/uikit/uikit) - Css/Js Framework
+* [Codeigniter](https://github.com/bcit-ci/CodeIgniter) - Php Frameword
 
-## Contributing
+## Contribuire
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
+## Controllo di versione
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
-## Authors
+## Autori
 
 * **Marco Pedrazzi** - *Initial work* - [link](https://github.com/elmer120)
 
@@ -96,7 +86,7 @@ Nessuna garanzia. Nessun supporto. Versione alpha.
 	
 È possibile utilizzare e / o modificare qualsiasi parte del codice.
 
-## Acknowledgments
+## Conoscenze utili
 
 * Hat tip to anyone who's code was used
 * Inspiration
