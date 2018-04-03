@@ -32,6 +32,7 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 --  Come faccio a sapere quando rilasciare la 1.0.0?
     Se il vostro software è usato in produzione, dovrebbe probabilmente già essere alla 1.0.0. Se avete un’API stabile dalla quale gli utenti sono diventati dipendenti, dovreste essere alla 1.0.0. Se vi state preoccupando molto relativamente alla retrocompatibilità, dovreste probabilmente già essere alla 1.0.0.
 
+**************************************************************************************************************************************************
 
 0.1.0-alpha
 -- installazione codeigniter
@@ -95,3 +96,4 @@ Roadmap to 1.0.0:
 -- archivio contabilità anni precedenti
 -- footer
 -- aggiungere stringa di sicurezza php su tutte le view
+-- nuovo logo
