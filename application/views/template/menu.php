@@ -20,19 +20,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </li>
             </ul>
             <ul class="uk-nav uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
-                <li class="uk-parent">
+            <li class="uk-parent">
                     <!--Associazione-->
-                    <a href="#"><?php echo lang('associazione'); ?></a>
+                    <a href="#"> 
+                        <span class="uk-margin-small-right" uk-icon="bookmark"></span> <!-- icona -->
+                        <?php echo lang('associazione'); ?>
+                    </a>
                         <ul class="uk-nav-sub">
-                            <li><a class="item" href='./dati_Associaz.php' title="Per gestire l'Associazione"><span>A--- - <?php lang('dati_associazione'); ?></span></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('sito_web'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('web_mail'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('web_mail_pec'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('facebook'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('instagram'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('youtube'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola -<?php echo lang('twitter'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('home_banking'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("associazione/dati_associazione") ?>' title="Per gestire l'Associazione"><span>A--- -<? echo lang('dati_associazione'); ?></span></a></li>
                         </ul>
                 </li>
 
@@ -40,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     <!-- anagrafica -->
                     <a href="#"><?php echo lang('anagrafica'); ?></a>
                     <ul class="uk-nav-sub">
-                        <li><a class="item" href='<? echo site_url("anagrafica/associati")?>'>Axxx -<?php echo lang('associati'); ?></a></li>
+                        <li><a class="item" href='<? echo site_url("anagrafica/associati") ?>'>Axxx -<?php echo lang('associati'); ?></a></li>
                         <li><a class="item" href='<? echo site_url("anagrafica/collaboratori")?>'>Axxx -<?php echo lang('altri'); ?></a></li>
                         <li><a class="item" href='<? echo site_url("anagrafica/csv")?>'>Axxx -<?php echo lang('importa_csv'); ?></a></li>
                         <li><a class="item" href='<? echo site_url("anagrafica/ricerca")?>'>Aox- -<?php echo lang('cerca'); ?></a></li>
@@ -141,15 +136,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php echo lang('associazione'); ?>
                     </a>
                         <ul class="uk-nav-sub">
-                            <li><a class="item" href='./dati_Associaz.php' title="Per gestire l'Associazione"><span>A--- - <?php lang('dati_associazione'); ?></span></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('sito_web'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('web_mail'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('web_mail_pec'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('facebook'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('instagram'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('youtube'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola -<?php echo lang('twitter'); ?></a></li>
-                            <li><a class="item" target="_blank" href='<?php ?>' title="Apre il link in una nuova scheda del browser">Aola - <?php echo lang('home_banking'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("associazione/dati_associazione") ?>' title="Per gestire l'Associazione"><span>A--- -<? echo lang('dati_associazione'); ?></span></a></li>
                         </ul>
                 </li>
 
@@ -253,27 +240,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </li>
                 </ul>
             <!-- link rapidi ai siti attinenti all'associazione -->
+            <?  $links=quick_links(); ?>
             <h6 class="uk-heading-line uk-text-center"><span>Link rapidi</span></h6>
             <ul class="uk-iconnav">
-            <li><a href="#" uk-icon="icon: world"></a></li>
-            <li><a href="#" uk-icon="icon: mail"></a></li>
-            <li><a href="#" uk-icon="icon: mail"></a></li>
-            <li><a href="#" uk-icon="icon: facebook"></a></li>
-            <li><a href="#" uk-icon="icon: instagram"></a></li>
-            <li><a href="#" uk-icon="icon: youtube"></a></li>
-            <li><a href="#" uk-icon="icon: twitter"></a></li>
-            <li><a href="#" uk-icon="icon: home"></a></li>
+            <li uk-tooltip="title:<? echo lang('sito_web'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_website']))? $links['link_website'] : '' ?>" target="_blank" uk-icon="icon: world"></a></li>
+            <li uk-tooltip="title:<? echo lang('web_mail'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_webmail'])) ? $links['link_webmail'] : '' ?>" target="_blank" uk-icon="icon: mail"></a></li>
+            <li uk-tooltip="title:<? echo lang('web_mail_pec'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_webmail_pec'])) ? $links['link_webmail_pec'] : '' ?>" target="_blank" uk-icon="icon: mail"></a></li>
+            <li uk-tooltip="title:<? echo lang('facebook'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_facebook'])) ? $links['link_facebook'] : '' ?>" target="_blank" uk-icon="icon: facebook"></a></li>
+            <li uk-tooltip="title:<? echo lang('instagram'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_instagram'])) ? $links['link_instagram'] : '' ?>" target="_blank" uk-icon="icon: instagram"></a></li>
+            <li uk-tooltip="title:<? echo lang('youtube'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_youtube'])) ? $links['link_youtube'] : '' ?>" target="_blank" uk-icon="icon: youtube"></a></li>
+            <li uk-tooltip="title:<? echo lang('twitter'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_twitter'])) ? $links['link_twitter'] : '' ?>" target="_blank" uk-icon="icon: twitter"></a></li>
+            <li uk-tooltip="title:<? echo lang('home_banking'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_home_banking'])) ? $links['link_home_banking'] : "#" ?>" target="_blank" uk-icon="icon: home"></a></li>
             </ul>
         </div>
     </div>
-
-
-
-
-
-
-
-
+<script>
+/**
+Rimuove l'attributo target dai link vuoti
+Usata nei link rapidi del menu
+ */
+$(document).ready(function() {
+    $("a[href='']").removeAttr('target');
+});
+</script>
 
 
 </div> <!--fine colonna -->

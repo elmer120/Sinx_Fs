@@ -1,10 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-
+//dato l'fk_comune ritorna l'oggetto: "cap comune provincia regione"
 if ( ! function_exists('get_all_location'))
 {
-
-    //dato l'fk_comune ritorna l'oggetto: "cap comune provincia regione"
     function get_all_location($fk_comune = NULL)
     {
              //get main CodeIgniter object
@@ -43,11 +41,9 @@ if ( ! function_exists('get_all_location'))
     }
 }
 
-
+//dato l'fk_comune ritorna l'array: con info dell'associazione
 if ( ! function_exists('info_association'))
 {
-
-    //dato l'fk_comune ritorna l'array: "cap comune provincia regione"
     function info_association ($fk_comune = NULL)
     {
      //get main CodeIgniter object
@@ -76,3 +72,27 @@ if ( ! function_exists('info_association'))
     }
 }
 
+//ritorna i link rapidi ai siti attinenti all'associazione
+if ( ! function_exists('quick_links'))
+{
+    function quick_links()
+    {
+     //get main CodeIgniter object
+     $ci=& get_instance();
+       
+     //load databse library
+     $ci->load->database();
+
+        //seleziono i link rapidi ai siti attinenti all'associazione
+        $ci->db->select('link_website,link_webmail,link_webmail_pec,link_facebook,link_instagram,link_youtube,link_twitter,link_home_banking');
+        $ci->db->from('associazioni');
+        $ci->db->where('id','1');  // <---- x modifiche future in caso di più associazioni
+        $query = $ci->db->get();
+        $links = $query->result_array();
+        if(isset($links))
+        {
+             return $links[0];
+        }
+        echo 'Nessun risultato da quicks links!';
+    }
+}

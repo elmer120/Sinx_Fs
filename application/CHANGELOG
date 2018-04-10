@@ -82,6 +82,10 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 -- aggiunto titolo su stampa libro soci
 -- bozza link rapidi
 
+0.9.0-alpha
+-- nuovo logo
+-- link rapidi a siti esterni su footer menu
+
 Roadmap to 1.0.0:
 -- libro soci (carica direttivo mancante left join??)
 -- libro soci altri campi necessari
@@ -92,8 +96,8 @@ Roadmap to 1.0.0:
 -- anagrafica minorenni
 -- cancellare commenti superflui
 -- data e calendario nella sidebar
--- link rapidi a siti esterni su footer menu
 -- archivio contabilità anni precedenti
 -- footer
 -- aggiungere stringa di sicurezza php su tutte le view
--- nuovo logo
+-- vedere i file ci-session generati
+-- integrare menu mobile

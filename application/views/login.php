@@ -15,7 +15,7 @@
             <div class="uk-card uk-card-default ">
                 <div class="uk-card-badge uk-label uk-text-lowercase"><?php echo lang('version');?></div>
                 <div class="uk-card-media-top">
-                    <img class="" src="<? echo base_url("assets/img/logo.png");?>" alt="Sinx"/>
+                    <img class="uk-height-small uk-height-max-small" src="<? echo base_url("assets/img/logo.png");?>" alt="Sinx"/>
                 </div>
                 <div class="uk-card-body">
                     <?php echo form_open('login/login_user','class="uk-form-horizontal"'); //mando i dati al controller?> 
