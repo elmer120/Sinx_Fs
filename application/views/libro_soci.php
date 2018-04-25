@@ -10,7 +10,7 @@
                 <span>Libro Soci</span>
             </h3>
 
-            <?php echo form_open_multipart ('Stampa/libro_soci','class="uk-form-horizontal"');?>
+            <?php echo form_open_multipart ('Stampa/libro_soci','target="_blank"','class="uk-form-horizontal"');?>
 
             <fieldset class="uk-fieldset">
 

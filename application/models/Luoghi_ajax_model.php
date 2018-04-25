@@ -36,7 +36,13 @@ class Luoghi_ajax_model extends CI_Model {
          'id'=>[],
          'name'=>[],
        ];
-      $this->db->select('id,name')->where('fk_regione',$id)->from('province');
+       if(isset($id))
+       {$this->db->select('id,name')->where('fk_regione',$id)->from('province');}
+       else
+       {
+        $this->db->select('id,name')->from('province');
+       }
+      
       $query_provinces= $this->db->get();
       foreach ($query_provinces->result() as $row)
        {
@@ -56,7 +62,10 @@ class Luoghi_ajax_model extends CI_Model {
         'name'=>[],
         'cap'=>[],
       ];
-      $this->db->select('id,name,cap')->where('fk_provincia',$id)->from('comuni');
+      if(isset($id))
+      {$this->db->select('id,name,cap')->where('fk_provincia',$id)->from('comuni');}
+      else
+      {$this->db->select('id,name,cap')->from('comuni');}
       $query_comuni= $this->db->get();
       foreach ($query_comuni->result() as $row)
       {

@@ -228,7 +228,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div class="uk-card-footer">
             <!--dati associazione-->
-            <?php $info=info_association();?>
+            <?php $info=info_association(); ?>
                 <ul class="uk-list">
                     <li>
                         <span uk-icon="info"></span>

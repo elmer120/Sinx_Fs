@@ -86,9 +86,17 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 -- nuovo logo
 -- link rapidi a siti esterni su footer menu
 
+0.10.0-alpha
+-- aggiunto attributo target a stampa libro soci
+-- work in progress su rubrica
+
+
 Roadmap to 1.0.0:
+-- dati associazione (luoghi)
+-- libro soci (ordinamento)
 -- libro soci (carica direttivo mancante left join??)
 -- libro soci altri campi necessari
+-- libro soci aggiungere logo associazione e logo software
 -- organizzare le view in directory pagine,stampa,ecc.
 -- aggiungere breadcrumb
 -- aggiungere tooltip su elementi non descritti

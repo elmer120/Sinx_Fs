@@ -84,7 +84,7 @@ class Anagrafica extends CI_Controller {
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		echo 'rubrica';
+		$this->load->view('rubrica');
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
@@ -215,8 +215,6 @@ class Anagrafica extends CI_Controller {
 
 		return;
 	}
-
-	
 	public function create_associato()
 	{
 		//var_dump($_REQUEST);return;
@@ -343,7 +341,7 @@ class Anagrafica extends CI_Controller {
 	}
 
 	
-	//richiamata da ajax ritorna tutte le regioni come tag option della select
+	//richiamata da ajax ritorna tag option della select
 	function get_tipi_associato()
 	{
 		$tipi=$this->Tipi_ajax_model->get_tipi_associato();
@@ -353,7 +351,7 @@ class Anagrafica extends CI_Controller {
 			echo '<option value='.$tipi['id'][$i].'>'.$tipi['name'][$i].'</option>';
 		}
 	}
-	//richiamata da ajax ritorna tutte le regioni come tag option della select
+	//richiamata da ajax ritorna tag option della select
 	function get_cariche_direttivo()
 	{
 		$cariche=$this->Tipi_ajax_model->get_cariche_direttivo();
@@ -365,9 +363,7 @@ class Anagrafica extends CI_Controller {
 		}
 	}
 	
-
-
-	 //richiamata da ajax ritorna tutte le regioni come tag option della select
+	 //richiamata da ajax ritorna tag option della select
 	 function get_regioni()
 	 {
 		 $regioni=$this->Luoghi_ajax_model->get_regioni();
@@ -379,7 +375,6 @@ class Anagrafica extends CI_Controller {
 	 }
 	 
 	 //richiamata da ajax dato l'id ritorna le province della regione 
-	 
 	 function get_province()
 	 {
 		 $id=$this->input->post('region_select');

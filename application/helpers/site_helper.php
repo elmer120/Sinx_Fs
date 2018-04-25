@@ -20,8 +20,8 @@ if ( ! function_exists('get_all_location'))
 
         if(isset($fk_comune))
         {
-        //con fk_comune recupero il cap e il nome della stesso più l'id della provincia
-        $ci->db->select('comuni.cap,comuni.name as c_name,province.name as p_name,regioni.name as r_name');
+        //con fk_comune recupero il cap, id e nome di comune provincia e regione 
+        $ci->db->select('comuni.cap,comuni.id as c_id,comuni.name as c_name,province.id as p_id,province.name as p_name,regioni.id as r_id,regioni.name as r_name');
         $ci->db->from('regioni');
         $ci->db->join('province','regioni.id = province.fk_regione','inner');
         $ci->db->join('comuni','province.id=comuni.fk_provincia','inner');
@@ -53,18 +53,17 @@ if ( ! function_exists('info_association'))
      $ci->load->database();
 
         //seleziono anche i dati anagrafici di base dell'associazione
-        $ci->db->select('name,logo,address,phone,fax,fk_comune,fiscal_code,email');
+        $ci->db->select('name,logo,address,phone,fax,fk_comune,fiscal_code,email,pec,iban,bic,iscrizione_odv_aps');
         $ci->db->from('associazioni');
         $ci->db->where('id','1');  // <---- x modifiche future in caso di più associazioni
         $query = $ci->db->get();
+        
         //recupero nome indirizzo e fk_comune
         $info_association = $query->result_array();
         if(isset($info_association))
         {
             //recupero comune provincia e regione
             $all_location = get_all_location($info_association[0]['fk_comune']);
-            //rimuovo fk_comune dall'array in quanto non è neccessario
-            unset($info_association[0]['fk_comune']);
             //unisco gli array e return
              return array_merge($info_association[0],$all_location[0]);
         }
