@@ -1,4 +1,4 @@
-<div class="uk-grid-small" uk-grid> <!-- inizio griglia small gutter-->
+<div class="uk-grid" uk-grid> <!-- inizio griglia small gutter-->
   <div class="uk-width-1-1">         <!-- inizio colonna -->  
     <nav class="uk-background-primary" uk-navbar> <!-- navbar -->
         <div class="uk-navbar-left">

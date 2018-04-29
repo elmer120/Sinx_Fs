@@ -14,40 +14,8 @@ class Stampa_model extends CI_Model {
 
     public function get_associati($ordinamento)
     {
-        /* 
-        SELECT DISTINCT associati.n_card,persone.name,persone.surname,regioni.name,province.name,comuni.name,comuni.cap,persone.address,persone.fiscal_code,tipo_associato.name
-        FROM persone
-        INNER JOIN associati ON persone.fk_associato=associati.id
-        INNER JOIN comuni ON persone.fk_comune=comuni.id
-        INNER JOIN province ON comuni.fk_provincia=province.id
-        INNER JOIN regioni ON province.fk_regione=regioni.id
-        INNER JOIN tipo_associato ON associati.fk_tipo_associato=tipo_associato.id */
-
-        
-       /*  $sql='SELECT DISTINCT associati.n_card,persone.name,persone.surname,regioni.name as r_name,province.name as p_name,comuni.name as c_name,
-        comuni.cap,persone.address,persone.fiscal_code,tipo_associato.name as ta_name
-        FROM persone
-        INNER JOIN associati ON persone.fk_associato=associati.id
-        INNER JOIN comuni ON persone.fk_comune=comuni.id
-        INNER JOIN province ON comuni.fk_provincia=province.id
-        INNER JOIN regioni ON province.fk_regione=regioni.id
-        INNER JOIN tipo_associato ON associati.fk_tipo_associato=tipo_associato.id'; */
-        //$query = $this->db->query($sql);
-
         if(isset($ordinamento))
         {
-            /*$this->db->select('associati.n_card,persone.name,persone.surname,persone.datebirth,regioni.name as r_name,province.name as p_name,comuni.name as c_name,
-                            comuni.cap,persone.address,persone.fiscal_code,tipo_associato.name as ta_name');
-            $this->db->from('persone');
-            $this->db->join('comuni','persone.fk_comune=comuni.id','inner');
-            $this->db->join('province','comuni.fk_provincia=province.id','inner');
-            $this->db->join('regioni','province.fk_regione=regioni.id','inner');
-            $this->db->join('associati','persone.fk_associato=associati.id','inner');
-            $this->db->join('tipo_associato','associati.fk_tipo_associato=tipo_associato.id','inner');
-            $this->db->order_by($ordinamento,'ASC');
-            $query = $this->db->get();*/
-           
-
             $query_direttivo = $this->db->query('SELECT DISTINCT 
             associati.n_card,
             persone.name,
@@ -96,9 +64,10 @@ class Stampa_model extends CI_Model {
             AND   associati.fk_cariche_direttivo is NULL');
             $associati = $query_associati->result_array();
 
-            return array_merge($associati,$direttivo);
+            $result = array_merge($associati,$direttivo);
 
-
+            asort($result);
+            return $result;
 
         }
     }

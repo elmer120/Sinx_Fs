@@ -15,5 +15,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <script src="<?php echo base_url('assets/uikit/js/uikit.min.js');?>"></script>
         <script src="<?php echo base_url('assets/uikit/js/uikit-icons.min.js');?>"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.js"></script>
+        <!-- jsCalendar style -->
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/jsCalendar/source/jsCalendar.css');?>">
+        <!-- jsCalendar script -->
+        <script type="text/javascript" src="<?php echo base_url('assets/jsCalendar/source/jsCalendar.js');?>"></script>
+        <!-- jsCalendar Italian language -->
+        <script type="text/javascript" src="<?php echo base_url('assets/jsCalendar/source/jsCalendar.lang.it.js');?>"></script>
 </head>
 <body>

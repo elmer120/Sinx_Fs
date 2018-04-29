@@ -94,10 +94,14 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 --  aggiunta rubrica con info essenziali e tabella responsiva
 -- libro soci aggiunta carica direttivo mancante 
 
-Roadmap to 1.0.0:
+0.12.0-alpha
 -- rubrica ordinamento per nome.
+-- aggiunto calendario jsCalendar (licenza mit compatibile con gpl v3)
+-- completato footer
+
+Roadmap to 1.0.0:
 -- dati associazione (luoghi)
--- libro soci (ordinamento)
+-- libro soci (ordinamento da rivedere)
 -- libro soci altri campi necessari
 -- libro soci aggiungere logo associazione e logo software
 -- organizzare le view in directory pagine,stampa,ecc.
@@ -106,12 +110,12 @@ Roadmap to 1.0.0:
 -- multilingua + testo dinamico
 -- anagrafica minorenni
 -- cancellare commenti superflui
--- data e calendario nella sidebar
+-- aggiungere eventi a calendario
 -- archivio contabilità anni precedenti
--- footer
 -- aggiungere stringa di sicurezza php su tutte le view
 -- vedere i file ci-session generati
 -- integrare menu mobile
+-- jsCalendar rimuovere file esempio da cartella assets/jsCalendar
 
 
 

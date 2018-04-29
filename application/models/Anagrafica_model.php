@@ -120,7 +120,8 @@ class Anagrafica_model extends CI_Model {
         FROM persone,regioni,province,comuni
         WHERE   persone.fk_comune = comuni.id
         AND   comuni.fk_provincia=province.id
-        AND   province.fk_regione = regioni.id;');
+        AND   province.fk_regione = regioni.id
+        ORDER BY persone.name ASC');
         return $query->result_array();
     }
 

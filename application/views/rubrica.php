@@ -3,7 +3,7 @@
 
 <div class="uk-width-expand@m">   <!-- inizio colonna (prende il posto che rimane della "riga")  -->
 
-    <div class="uk-section uk-section"> <!-- sezione -->
+    <div class="uk-section"> <!-- sezione -->
         <div class="uk-container"> <!-- container (padding) -->
 
             <h3 class="uk-text-center uk-heading-line"> <!-- titolo pagina -->
@@ -13,7 +13,7 @@
             <div class="uk-overflow-auto"> <!-- x responsivita tabella -->
                 <table class="uk-table uk-table-small uk-table-striped uk-table-hover uk-table-responsive">
 
-                <h3  class="uk-text-center">--</h3>
+                <h3  class="uk-text-center"></h3>
             
                 <thead>
                     <tr>
