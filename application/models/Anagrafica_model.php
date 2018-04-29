@@ -114,21 +114,14 @@ class Anagrafica_model extends CI_Model {
     }
 
     //ritorna tutte le persone inserite in anagrafica
-    private function get_all_persons()
+    public function get_all_persons()
     {
-        /*$this->db->select('associati.n_card,persone.name,persone.surname,persone.datebirth,regioni.name as r_name,province.name as p_name,comuni.name as c_name,
-        comuni.cap,persone.address,persone.fiscal_code,tipo_associato.name as ta_name');
-        $this->db->from('persone');
-        $this->db->join('comuni','persone.fk_comune=comuni.id','inner');
-        $this->db->join('province','comuni.fk_provincia=province.id','inner');
-        $this->db->join('regioni','province.fk_regione=regioni.id','inner');
-        $this->db->join('associati','persone.fk_associato=associati.id','inner');
-        $this->db->join('tipo_associato','associati.fk_tipo_associato=tipo_associato.id','inner');
-        */
-        $this->db->select('');
-        $query = $this->db->get();
+        $query = $this->db->query('SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.fiscal_code,persone.datebirth
+        FROM persone,regioni,province,comuni
+        WHERE   persone.fk_comune = comuni.id
+        AND   comuni.fk_provincia=province.id
+        AND   province.fk_regione = regioni.id;');
         return $query->result_array();
-
     }
 
 

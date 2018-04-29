@@ -25,7 +25,7 @@ class Stampa extends CI_Controller {
         //recupero l'ordinamento richiesto
         $ordinamento = $this->input->post('ordinamento');
         //chiamo il model 
-        $data['lista'] = $this->Stampa_model->get_associati();
+        $data['lista'] = $this->Stampa_model->get_associati($ordinamento);
 		$this->load->view('template/head');
 		$this->load->view('stampe/header');
 		$this->load->view('stampe/libro_soci',$data);

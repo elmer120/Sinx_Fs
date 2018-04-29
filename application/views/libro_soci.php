@@ -18,8 +18,8 @@
 
             <label class="uk-form-label">Ordinamento</label>
             <div class="uk-form-controls uk-margin">
-                    <label><input class="uk-radio" type="radio" name="ordinamento" checked> Per nome</label><br>
-                    <label><input class="uk-radio" type="radio" name="ordinamento"> Per numero tessera</label>
+                    <label><input class="uk-radio" type="radio" name="ordinamento" value="persone.name" checked> Per nome</label><br>
+                    <label><input class="uk-radio" type="radio" name="ordinamento" value="associati.n_card"> Per numero tessera</label>
             </div>
             <button class="uk-button uk-button-default" type="submit">Stampa</button>
 

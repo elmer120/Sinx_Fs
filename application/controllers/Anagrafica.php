@@ -81,10 +81,26 @@ class Anagrafica extends CI_Controller {
 	}
 	public function rubrica()
 	{
+		//chiamo il model 
+        $data['lista'] = $this->Anagrafica_model->get_all_persons();
+		foreach($data['lista'] as $array)
+		{
+			foreach ($array as $key => &$value)
+			{	
+				if ($key=='id')
+				{
+					
+					$array[$key]='<button class="uk-button uk-button-default" type="button">'.$value.'</button>';
+					
+				}
+			}
+		}
+		
+		
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		$this->load->view('rubrica');
+		$this->load->view('rubrica',$data);
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
@@ -339,8 +355,6 @@ class Anagrafica extends CI_Controller {
 
 		return;
 	}
-
-	
 	//richiamata da ajax ritorna tag option della select
 	function get_tipi_associato()
 	{

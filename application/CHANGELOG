@@ -90,11 +90,14 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 -- aggiunto attributo target a stampa libro soci
 -- work in progress su rubrica
 
+0.11.0-alpha
+--  aggiunta rubrica con info essenziali e tabella responsiva
+-- libro soci aggiunta carica direttivo mancante 
 
 Roadmap to 1.0.0:
+-- rubrica ordinamento per nome.
 -- dati associazione (luoghi)
 -- libro soci (ordinamento)
--- libro soci (carica direttivo mancante left join??)
 -- libro soci altri campi necessari
 -- libro soci aggiungere logo associazione e logo software
 -- organizzare le view in directory pagine,stampa,ecc.
@@ -109,3 +112,41 @@ Roadmap to 1.0.0:
 -- aggiungere stringa di sicurezza php su tutte le view
 -- vedere i file ci-session generati
 -- integrare menu mobile
+
+
+
+appunti utili allo sviluppo:
+
+/* recupera tutti gli associati e il tipo di associato
+SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,persone.datebirth,persone.address,comuni.name,province.name as provincia,regioni.name as 	    regione,persone.fiscal_code,associati.n_card,tipo_associato.name
+FROM persone,associati,tipo_associato,regioni,province,comuni
+WHERE persone.fk_associato=associati.id
+AND   associati.fk_tipo_associato = tipo_associato.id
+AND   persone.fk_comune = comuni.id
+AND   comuni.fk_provincia=province.id
+AND   province.fk_regione = regioni.id*/
+
+/* recupera tutti i collaboratori e la mansione personalizzata
+SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,persone.datebirth,persone.address,comuni.name,province.name as provincia,regioni.name as regione,persone.fiscal_code,collaboratori.mansione
+FROM persone,collaboratori,regioni,province,comuni
+WHERE persone.fk_collaboratore = collaboratori.id
+AND   persone.fk_comune = comuni.id
+AND   comuni.fk_provincia=province.id
+AND   province.fk_regione = regioni.id/*
+
+/* recupera tutti gli associati facenti parte del direttivo
+SELECT DISTINCT cariche_direttivo.name,persone.name,persone.surname,persone.phone,persone.phone_ext,persone.datebirth,persone.address,comuni.name,province.name as provincia,regioni.name as 	    regione,persone.fiscal_code,associati.n_card,tipo_associato.name
+FROM persone,associati,tipo_associato,regioni,province,comuni,cariche_direttivo
+WHERE persone.fk_associato=associati.id
+AND   associati.fk_tipo_associato = tipo_associato.id
+AND   persone.fk_comune = comuni.id
+AND   comuni.fk_provincia=province.id
+AND   province.fk_regione = regioni.id
+AND    associati.fk_cariche_direttivo = cariche_direttivo.id*/
+
+/* recupera tutte le persone con i dati necessari per la rubrica
+SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,persone.email,persone.address,comuni.name,province.name as provincia,persone.fiscal_code,persone.datebirth
+FROM persone,regioni,province,comuni
+WHERE   persone.fk_comune = comuni.id
+AND   comuni.fk_provincia=province.id
+AND   province.fk_regione = regioni.id
