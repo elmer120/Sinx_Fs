@@ -16,59 +16,33 @@ class Stampa_model extends CI_Model {
     {
         if(isset($ordinamento))
         {
-            $query_direttivo = $this->db->query('SELECT DISTINCT 
+            $query = $this->db->query('SELECT 
             associati.n_card,
-            persone.name,
-            persone.surname,
-            persone.datebirth,
-            persone.address,
-            comuni.cap as cap,
-            comuni.name as comune,
-            province.name as provincia,
-            regioni.name as regione,
-            persone.fiscal_code,
-            persone.phone,
-            persone.email,
-            tipo_associato.name as tipo_associato,
-            cariche_direttivo.name as carica
-            FROM persone,associati,tipo_associato,regioni,province,comuni,cariche_direttivo
-            WHERE persone.fk_associato=associati.id
-            AND   associati.fk_tipo_associato = tipo_associato.id
-            AND   persone.fk_comune = comuni.id
-            AND   comuni.fk_provincia=province.id
-            AND   province.fk_regione = regioni.id
-            AND    associati.fk_cariche_direttivo = cariche_direttivo.id');
-            $direttivo = $query_direttivo->result_array();
-
-            $query_associati = $this->db->query('SELECT DISTINCT 
-            associati.n_card,
-            persone.name,
-            persone.surname,
-            persone.datebirth,
-            persone.address,
-            comuni.cap as cap,
-            comuni.name as comune,
-            province.name as provincia,
-            regioni.name as regione,
-            persone.fiscal_code,
-            persone.phone,
-            persone.email,
-            tipo_associato.name as tipo_associato
-            
-            FROM persone,associati,tipo_associato,regioni,province,comuni
-            WHERE persone.fk_associato=associati.id
-            AND   associati.fk_tipo_associato = tipo_associato.id
-            AND   persone.fk_comune = comuni.id
-            AND   comuni.fk_provincia=province.id
-            AND   province.fk_regione = regioni.id
-            AND   associati.fk_cariche_direttivo is NULL');
-            $associati = $query_associati->result_array();
-
-            $result = array_merge($associati,$direttivo);
-
-            asort($result);
-            return $result;
-
+                        persone.name,
+                        persone.surname,
+                        persone.datebirth,
+                        persone.address,
+                        comuni.cap as cap,
+                        comuni.name as comune,
+                        province.name as provincia,
+                        regioni.name as regione,
+                        persone.fiscal_code,
+                        persone.phone,
+                        persone.email,
+                        tipo_associato.name as tipo_associato,
+                        cariche_direttivo.name as carica
+            FROM persone
+            INNER JOIN comuni
+            on persone.fk_comune = comuni.id
+            INNER JOIN province 
+            on comuni.fk_provincia = province.id
+            INNER JOIN regioni 
+            on province.fk_regione = regioni.id
+            INNER JOIN associati on persone.fk_associato = associati.id
+            INNER JOIN tipo_associato on associati.fk_tipo_associato= tipo_associato.id
+            LEFT JOIN cariche_direttivo on associati.fk_cariche_direttivo = cariche_direttivo.id 
+            ORDER BY '.$ordinamento);
+            return $query->result_array();
         }
     }
 }

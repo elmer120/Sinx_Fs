@@ -102,7 +102,7 @@
 		}
 		.jsCalendar thead .jsCalendar-week-days th,
 		.jsCalendar tbody td {
-			display: inline-block;
+			/*display: inline-block;*/
 			height: 36px;
 			width: 36px;
 			margin: 1px 2px;
@@ -118,7 +118,7 @@
 			background-color: #e6e6e6;
 		}
 		.jsCalendar tbody td.jsCalendar-selected {
-			border: 2px solid #e6e6e6;
+			border: 2px solid #33d295;
 			background-color: #ffffff;
 			height: 32px;
 			width: 32px;

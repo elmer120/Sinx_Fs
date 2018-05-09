@@ -99,24 +99,60 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 -- aggiunto calendario jsCalendar (licenza mit compatibile con gpl v3)
 -- completato footer
 
+0.13.0-alpha
+-- libro soci ordinamento completato
+
+0.14.0-alpha
+-- calendario work in progress
+
 Roadmap to 1.0.0:
 -- dati associazione (luoghi)
--- libro soci (ordinamento da rivedere)
--- libro soci altri campi necessari
--- libro soci aggiungere logo associazione e logo software
--- organizzare le view in directory pagine,stampa,ecc.
+-- libro soci altri campi necessari (controllare se ci sono molte righe come viene la stampa)
+-- aggiungere eventi a calendario
+-- anagrafica minorenni
+-- archivio contabilità anni precedenti
+
 -- aggiungere breadcrumb
 -- aggiungere tooltip su elementi non descritti
 -- multilingua + testo dinamico
--- anagrafica minorenni
+-- organizzare le view in directory pagine,stampa,ecc.
 -- cancellare commenti superflui
--- aggiungere eventi a calendario
--- archivio contabilità anni precedenti
 -- aggiungere stringa di sicurezza php su tutte le view
 -- vedere i file ci-session generati
 -- integrare menu mobile
 -- jsCalendar rimuovere file esempio da cartella assets/jsCalendar
+-- Favicon
+-- Titoli tab
 
+Funzionalità completate:
+-Rubrica
+
+Funzionalità parzialmente completate:
+-Dati associazione
+-Associati
+-Collaboratori
+-Libro soci
+-Ricerca
+
+Funzionalità mancanti:
+
+Importa da csv
+Cerca
+Prima nota
+Ricevuta
+Fattura
+Conto Economico
+Stato patrimoniale
+Rendiconto
+Nuovo anno sociale
+Moduli
+Calendario
+Blocco note
+E-mail
+Utenti
+Log di sistema
+Licenza
+Installazione
 
 
 appunti utili allo sviluppo:

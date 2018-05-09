@@ -72,10 +72,12 @@ class Anagrafica extends CI_Controller {
 	}
 	public function ricerca()
 	{
+		//chiamo il model 
+        $data['lista'] = $this->Anagrafica_model->get_all_persons();
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		echo 'ricerca';
+		$this->load->view('ricerca',$data);
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}

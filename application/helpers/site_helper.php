@@ -95,3 +95,39 @@ if ( ! function_exists('quick_links'))
         echo 'Nessun risultato da quicks links!';
     }
 }
+
+
+//salva gli appuntamenti del calendario
+if ( ! function_exists('save_event'))
+{
+    function save_event($title,$date,$time,$all_users)
+    {
+     //get main CodeIgniter object
+     $ci=& get_instance();
+       
+     //load databse library
+     $ci->load->database();
+
+        //seleziono i link rapidi ai siti attinenti all'associazione
+
+        //predispongo l'array per la query
+        $data = array(
+            'title' => $title,
+            'date' => $date,
+            'time' => null,
+            'all_users' => $all_users,
+            'fk_utente' => $fk_utente,
+            );
+        //inserisco la persona nel db
+        if($this->db->insert('appuntamenti', $data))
+        { 
+            return true;
+        }
+        else
+        {
+                return false;
+        }
+        var_dump($_SESSION);
+    }
+
+}
