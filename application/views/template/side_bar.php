@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+
 <!-- script x orologio -->
 <script src="<?php echo base_url('assets/js/get_time.js');?>"></script> 
 <div class="uk-width-1-6@m">   <!-- inizio colonna 1/6 -->
@@ -10,14 +11,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <span id="clock" class="uk-text-bold"></span>
         </div>
 
-        <!-- Calendario - jsCalendar Default theme -->
-        <!--div style="" class="auto-jsCalendar" 
-             data-month-format="month YYYY"
-             data-day-format="DDD"
-             data-language="it">
-             
-        </div-->
-
+       
         <style>
 			html, body {
 				font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
@@ -112,27 +106,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 		<!-- Wrapper -->
 		<div id="wrapper">
-			<!-- Calendar element -->
+			<!-- elementi del calendario -->
 			<div id="events-calendar"></div>
-			<!-- Events -->
+			<!-- appuntamenti -->
 			<div id="events"></div>
 			<!-- Clear -->
 			<div class="clear"></div>
 		</div>
 		<div class="clear"></div>
 		
-		<!-- Create the calendar -->
 		<script type="text/javascript">
-			// Get elements
+			//variabili globali
 			var elements = {
 				// Calendar element
 				calendar : document.getElementById("events-calendar"),
 				// Input element
 				events : document.getElementById("events")
 			}
+			
+			var events = {};
+			var date_format = "DD/MM/YYYY";
+			var current = null;
 
-			// Create the calendar
+			//imposta tema del calendario
 			elements.calendar.className = "clean-theme";
+			// costruttore crea il calendario
 			var calendar = jsCalendar.new({
                 target : elements.calendar,
                 navigator : true,
@@ -140,11 +138,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 monthFormat : "month YYYY",
                 dayFormat : "DDD",
                 language : "it"
-            
-            
             });
 
-			// Create events elements
+			// crea gli elementi per gli appuntamenti
 			elements.title = document.createElement("div");
 			elements.title.className = "title";
 			elements.events.appendChild(elements.title);
@@ -162,47 +158,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			elements.addButton.value = "Aggiungi";
 			elements.actions.appendChild(elements.addButton);
 
-			var events = {};
-			var date_format = "DD/MM/YYYY";
-			var current = null;
-
-            // Mostra gli appuntamenti del giorno
-			var showEvents = function(date){
-				// Date string
-				var id = jsCalendar.tools.dateToString(date, date_format, "it");
-				// Set date
-				current = new Date(date.getTime());
-				// Set title
-				elements.title.textContent = id;
-				// Clear old events
-				elements.list.innerHTML = "";
-				// Add events on list
-				if (events.hasOwnProperty(id) && events[id].length) {
-					// Number of events
-					elements.subtitle.textContent = events[id].length + " " + ((events[id].length > 1) ? "events" : "event");
-
-					var div;
-					var close;
-					// For each event
-					for (var i = 0; i < events[id].length; i++) {
-						div = document.createElement("div");
-						div.className = "event-item";
-						div.textContent = (i + 1) + ". " + events[id][i].name;
-						elements.list.appendChild(div);
-						close = document.createElement("div");
-						close.className = "close";
-						close.textContent = "×";
-						div.appendChild(close);
-						close.addEventListener("click", (function (date, index) {
-							return function () {
-								removeEvent(date, index);
-							}
-						})(date, i), false);
-					}
-				} else {
-					elements.subtitle.textContent = "Nessun evento oggi";
-				}
-			};
 
             //Rimuove appuntamento
 			var removeEvent = function (date, index) {
@@ -222,7 +177,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				events[id].splice(index, 1);
 
 				// Refresh events
-				showEvents(current);
+				mostra_appuntamenti(current);
 
 				// If no events uncheck date
 				if (events[id].length === 0) {
@@ -230,34 +185,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 			}
 
+			var giorno = new Date();
 			
-			showEvents(new Date());
 
-			//evento visualizza appuntamenti (click su data)
+			//evento click su data
 			calendar.onDateClick(function(event, date){
-				// Update calendar date
+				// aggiorna il calendario con la date selezionata
 				calendar.set(date);
-				// Show events
-				showEvents(date);
+				//mostra gli eventi
+				giorno = date;
+				mostra_appuntamenti(date);
 			});
             
             //evento aggiunta appuntamento (click su aggiungi)
 			elements.addButton.addEventListener("click", function(){
-				// Get event name
-				var names = ["John", "Bob", "Anna", "George", "Harry", "Jack", "Alexander"];
-				var name = prompt(
-					"Event info",
-					names[Math. floor(Math.random() * names.length)] + "'s birthday."
-				);
-
-				//Return on cancel
+				
+				//preparo le variabili
+				var all_users = null;
+				var name = null;
+				var date = null;
+				
+				//chiedo il nome dell'appuntamento
+				name = prompt("Ricorda un appuntamento:");
+				
+				//annullo tutto se viene cliccato cancel
 				if (name === null || name === "") {
 					return;
 				}
-
-				// Date string
+				
+				//chiedo se è per tutti o meno
+				if (confirm ("Se l'evento deve essere visualizzato a tutti gli utenti clicca su OK,\n altrimenti se l'evento è solo per te clicca su Cancel"))
+				{
+					all_users = 1;
+				}
+				else
+				{
+					all_users = 0;
+								 
+				}
+				
+				//recupero la data del giorno dell'appuntamento nel formato corretto x il db
+				var date = jsCalendar.tools.dateToString(current, "YYYY-MM-DD", "it");
+				
 				var id = jsCalendar.tools.dateToString(current, date_format, "it");
-
 				// If no events, create list
 				if (!events.hasOwnProperty(id)) {
 					// Select date
@@ -266,33 +236,108 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					events[id] = [];
 				}
 
-				// Add event  
-				events[id].push({name : name}); 
-                
-                //mando al db
+				//controllo i dati inseriti
+				if(name != null && name != "" && date != null && date != "" && all_users != null)
+				{
+					//mando al db con ajax
+						save_event(name,date,all_users);
+				}
+				else
+				{ alert('Errore dati inseriti nulli!!');
+				return; }
 
+				// Refresh appuntamenti
+				mostra_appuntamenti(current);
 
-				// Refresh events
-				showEvents(current);
 			}, false);
 
-            function save_event(){
+			//salva un nuovo appuntamento nel database ajax
+            function save_event(title,date,all_users){
                 $.ajax({
                 type: 'POST',
-                url: "<?php echo base_url("helpers/site_helper.php/save_event"); ?>",
-                data: '',
-                processData: false,
-                contentType: false,
+                url: "save_event",
+                data: {"title" : title, "date" : date, "all_users" : all_users},
+                //processData: false,
+                //contentType: false,
                 success: function(data){
-                  $('#select_regioni').html(data);
-                  $(this).unbind(e);
-                 // $('#select_regioni').trigger('click');
+					alert(data);
                 },
                 error: function(data) { 
-                     alert("Errore nella chiamata ajax!");
+                     alert(data);
                 }
            });
             }
+
+			//recupera e visualizza gli appuntamenti in calendario
+			function mostra_appuntamenti(date){
+                $.ajax({
+                type: 'POST',
+				async: false,
+                url: "get_events",
+				//processData: false,
+                //contentType: false,
+                success: function(data){
+					data = $.parseJSON(data);
+				// Date string
+				var id = jsCalendar.tools.dateToString(giorno,date_format, "it");
+				// Set date
+				current = new Date(giorno.getTime());
+				// Set title
+				elements.title.textContent = id;
+				// Clear old events
+				elements.list.innerHTML = "";
+				
+				//per ogni appuntamento recuperato dal db
+				//events[id] = [];
+				for (var i = 0; i < data.length; i++) { 
+					// viene aggiunto al calendatio
+					var tmp=data[i].date;
+					if(events[tmp]==undefined)
+					{	
+						events[tmp]=[];
+						calendar.select(tmp);
+					}
+					events[data[i].date].push({ name : data[i].title }); 
+				    
+				}
+				
+				// se ci sono appuntamenti per la data selezionata
+				if (events.hasOwnProperty(id) && events[id].length) {
+					// numero di appuntamento
+					elements.subtitle.textContent = events[id].length + " " + ((events[id].length > 1) ? "appuntamenti" : "appuntamento");
+
+					var div;
+					var close;
+					//per ogni appuntamento
+					for (var i = 0; i < events[id].length; i++) {
+						div = document.createElement("div");
+						div.className = "event-item";
+						div.textContent = (i + 1) + ". " + events[id][i].name;
+						elements.list.appendChild(div);
+						close = document.createElement("div");
+						close.className = "close";
+						close.textContent = "×";
+						div.appendChild(close);
+						//imposto l'evento rimuovi sulla 'x' dell'appuntamento
+						close.addEventListener("click", (function (date, index) {
+							return function () {
+								removeEvent(date, index);
+							}
+						})(date, i), false);
+					}
+				} else {
+					elements.subtitle.textContent = "Nessun appuntamento oggi";
+				}
+				events=[];
+                },
+                error: function(data) { 
+                     alert(data);
+                }
+           });
+            }
+
+			mostra_appuntamenti(giorno);
+
 
 		</script>
 

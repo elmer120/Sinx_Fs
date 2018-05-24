@@ -8,15 +8,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div id="menu_mobile" uk-offcanvas>
         <div class="uk-offcanvas-bar">
             <!-- dati utente -->
-        <? $user = unserialize($_SESSION['user']);?>
             <ul class="uk-list">
                 <li>
                     <span uk-icon="user"></span>
-                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $user['name'];?></span>
+                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['name'];?></span>
                 </li>
                 <li>
                     <span uk-icon="bolt"></span>
-                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $user['level']; ?></span>
+                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['level']; ?></span>
                 </li>
             </ul>
             <ul class="uk-nav uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
@@ -115,15 +114,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <div class="uk-card uk-card-default uk-card-small uk-card-hover">
         <div class="uk-card-header">
             <!-- dati utente -->
-            <? $user = unserialize($_SESSION['user']);?>
+          
             <ul class="uk-list">
                 <li>
                     <span uk-icon="user"></span>
-                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $user['name'];?></span>
+                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['name'];?></span>
                 </li>
                 <li>
                     <span uk-icon="bolt"></span>
-                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $user['level']; ?></span>
+                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['level']; ?></span>
                 </li>
             </ul>
         </div>

@@ -105,6 +105,25 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 0.14.0-alpha
 -- calendario work in progress
 
+0.15.0-alpha
+--calendario completata aggiunta appuntamenti 
+
+0.15.1-alpha
+-- calendario recuperata data in formato italiano con DATE_FORMAT di mysql
+-- calendario mostrati tutti gli appuntamenti
+-- calendario gestiti gli appuntamenti da visualizzare in base all'utente
+-- calendario aggiunto formato json
+
+0.15.2-alpha
+-- calendario pulizia funzioni javascript 
+-- calendario risolto bug appuntamenti in base all'utente
+
+da fare:-- calendario multilingua
+        -- rimuovi appuntamento
+
+0.15.3-alpha
+
+
 Roadmap to 1.0.0:
 -- dati associazione (luoghi)
 -- libro soci altri campi necessari (controllare se ci sono molte righe come viene la stampa)
@@ -112,6 +131,7 @@ Roadmap to 1.0.0:
 -- anagrafica minorenni
 -- archivio contabilità anni precedenti
 
+-- richieste ajax usare standard json per i dati
 -- aggiungere breadcrumb
 -- aggiungere tooltip su elementi non descritti
 -- multilingua + testo dinamico
@@ -133,6 +153,7 @@ Funzionalità parzialmente completate:
 -Collaboratori
 -Libro soci
 -Ricerca
+-Calendario
 
 Funzionalità mancanti:
 
@@ -146,7 +167,6 @@ Stato patrimoniale
 Rendiconto
 Nuovo anno sociale
 Moduli
-Calendario
 Blocco note
 E-mail
 Utenti

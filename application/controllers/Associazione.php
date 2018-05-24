@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Associazione extends CI_Controller {
+class Associazione extends MY_Controller {
 
     public function __construct()
     {

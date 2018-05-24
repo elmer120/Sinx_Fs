@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Index extends CI_Controller {
+class Index extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -34,8 +34,6 @@ class Index extends CI_Controller {
 
 	public function index()
 	{
-				
-		
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');

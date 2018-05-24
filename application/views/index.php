@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+var_dump($_SESSION['user']);
 ?>
 
 <div class="uk-width-expand@m">   <!-- inizio colonna (prende il posto che rimane della "riga")  -->

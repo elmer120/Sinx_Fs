@@ -4,7 +4,7 @@
         <div class="uk-navbar-left">
           <ul class="uk-navbar-nav">
             <li> <!-- logo -->
-              <a href="<? echo site_url("index")?>" class="uk-navbar-item uk-logo">
+              <a href="<? echo site_url("index/index")?>" class="uk-navbar-item uk-logo">
                 <img class="uk-height-1-1" src="<? echo base_url("assets/img/logo.png");?>" alt="Sinx"/>
               </a>
             </li>

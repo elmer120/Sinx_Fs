@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends CI_Controller {
+class Login extends MY_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -33,7 +33,7 @@ class Login extends CI_Controller {
 	{
 		//se l'utente è già loggato faccio un redirect alla index
 		if(isset($_SESSION['user'])) {
-			redirect('/index');
+			redirect('/index/index');
 		} else { //altrimenti mostro il la pagina di login
 			$this->load->view('template/head');
 			$this->load->view('login');
@@ -59,7 +59,7 @@ class Login extends CI_Controller {
 			 {
 				 
 				 //redirect alla index
-				 redirect('/index');
+				 redirect('/index/index');
 
 			 }
 			 else

@@ -93,7 +93,11 @@ class User_model extends CI_Model {
         $this->db->where('username',$username);
         $query = $this->db->get();
         //inserisco i dati nella var globale sessione
-        $_SESSION['user']=serialize($query->row_array());
+        $_SESSION['user']= $query->row_array();
+        
+       
+
+        
     }
 
 }
