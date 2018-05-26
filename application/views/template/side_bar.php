@@ -126,7 +126,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			
 			var events = {};
 			var date_format = "DD/MM/YYYY";
-			var current = null;
+			var giorno_selezionato = new Date();
 
 			//imposta tema del calendario
 			elements.calendar.className = "clean-theme";
@@ -163,37 +163,49 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			var removeEvent = function (date, index) {
 				// Date string
 				var id = jsCalendar.tools.dateToString(date, date_format, "it");
-
-				// If no events return
+				var id_us = jsCalendar.tools.dateToString(giorno_selezionato, "YYYY-MM-DD", "it");
+				// se non ci sono appuntamenti return
 				if (!events.hasOwnProperty(id)) {
 					return;
 				}
-				// If not found
+				// se l'appuntamento è vuoto
 				if (events[id].length <= index) {
 					return;
 				}
-
-				// Remove event
+				
+				// Rimuovo l'appuntamento dal database
+				$.ajax({
+                type: 'POST',
+				async: false,
+                url: "remove_event",
+				data: {"title" : events[id][index].name, "date" : id_us },
+				//processData: false,
+                //contentType: false,
+                success: function(data){
+				    alert(data);
+                },
+                error: function(data) { 
+                    alert(data);
+                }
+           		});
+			    // Rimuovo l'appuntamento da js
 				events[id].splice(index, 1);
 
-				// Refresh events
-				mostra_appuntamenti(current);
+				// ricarico gli appuntamenti
+				mostra_appuntamenti(date);
 
-				// If no events uncheck date
+				// se non ci sono appuntamenti deseleziono , SERVE?!?!?
 				if (events[id].length === 0) {
 					calendar.unselect(date);
 				}
 			}
 
-			var giorno = new Date();
-			
-
 			//evento click su data
 			calendar.onDateClick(function(event, date){
 				// aggiorna il calendario con la date selezionata
 				calendar.set(date);
+				giorno_selezionato=date;
 				//mostra gli eventi
-				giorno = date;
 				mostra_appuntamenti(date);
 			});
             
@@ -203,7 +215,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				//preparo le variabili
 				var all_users = null;
 				var name = null;
-				var date = null;
+				
 				
 				//chiedo il nome dell'appuntamento
 				name = prompt("Ricorda un appuntamento:");
@@ -225,14 +237,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				}
 				
 				//recupero la data del giorno dell'appuntamento nel formato corretto x il db
-				var date = jsCalendar.tools.dateToString(current, "YYYY-MM-DD", "it");
-				
-				var id = jsCalendar.tools.dateToString(current, date_format, "it");
+				var date = jsCalendar.tools.dateToString(giorno_selezionato, "YYYY-MM-DD", "it");
+				var id = jsCalendar.tools.dateToString(giorno_selezionato, date_format, "it");
+
 				// If no events, create list
 				if (!events.hasOwnProperty(id)) {
-					// Select date
-					calendar.select(current);
-					// Create list
+					// seleziono il giorno selezionato
+					calendar.select(giorno_selezionato);
+					// creo la lista di appuntamenti
 					events[id] = [];
 				}
 
@@ -247,7 +259,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				return; }
 
 				// Refresh appuntamenti
-				mostra_appuntamenti(current);
+				mostra_appuntamenti(giorno_selezionato);
 
 			}, false);
 
@@ -279,16 +291,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 success: function(data){
 					data = $.parseJSON(data);
 				// Date string
-				var id = jsCalendar.tools.dateToString(giorno,date_format, "it");
-				// Set date
-				current = new Date(giorno.getTime());
+				var id = jsCalendar.tools.dateToString(date,date_format, "it");
 				// Set title
 				elements.title.textContent = id;
 				// Clear old events
 				elements.list.innerHTML = "";
 				
 				//per ogni appuntamento recuperato dal db
-				//events[id] = [];
+				
+				events={};
 				for (var i = 0; i < data.length; i++) { 
 					// viene aggiunto al calendatio
 					var tmp=data[i].date;
@@ -328,7 +339,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				} else {
 					elements.subtitle.textContent = "Nessun appuntamento oggi";
 				}
-				events=[];
+				
                 },
                 error: function(data) { 
                      alert(data);
@@ -336,10 +347,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
            });
             }
 
-			mostra_appuntamenti(giorno);
+			mostra_appuntamenti(giorno_selezionato);
 
 
 		</script>
 
 
 </div> <!-- fine colonna -->
+
+
+

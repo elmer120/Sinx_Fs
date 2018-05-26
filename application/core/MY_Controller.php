@@ -44,13 +44,13 @@ public function check()
 
         //predispongo l'array per la query
         $data = array(
-            'title' => $this->input->post('title'),
+            'title' => htmlentities($this->input->post('title')),
             'date' =>  $this->input->post('date'),
             'time' => null,
             'all_users' => $this->input->post('all_users'),
             'fk_utente' => $_SESSION['user']['id'],
             );
-            //var_dump($data);
+            var_dump($data);
         //inserisco la persona nel db
         if($this->db->insert('appuntamenti', $data))
         { 
@@ -63,7 +63,7 @@ public function check()
        
     }
 
-    //funzione globale richiamata da ajax salva i nuovi eventi del calendario
+    //funzione globale richiamata da ajax legge gli appuntamenti dal db - calendario
   public function get_events()
   {
      //load databse library
@@ -75,6 +75,33 @@ public function check()
             WHERE `all_users` = 1 
             OR (`all_users`=0 AND `fk_utente`=".$_SESSION['user']['id'].")");
          echo json_encode($query->result());
+    }
+
+     //funzione globale richiamata da ajax rimouve un appuntamento dal db - calendario
+  public function remove_event()
+  {
+     //load databse library
+     $this->load->database();
+     
+     $title = $this->input->post('title');
+     $date =  $this->input->post('date');
+        //Cancello l'appuntamento creato dall'utente in quell giorno con quella descrizione
+
+            $query_string = "DELETE FROM appuntamenti WHERE fk_utente =".$_SESSION['user']['id']." AND date = '".$date."' AND title ='".$title."'";
+            $query= $this->db->query($query_string); 
+            //$query = $this->db->delete('appuntamenti',array('fk_utente' => $_SESSION['user']['id'],'date' => $date,'title' => $title)); 
+            //echo $query;
+            if($this->db->affected_rows())
+            {
+                echo "Rimozione avvenuta con successo";
+            }
+            else{
+                echo "Rimozione fallita";
+                
+                
+            }
+
+            
     }
 
 

@@ -118,10 +118,8 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 -- calendario pulizia funzioni javascript 
 -- calendario risolto bug appuntamenti in base all'utente
 
-da fare:-- calendario multilingua
-        -- rimuovi appuntamento
-
 0.15.3-alpha
+-- calendario rimuovi appuntamento
 
 
 Roadmap to 1.0.0:
@@ -131,6 +129,8 @@ Roadmap to 1.0.0:
 -- anagrafica minorenni
 -- archivio contabilità anni precedenti
 
+-- bug calendario e altre query apostrofi ed altri caratteri
+-- calendario multilingua
 -- richieste ajax usare standard json per i dati
 -- aggiungere breadcrumb
 -- aggiungere tooltip su elementi non descritti
@@ -146,6 +146,7 @@ Roadmap to 1.0.0:
 
 Funzionalità completate:
 -Rubrica
+-Calendario
 
 Funzionalità parzialmente completate:
 -Dati associazione
