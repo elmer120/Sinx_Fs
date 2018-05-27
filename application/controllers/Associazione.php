@@ -15,6 +15,7 @@ class Associazione extends MY_Controller {
 			
 			//carico i model
 			$this->load->model('Luoghi_ajax_model');
+			$this->load->model('Associazione_model');
 
 			//carico la lingua selezionata
 			$this->lang->load('header', 'italian');
@@ -36,6 +37,27 @@ class Associazione extends MY_Controller {
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
+
+	public function update_dati_associazione()
+	{
+		//recupero i dati associazione da post
+            $name = $this->input->post('name');
+            $logo = $this->input->post('logo');
+			$address = $this->input->post('address');
+            $phone = $this->input->post('phone');
+            $fax = $this->input->post('fax');
+            $fiscal_code = $this->input->post('fiscal_code');
+            $email = $this->input->post('email');
+            $pec = $this->input->post('pec');
+            $iban = $this->input->post('iban');
+            $bic = $this->input->post('bic');
+            $iscrizione = $this->input->post('iscrizione_odv_aps');
+			$fk_comune = $this->input->post('fk_comune');
+			var_dump($_POST);
+		//chiamo il model x aggiornare il db
+			$this->Associazione_model->update_dati_associazione($name,$logo,$address,$phone,$fax,$fiscal_code,$email,$pec,$iban,$bic,$iscrizione,$fk_comune);
+	}
+
 
 		 //richiamata da ajax ritorna tag option della select
 		 function get_regioni()

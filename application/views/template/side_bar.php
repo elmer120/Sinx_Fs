@@ -191,13 +191,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			    // Rimuovo l'appuntamento da js
 				events[id].splice(index, 1);
 
+				// se non ci sono appuntamenti deseleziono 
+				if (events[id].length === 0) {
+					calendar.unselect(date);
+				}   
+				
 				// ricarico gli appuntamenti
 				mostra_appuntamenti(date);
 
-				// se non ci sono appuntamenti deseleziono , SERVE?!?!?
-				if (events[id].length === 0) {
-					calendar.unselect(date);
-				}
+				
 			}
 
 			//evento click su data

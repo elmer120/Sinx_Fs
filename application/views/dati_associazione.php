@@ -12,7 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </h3>
 
 
-<?php echo form_open_multipart ('Anagrafica/create_associato','class="uk-form-horizontal"');
+<?php echo form_open_multipart ('Associazione/update_dati_associazione','class="uk-form-horizontal"');
 $info=info_association();
 var_dump($info);
 ?>
@@ -21,7 +21,7 @@ var_dump($info);
 
       <label class="uk-form-label">Name</label>
     <div class="uk-form-controls uk-margin">
-      <input class="uk-input uk-form-width-medium" type="text" name="name" placeholder="First Name" value="<?echo $info['name'];?>"required>
+      <input class="uk-input uk-form-width-medium" type="text" name="name" placeholder="Nome associazione" value="<?echo $info['name'];?>" required>
       <?php echo form_error('name'); ?>
     </div>
   
@@ -29,26 +29,22 @@ var_dump($info);
       <input class="uk-input uk-form-width-medium" type="file" name="logo" placeholder="Logo..">
       <button type="button">Logo</button>
       <?php echo form_error('logo'); ?>
-    </div>
-
-      <div class="uk-form-controls">
+    </div> 
+        
+    <div class="uk-form-controls">
       <select class="uk-select uk-form-width-medium" id="select_regioni" required>
-      <option value="">Regione...</option>
-      <option value="<?php echo $info['r_id'];?>" selected><?php echo $info['r_name'];?></option>
       </select>
     </div>
 
     <div class="uk-form-controls">
-      <select class="uk-select uk-form-width-medium" id="select_province" required>
-      <option value="">Provincia</option>
-      <option value="<?php echo $info['p_id'];?>" selected><?php echo $info['p_name'];?></option>
+      <select class="uk-select uk-form-width-medium" id="select_province" required disabled>
+        <option value="<?php echo $info['p_id'];?>" selected><?php echo $info['p_name'];?></option>
       </select>
     </div>
 
     <div class="uk-form-controls">
-      <select class="uk-select uk-form-width-medium" id="select_comuni" name="fk_comune" required>
-      <option value="">Comune</option>
-      <option value="<?php echo $info['c_id'];?>" selected><?php echo $info['c_name'];?></option>
+      <select class="uk-select uk-form-width-medium" id="select_comuni" name="fk_comune" required disabled>
+        <option value="<?php echo $info['c_id'];?>" selected><?php echo $info['c_name'];?></option>
       </select>
     </div>
 
@@ -76,37 +72,37 @@ var_dump($info);
       <?php echo form_error('fiscal_code'); ?>
     </div>
 
-    <label class="uk-form-label">email</label>
+    <label class="uk-form-label">Indirizzo e-mail</label>
     <div class="uk-form-controls">
       <input class="uk-input uk-form-width-medium" type="text" name="email" placeholder="info@mail.it" value="<?echo $info['email'];?>">
       <?php echo form_error('email'); ?>
     </div>
   
-      <label class="uk-form-label">pec</label>
+      <label class="uk-form-label">Indirizzo e-mail(PEC)</label>
     <div class="uk-form-controls">
-      <input class="uk-input uk-form-width-medium" type="text" name="pec" placeholder="???" value="<?echo $info['pec'];?>">
+      <input class="uk-input uk-form-width-medium" type="text" name="pec" placeholder="info@mailPec.it" value="<?echo $info['pec'];?>">
       <?php echo form_error('pec'); ?>
     </div>
   
-      <label class="uk-form-label">iban</label>
+      <label class="uk-form-label">Codice iban</label>
     <div class="uk-form-controls">
-      <input class="uk-input uk-form-width-medium" type="text" name="iban" placeholder="????" value="<?echo $info['iban'];?>">
+      <input class="uk-input uk-form-width-medium" type="text" name="iban" placeholder="IT99A0123456789012345678901" pattern="[a-zA-Z0-9]{27}" value="<?echo $info['iban'];?>">
       <?php echo form_error('iban'); ?>
     </div>
 
-    <label class="uk-form-label">bic</label>
+    <label class="uk-form-label">Codice bic</label>
     <div class="uk-form-controls">
-      <input class="uk-input uk-form-width-medium" type="text" name="bic" placeholder="????" value="<?echo $info['bic'];?>">
+      <input class="uk-input uk-form-width-medium" type="text" name="bic" placeholder="BKKBVNHAN" value="<?echo $info['bic'];?>">
       <?php echo form_error('bic'); ?>
     </div>
   
-    <label class="uk-form-label">iscrizione (odv/aps)</label>
+    <label class="uk-form-label">Iscrizione (odv/aps)</label>
     <div class="uk-form-controls">
-      <input class="uk-input uk-form-width-medium" type="text" name="iscrizione_odv_aps" placeholder="????" required value="<?echo $info['iscrizione_odv_aps'];?>">
+      <input class="uk-input uk-form-width-medium" type="text" name="iscrizione_odv_aps" placeholder="" value="<?echo $info['iscrizione_odv_aps'];?>">
       <?php echo form_error('iscrizione_odv_aps'); ?>
     </div>    
   
-    <button class="uk-button uk-button-default" type="submit">Submit</button>
+    <button class="uk-button uk-button-default" type="submit" onclick="set_enable()">Submit</button>
     </fieldset>
 </form>
 
@@ -122,4 +118,4 @@ var_dump($info);
 </script>
 <!-- chiamate ajax -->
 <script src="<?php echo base_url('assets/js/luoghi.js');?>"></script>
-<script src="<?php //echo base_url('assets/js/select.js');?>"></script>
+<script src="<?php echo base_url('assets/js/select.js');?>"></script>

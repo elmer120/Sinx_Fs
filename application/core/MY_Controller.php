@@ -50,7 +50,7 @@ public function check()
             'all_users' => $this->input->post('all_users'),
             'fk_utente' => $_SESSION['user']['id'],
             );
-            var_dump($data);
+            //var_dump($data);
         //inserisco la persona nel db
         if($this->db->insert('appuntamenti', $data))
         { 

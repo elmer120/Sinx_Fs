@@ -121,15 +121,19 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 0.15.3-alpha
 -- calendario rimuovi appuntamento
 
+0.16.0-alpha
+-- dati associazione completata gestione luoghi con ajax 
 
 Roadmap to 1.0.0:
--- dati associazione (luoghi)
+-- dati associazione gestione logo associazione e gestione redirect operazioni
 -- libro soci altri campi necessari (controllare se ci sono molte righe come viene la stampa)
 -- aggiungere eventi a calendario
 -- anagrafica minorenni
 -- archivio contabilità anni precedenti
 
 -- bug calendario e altre query apostrofi ed altri caratteri
+-- calendario cambiare colore alla selezione in base a chi ha creato l'appuntamento, 
+   se l'appuntamento non è stato creato dall'utente corrente non permettere la cancellazione
 -- calendario multilingua
 -- richieste ajax usare standard json per i dati
 -- aggiungere breadcrumb
@@ -147,14 +151,13 @@ Roadmap to 1.0.0:
 Funzionalità completate:
 -Rubrica
 -Calendario
-
-Funzionalità parzialmente completate:
 -Dati associazione
 -Associati
 -Collaboratori
 -Libro soci
+
+Funzionalità parzialmente completate:
 -Ricerca
--Calendario
 
 Funzionalità mancanti:
 

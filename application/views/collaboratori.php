@@ -86,19 +86,16 @@ tb collaboratori id mansione note -->
     
     <div class="uk-form-controls">
       <select class="uk-select uk-form-width-medium" id="select_regioni" required>
-      <option value="">*Regione...</option>
       </select>
     </div>
 
     <div class="uk-form-controls">
-      <select class="uk-select uk-form-width-medium" id="select_province" required>
-      <option value="">*Provincia</option>
+      <select class="uk-select uk-form-width-medium" id="select_province" required disabled>
       </select>
     </div>
 
     <div class="uk-form-controls">
-      <select class="uk-select uk-form-width-medium" id="select_comuni" name="fk_comune" required>
-      <option value="">*Comune</option>
+      <select class="uk-select uk-form-width-medium" id="select_comuni" name="fk_comune" required disabled>
       </select>
     </div>
   
@@ -127,4 +124,3 @@ tb collaboratori id mansione note -->
 
 <!-- chiamate ajax -->
 <script src="<?php echo base_url('assets/js/luoghi.js');?>"></script>
-<script src="<?php echo base_url('assets/js/tipi.js');?>"></script>

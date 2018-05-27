@@ -12,7 +12,6 @@ class Anagrafica_model extends CI_Model {
             $this->load->library('session');
             $this->load->database();
     }
-    
     //popola associato nel db ritorna bool
     public function create_associato($n_card=NULL,$privacy=NULL,$active=NULL,
                                     $note=NULL,$name=NULL,$surname=NULL,
@@ -52,7 +51,6 @@ class Anagrafica_model extends CI_Model {
         }
         return false;
     }
-
     //popola il collaboratore nel db ritorna bool
     public function create_collaboratore($mansione=NULL,$note=NULL,
                                         $name=NULL,$surname=NULL,$fiscal_code=NULL,
@@ -84,7 +82,6 @@ class Anagrafica_model extends CI_Model {
         }
         return false;
     }
-
     //popola la persona nel db ritorna bool
     private function create_person($fk_comune=NULL,$fk_associato=NULL,$fk_collaboratore=NULL,
                                     $name=NULL,$surname=NULL,$fiscal_code=NULL,
@@ -112,7 +109,6 @@ class Anagrafica_model extends CI_Model {
     { return true;}
     return false;
     }
-
     //ritorna tutte le persone inserite in anagrafica
     public function get_all_persons()
     {

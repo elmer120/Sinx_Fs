@@ -72,7 +72,6 @@ class Login extends MY_Controller {
 
 		 }
 	}
-
 	//uscita dall'applicazione
 	public function logout()
 	{

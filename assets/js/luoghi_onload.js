@@ -49,7 +49,7 @@ $(document).ready(function() {
                 
                  $('#select_comuni').html(data);
                  //$('#select_comuni').removeAttr('disabled');
-                 setTimeout(set_selected(),"500");
+                 
              },
              error: function(data) { 
                  console.log(data);
@@ -58,19 +58,3 @@ $(document).ready(function() {
 
 });
 
-//seleziona regione prov e comune corretti nel dropdown
-function set_selected()
-{
-    $("#select_regioni option").each(function(){
-      if ($(this).text() == array_dati_associazione.r_name)
-        $(this).attr("selected","selected");
-    });
-    $("#select_province option").each(function(){
-      if ($(this).text() == array_dati_associazione.p_name)
-        $(this).attr("selected","selected");
-    });
-    $("#select_comuni option").each(function(){
-      if ($(this).text() == array_dati_associazione.c_name)
-        $(this).attr("selected","selected");
-    });
-}

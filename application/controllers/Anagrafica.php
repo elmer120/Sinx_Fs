@@ -22,11 +22,11 @@ class Anagrafica extends MY_Controller {
     public function __construct()
     {
 			parent::__construct();
-				
-			//se l'utente non è loggato faccio un redirect al login
-			if(!isset($_SESSION['user'])) {
-				redirect('/login');
-			}
+						//se l'utente non è loggato faccio un redirect al login
+						if(!isset($_SESSION['user'])) {
+							redirect('/login');
+						}	
+
 			//carico gli helpers
 			
 			//carico i model
@@ -383,7 +383,7 @@ class Anagrafica extends MY_Controller {
 	 function get_regioni()
 	 {
 		 $regioni=$this->Luoghi_ajax_model->get_regioni();
-		 echo '<option value="">Regione</option>'; //placeholder
+		 echo '<option value="">Scegli la regione</option>'; //placeholder
 		 for ($i=0; $i<count($regioni['id']); $i++)
 		 {
 			 echo '<option value='.$regioni['id'][$i].'>'.$regioni['name'][$i].'</option>';
@@ -395,7 +395,7 @@ class Anagrafica extends MY_Controller {
 	 {
 		 $id=$this->input->post('region_select');
 		 $province=$this->Luoghi_ajax_model->get_province($id);
-		 echo '<option value="" disabled selected>Scegli la tua provincia</option>'; //placeholder
+		 echo '<option value="">Scegli la provincia</option>'; //placeholder
 		 for ($i=0; $i<count($province['id']); $i++)
 		 {
 			 echo '<option value='.$province['id'][$i].'>'.$province['name'][$i].'</option>';
@@ -407,7 +407,7 @@ class Anagrafica extends MY_Controller {
 	 {
 		 $id=$this->input->post('provincia_select');
 		 $comuni=$this->Luoghi_ajax_model->get_comuni($id);
-		 echo '<option value="" disabled selected>Scegli il tuo comune</option>';//placeholder
+		 echo '<option value="">Scegli il comune</option>';//placeholder
 		 for ($i=0; $i<count($comuni['id']); $i++)
 		 {
 			 echo '<option value='.$comuni['id'][$i].'>'.$comuni['name'][$i].'</option>';
