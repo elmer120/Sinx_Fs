@@ -124,14 +124,23 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 0.16.0-alpha
 -- dati associazione completata gestione luoghi con ajax 
 
+0.17.0-alpha
+-- ordinato e migliorata grafica form associati e collaboratori
+-- aggiunti avatar di default associati e collaboratori
+
+
 Roadmap to 1.0.0:
--- dati associazione gestione logo associazione e gestione redirect operazioni
+-- gestione redirect operazioni
+-- aggiungere pagina gestione link rapidi
+-- mettere info associazione in $_Session
 -- libro soci altri campi necessari (controllare se ci sono molte righe come viene la stampa)
 -- aggiungere eventi a calendario
 -- anagrafica minorenni
 -- archivio contabilità anni precedenti
 
 -- bug calendario e altre query apostrofi ed altri caratteri
+-- bug associati/collaboratori controllare avatar nome upload univoco, nome del file selezionato
+-- bug associati e collaboratori aggiungere luogo di nascita
 -- calendario cambiare colore alla selezione in base a chi ha creato l'appuntamento, 
    se l'appuntamento non è stato creato dall'utente corrente non permettere la cancellazione
 -- calendario multilingua

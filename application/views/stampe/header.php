@@ -5,7 +5,7 @@
 
         <div class="uk-card uk-card-small">
             <div class="uk-text-center uk-card-body">
-            <img src="<? echo $info['logo'];?>" width="50" height="50"/>
+            <img class="uk-border-circle" width="50" height="50" src="<?php echo base_url('assets/img/associazione/logo/').$info['logo'];?>">
             <strong class="uk-text-capitalize"><? echo $info['name'];?></strong><br>
             <? echo $info['address'].' - '.$info['cap'].' - '.$info['c_name'].', '.$info['p_name'];?> <br>
             <? echo 'Tel: '.$info['phone'].' - Fax: '.$info['fax'].' - E-mail: '.$info['email'];?> <br>

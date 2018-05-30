@@ -124,13 +124,14 @@ class Anagrafica extends MY_Controller {
 		$this->load->library('upload');
 		 
 	    //configuro la libreria di upload
-		$config['upload_path']          = './assets/';
+		$config['upload_path']          = './assets/img/collaboratori/';
+		$config['file_name']            = 'logo';
 		$config['allowed_types']        = 'gif|jpg|png';
 		$config['max_size']             = '2048'; //in kb
 		$config['max_width']            = '512';
 		$config['max_height']           = '512';
 		$config['file_ext_tolower']     = TRUE; //estensione to lower es. win10
-		$config['overwrite']            = TRUE; //file stesso nome nn vengono sovrascritti
+		$config['overwrite']            = FALSE; //file stesso nome nn vengono sovrascritti
 		 
 		//aggiorno la libreria
 		$this->upload->initialize($config);
@@ -241,13 +242,13 @@ class Anagrafica extends MY_Controller {
 		$this->load->library('upload');
 		 
 	    //configuro la libreria di upload
-		$config['upload_path']          = './assets/';
+		$config['upload_path']          = './assets/img/associati/';
 		$config['allowed_types']        = 'gif|jpg|png';
 		$config['max_size']             = '2048'; //in kb
 		$config['max_width']            = '512';
 		$config['max_height']           = '512';
 		$config['file_ext_tolower']     = TRUE; //estensione to lower es. win10
-		$config['overwrite']            = TRUE; //file stesso nome nn vengono sovrascritti
+		$config['overwrite']            = FALSE; //file stesso nome nn vengono sovrascritti
 		 
 		//aggiorno la libreria
 		$this->upload->initialize($config);

@@ -40,10 +40,43 @@ class Associazione extends MY_Controller {
 
 	public function update_dati_associazione()
 	{
+		//recupero il logo 
+
+		
+	    //configuro la libreria di upload
+		$config['upload_path']          = './assets/img/associazione/logo';
+		$config['file_name']            = 'logo';
+		$config['allowed_types']        = 'png';
+		$config['max_size']             = '2048'; //in kb
+		$config['max_width']            = '512';
+		$config['max_height']           = '512';
+		$config['file_ext_tolower']     = TRUE; //estensione to lower es. win10
+		$config['overwrite']            = TRUE; //file stesso nome nn vengono sovrascritti
+		$this->load->library('upload',$config);
+
+		//se c'è un file
+		if(is_uploaded_file($_FILES['logo']['tmp_name']))
+		{
+			//eseguo l'upload
+			if($this->upload->do_upload('logo'))
+			{   
+				$logo = $this->upload->data('file_name');      
+			}
+			else //upload fallito
+			{
+				
+				echo $this->upload->display_errors();
+			}
+
+		}
+		else
+		{ 
+			$logo=null;
+		}
+
 		//recupero i dati associazione da post
             $name = $this->input->post('name');
-            $logo = $this->input->post('logo');
-			$address = $this->input->post('address');
+            $address = $this->input->post('address');
             $phone = $this->input->post('phone');
             $fax = $this->input->post('fax');
             $fiscal_code = $this->input->post('fiscal_code');
@@ -53,8 +86,8 @@ class Associazione extends MY_Controller {
             $bic = $this->input->post('bic');
             $iscrizione = $this->input->post('iscrizione_odv_aps');
 			$fk_comune = $this->input->post('fk_comune');
-			var_dump($_POST);
-		//chiamo il model x aggiornare il db
+			
+			//chiamo il model x aggiornare il db
 			$this->Associazione_model->update_dati_associazione($name,$logo,$address,$phone,$fax,$fiscal_code,$email,$pec,$iban,$bic,$iscrizione,$fk_comune);
 	}
 
