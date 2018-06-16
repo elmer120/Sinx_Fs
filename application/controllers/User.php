@@ -7,10 +7,7 @@ class User extends MY_Controller {
 	public function __construct()
     	{
 	    parent::__construct();
-	    			//se l'utente non è loggato faccio un redirect al login
-			if(!isset($_SESSION['user'])) {
-				redirect('/login');
-			}
+
 			$this->load->library('session');
 			$this->load->library('form_validation');
 	}

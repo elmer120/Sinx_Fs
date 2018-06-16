@@ -21,12 +21,12 @@
                     <?php echo form_open('login/login_user','class="uk-form-horizontal"'); //mando i dati al controller?> 
                     <label class="uk-form-label">Username</label>
                 <div class="uk-form-controls uk-margin">
-                    <input class="uk-input uk-form-width-medium" type="text" name="username" /><br />
+                    <input class="uk-input uk-form-width-medium" type="text" name="username" required/><br />
                 </div>
 
                     <label class="uk-form-label">Password</label>
                 <div class="uk-form-controls uk-margin">
-                    <input class="uk-input uk-form-width-medium" type="password" name="password" value="admin"></input><br />
+                    <input class="uk-input uk-form-width-medium" type="password" name="password" value="admin" required></input><br />
                 </div>
                     <label class="uk-form-label">Lingua</label>
                 <div class="uk-form-controls uk-margin uk-form-controls-text">

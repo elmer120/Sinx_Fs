@@ -183,14 +183,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 </a>         
                         
                         <ul class="uk-nav-sub">
-                            <li><a class="item" href='./CompModuli.php'>Aoxa -<?php echo lang('moduli'); ?></a></li>
-                            <li><a class="item" href='./Calendario2.php'>Aox- -<?php echo lang('calendario'); ?></a></li>
-                            <li><a class="item" href='./InsNotepad.php'>Ao-a - <?php echo lang('blocco_note'); ?></a></li>
-                            <li><a class="item" href='./Comp_email.php'>Aox- -<?php echo lang('e_mail');?></a></li>
-                            <li><a class="item" href='./InsUtente.php'>Aola -<?php echo lang('utenti'); ?></a></li>
-                            <li><a class="item" href='./Files.php'>Axx- -<?php echo lang('files_immagiini'); ?></a></li>
-                            <li><a class="item" href='./Log.php'>Axxx -<?php echo lang('log'); ?></a></li>
-                            <li><a class="item" href='./Rip_database.php'>Axxx - <?php lang('backup'); ?></a></li>        
+                            <li><a class="item" href='<? echo site_url("gestione/moduli")?>'>Aoxa -<?php echo lang('moduli'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/calendario")?>'>Aox- -<?php echo lang('calendario'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/link_rapidi")?>'>Axxx - <?php echo lang('link_rapidi'); ?></a></li>     
+                            <li><a class="item" href='<? echo site_url("gestione/blocco_note")?>'>Ao-a - <?php echo lang('blocco_note'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/e_mail")?>'>Aox- -<?php echo lang('e_mail');?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/utenti")?>'>Aola -<?php echo lang('utenti'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/files")?>'>Axx- -<?php echo lang('files_immagini'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/log")?>'>Axxx -<?php echo lang('log'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/backup")?>'>Axxx - <?php echo lang('backup'); ?></a></li>        
                         </ul>
                     </li>
 

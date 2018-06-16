@@ -23,7 +23,14 @@ richiede di configurare correttamente il prefisso in application/config/config.p
 Class MY_Controller Extends CI_Controller{
 
 public function __construct(){
+
     parent::__construct();
+    //se l'utente non è loggato faccio un redirect al login
+	if(!isset($_SESSION['user'])) {
+		redirect('/login');
+	}
+   
+
 }
 
 

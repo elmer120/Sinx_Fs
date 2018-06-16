@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Login extends MY_Controller {
+class Login extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -22,7 +22,6 @@ class Login extends MY_Controller {
     {
             parent::__construct();
 			$this->load->library('session');
-			$this->load->helper('url');
 			$this->load->library('form_validation');
 
 			//carico la lingua selezionata
@@ -71,6 +70,10 @@ class Login extends MY_Controller {
 			 }
 
 		 }
+		 else{
+			redirect('login');
+		 }
+
 	}
 	//uscita dall'applicazione
 	public function logout()
@@ -78,8 +81,7 @@ class Login extends MY_Controller {
 		//elimino la sessione
 		if(session_destroy())
 		{
-			header( "refresh:3; url=index" ); //redirect con ritardo
-			echo "Logout effettuato correttamente, attendere..."; //stampo messaggio
+			redirect('login');
 		}
 		else //se la sessione resta intatta
 		{

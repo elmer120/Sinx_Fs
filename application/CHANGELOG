@@ -51,7 +51,6 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 -- aggiunto background login
 -- aggiunta badge versione
 
-
 0.3.0-alpha
 -- risolto errore chiamate ajax
 -- sistemato template head.php
@@ -59,7 +58,6 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 0.4.0-alpha
 -- nel menu desktop/mobile aggiunto info sul associazione gestita
 -- nel menu desktop/mobile info sul utente loggato
-
 
 0.5.0-alpha
 -- badge versione in lowercase
@@ -128,19 +126,29 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 -- ordinato e migliorata grafica form associati e collaboratori
 -- aggiunti avatar di default associati e collaboratori
 
+0.17.1-alpha
+-- bug login risolto accesso a metodo login via url 
+
+0.18.0-alpha
+-- gestione risultato form e redirect
+-- aggiunta gestione link rapidi
+-- aggiunti controlli aggiunti lato server in gestione e associazione model
 
 Roadmap to 1.0.0:
--- gestione redirect operazioni
--- aggiungere pagina gestione link rapidi
+
+-- aggiungere pattern html5 a gestione link rapidi e dati associazione
 -- mettere info associazione in $_Session
 -- libro soci altri campi necessari (controllare se ci sono molte righe come viene la stampa)
 -- aggiungere eventi a calendario
 -- anagrafica minorenni
 -- archivio contabilità anni precedenti
+-- form quando va in errore ricompilare il form con i dati inseriti precedentemente
 
+-- bug form se vanno in errore non vengono ricompilari i campi
+-- bug user model più username uguali check password -- vedere anche tipo di criptaggio gdpr
 -- bug calendario e altre query apostrofi ed altri caratteri
 -- bug associati/collaboratori controllare avatar nome upload univoco, nome del file selezionato
--- bug associati e collaboratori aggiungere luogo di nascita
+-- bug associati e collaboratori aggiungere luogo di nascita, data assunzione a socio
 -- calendario cambiare colore alla selezione in base a chi ha creato l'appuntamento, 
    se l'appuntamento non è stato creato dall'utente corrente non permettere la cancellazione
 -- calendario multilingua

@@ -5,11 +5,8 @@ class Stampa extends MY_Controller {
 
     public function __construct()
     {
-			parent::__construct();
-						//se l'utente non è loggato faccio un redirect al login
-                        if(!isset($_SESSION['user'])) {
-                            redirect('/login');
-                        }
+            parent::__construct();
+            
 			//carico gli helpers
 			
 			//carico i model
@@ -21,6 +18,7 @@ class Stampa extends MY_Controller {
     
     public function libro_soci()
     {
+       
         //recupero l'ordinamento richiesto
         $ordinamento = $this->input->post('ordinamento');
         //chiamo il model 

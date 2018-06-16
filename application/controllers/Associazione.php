@@ -7,12 +7,11 @@ class Associazione extends MY_Controller {
     {
 			parent::__construct();
 				
-			//se l'utente non è loggato faccio un redirect al login
-			if(!isset($_SESSION['user'])) {
-				redirect('/login');
-			}
 			//carico gli helpers
 			
+			//carico le librerie
+			$this->load->library('result_handling');
+
 			//carico i model
 			$this->load->model('Luoghi_ajax_model');
 			$this->load->model('Associazione_model');
@@ -29,11 +28,10 @@ class Associazione extends MY_Controller {
 	
 	public function dati_associazione()
 	{
-		
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		$this->load->view('dati_associazione');
+		$this->load->view('associazione/dati_associazione');
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
@@ -41,8 +39,6 @@ class Associazione extends MY_Controller {
 	public function update_dati_associazione()
 	{
 		//recupero il logo 
-
-		
 	    //configuro la libreria di upload
 		$config['upload_path']          = './assets/img/associazione/logo';
 		$config['file_name']            = 'logo';
@@ -53,7 +49,6 @@ class Associazione extends MY_Controller {
 		$config['file_ext_tolower']     = TRUE; //estensione to lower es. win10
 		$config['overwrite']            = TRUE; //file stesso nome nn vengono sovrascritti
 		$this->load->library('upload',$config);
-
 		//se c'è un file
 		if(is_uploaded_file($_FILES['logo']['tmp_name']))
 		{
@@ -64,17 +59,40 @@ class Associazione extends MY_Controller {
 			}
 			else //upload fallito
 			{
-				
-				echo $this->upload->display_errors();
+				$this->session->set_flashdata('result',(new result_handling($this->upload->display_errors(),2))->build_html());
+				redirect($_SERVER['HTTP_REFERER']."#result");
 			}
-
 		}
-		else
+		else // imposto logo a null cosi mantiene quello già presente
 		{ 
 			$logo=null;
 		}
 
-		//recupero i dati associazione da post
+		//carico la libreria di validazione form
+		$this->load->library('form_validation');
+
+		//configuro la libreria di validazione form
+		//set_rules(nome input,nome error,regola)
+        $this->form_validation->set_rules('name', 'Website', 'trim|callback_valid_url_check');
+        $this->form_validation->set_rules('address', 'Webmail', 'trim|callback_valid_url_check');
+        $this->form_validation->set_rules('phone', 'Webmail pec', 'trim|callback_valid_url_check');
+        $this->form_validation->set_rules('fax', 'Facebook', 'trim|callback_valid_url_check');
+		$this->form_validation->set_rules('fiscal_code', 'Instagram', 'trim|callback_valid_url_check');
+		$this->form_validation->set_rules('email', 'Youtube', 'trim|callback_valid_url_check');
+        $this->form_validation->set_rules('pec', 'Twitter', 'trim|callback_valid_url_check');
+		$this->form_validation->set_rules('iban', 'Home_banking', 'trim|callback_valid_url_check');
+		$this->form_validation->set_rules('bic', 'Instagram', 'trim|callback_valid_url_check');
+		$this->form_validation->set_rules('iscrizione_odv_aps', 'Youtube', 'trim|callback_valid_url_check');
+		$this->form_validation->set_rules('fk_comune', 'Twitter', 'trim|callback_valid_url_check');
+		
+        //errore personalizzato per le varie regole
+		$this->form_validation->set_message('required','{field} is required!');
+		$this->form_validation->set_message('valid_url_check','{field} not url address valid!');
+
+        //se i parametri del form sono validati corretamente 
+		if ($this->form_validation->run() === TRUE)
+		{
+		  //recupero i dati associazione da post
             $name = $this->input->post('name');
             $address = $this->input->post('address');
             $phone = $this->input->post('phone');
@@ -88,7 +106,22 @@ class Associazione extends MY_Controller {
 			$fk_comune = $this->input->post('fk_comune');
 			
 			//chiamo il model x aggiornare il db
-			$this->Associazione_model->update_dati_associazione($name,$logo,$address,$phone,$fax,$fiscal_code,$email,$pec,$iban,$bic,$iscrizione,$fk_comune);
+			if($this->Associazione_model->update_dati_associazione($name,$logo,$address,$phone,$fax,$fiscal_code,$email,$pec,$iban,$bic,$iscrizione,$fk_comune))
+			{
+				$this->session->set_flashdata('result',(new result_handling("Operazione conclusa con successo!!!",0))->build_html());
+				redirect($_SERVER['HTTP_REFERER']."#result");
+			}
+			else
+			{
+				$this->session->set_flashdata('result',(new result_handling("Errore nel inserimento nel db!",2))->build_html());
+				redirect($_SERVER['HTTP_REFERER']."#result");
+			}
+		}
+		else //dati non validati
+		{
+				$this->session->set_flashdata('result',(new result_handling(validation_errors(),2))->build_html());
+				redirect($_SERVER['HTTP_REFERER']."#result");
+		}
 	}
 
 

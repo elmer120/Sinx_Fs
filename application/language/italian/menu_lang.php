@@ -1,15 +1,7 @@
 <?php
 //Menu
 $lang['associazione'] = "Associazione";
-$lang['sito_web'] = " Sito Web";
 $lang['dati_associazione'] = " Dati Associazione";
-$lang['web_mail']="Web Mail";
-$lang['web_mail_pec']="Web Mail Pec";
-$lang['facebook']="Facebook";
-$lang['instagram']="Instagram";
-$lang['youtube']="YouTube";
-$lang['twitter']="Twitter";
-$lang['home_banking']="Home Banking";
 $lang['anagrafica'] = "Anagrafica";
 $lang['direttivo'] = " Direttivo";
 $lang['associati'] = " Associati";
@@ -29,6 +21,7 @@ $lang['nuovo_anno_sociale'] = " Nuovo Anno Sociale";
 $lang['gestione'] = "Gestione";
 $lang['moduli'] = " Moduli";
 $lang['calendario'] = " Calendario";
+$lang['link_rapidi']= "Link rapidi";
 $lang['utenti'] = " Utenti";
 $lang['e_mail'] = "E-mail";
 $lang['files_immagini'] = " Files e Immagini";
@@ -41,3 +34,13 @@ $lang['manuale'] = "Manuale";
 $lang['uscita'] = "Uscita";
 $lang['licenza'] = "Licenza Gnu GpL/v3";
 $lang['blocco_note'] = "Blocco Note";
+
+//link rapidi
+$lang['sito_web'] = " Sito Web";
+$lang['web_mail']="Web Mail";
+$lang['web_mail_pec']="Web Mail Pec";
+$lang['facebook']="Facebook";
+$lang['instagram']="Instagram";
+$lang['youtube']="YouTube";
+$lang['twitter']="Twitter";
+$lang['home_banking']="Home Banking";

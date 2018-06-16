@@ -22,13 +22,12 @@ class Anagrafica extends MY_Controller {
     public function __construct()
     {
 			parent::__construct();
-						//se l'utente non è loggato faccio un redirect al login
-						if(!isset($_SESSION['user'])) {
-							redirect('/login');
-						}	
 
 			//carico gli helpers
 			
+			//carico le librerie
+			$this->load->library('result_handling');
+
 			//carico i model
 			$this->load->model('Tipi_ajax_model');
 			$this->load->model('Luoghi_ajax_model');
@@ -38,17 +37,12 @@ class Anagrafica extends MY_Controller {
 			$this->lang->load('menu', 'italian');	
     }
 
-	public function index()
-	{
-				
-	}
-	
 	public function associati()
 	{
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		$this->load->view('associati');
+		$this->load->view('anagrafica/associati');
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
@@ -57,7 +51,7 @@ class Anagrafica extends MY_Controller {
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		$this->load->view('collaboratori');
+		$this->load->view('anagrafica/collaboratori');
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
@@ -77,7 +71,7 @@ class Anagrafica extends MY_Controller {
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		$this->load->view('ricerca',$data);
+		$this->load->view('anagrafica/ricerca',$data);
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
@@ -102,7 +96,7 @@ class Anagrafica extends MY_Controller {
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		$this->load->view('rubrica',$data);
+		$this->load->view('anagrafica/rubrica',$data);
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
@@ -111,7 +105,7 @@ class Anagrafica extends MY_Controller {
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		$this->load->view('libro_soci');
+		$this->load->view('anagrafica/libro_soci');
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
@@ -190,22 +184,23 @@ class Anagrafica extends MY_Controller {
 							if($this->Anagrafica_model->create_collaboratore($mansione,$note,$name,$surname,
 							$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato=NULL,$fk_collaboratore=NULL,$fk_cariche_direttivo=NULL))
 							{
+
+								$this->session->set_flashdata('result',(new result_handling("Inserimento avvenuto correttamente con file!",0))->build_html());
+								redirect($_SERVER['HTTP_REFERER']."#result");
 								
-								echo "Inserimento avvenuto correttamente con file!";
-								
-								return;
 							}
 							else
 							{
 								
-								echo "Errore nel inserimento nel db!";
-								return;
+								$this->session->set_flashdata('result',(new result_handling("Errore nel inserimento nel db!",2))->build_html());
+								redirect($_SERVER['HTTP_REFERER']."#result");
 							}         
 						}
 						else //upload fallito
 						{
 							
-							echo $this->upload->display_errors();
+							$this->session->set_flashdata('result',(new result_handling($this->upload->display_errors(),2))->build_html());
+							redirect($_SERVER['HTTP_REFERER']."#result");
 						}
 
 					}
@@ -215,14 +210,14 @@ class Anagrafica extends MY_Controller {
 						$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato=NULL,$fk_collaboratore=NULL,$fk_cariche_direttivo=NULL))
 						{
 								
-								echo "Inserimento avvenuto correttamente senza file!";
-								return;
-							}
+								$this->session->set_flashdata('result',(new result_handling("Inserimento avvenuto correttamente senza file!",0))->build_html());
+								redirect($_SERVER['HTTP_REFERER']."#result");
+						}
 							else
 							{
 								
-								echo "Errore nel inserimento nel db!";
-								return;
+								$this->session->set_flashdata('result',(new result_handling("Errore nel inserimento nel db!",2))->build_html());
+								redirect($_SERVER['HTTP_REFERER']."#result");
 							}         
 					}
 			}
@@ -314,22 +309,19 @@ class Anagrafica extends MY_Controller {
 							if($this->Anagrafica_model->create_associato($n_card,$privacy,$active,$note,$name,$surname,
 							$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato,$fk_collaboratore=NULL,$fk_cariche_direttivo))
 							{
-								
-								echo "Inserimento avvenuto correttamente con file!";
-								
-								return;
+								$this->session->set_flashdata('result',(new result_handling("Inserimento avvenuto correttamente con file!",0))->build_html());
+								redirect($_SERVER['HTTP_REFERER']."#result");
 							}
 							else
 							{
-								
-								echo "Errore nel inserimento nel db!";
-								return;
+								$this->session->set_flashdata('result',(new result_handling("Errore nel inserimento nel db!",2))->build_html());
+								redirect($_SERVER['HTTP_REFERER']."#result");
 							}         
 						}
 						else //upload fallito
 						{
-							
-							echo $this->upload->display_errors();
+							$this->session->set_flashdata('result',(new result_handling($this->upload->display_errors(),2))->build_html());
+							redirect($_SERVER['HTTP_REFERER']."#result");
 						}
 
 					}
@@ -338,15 +330,14 @@ class Anagrafica extends MY_Controller {
 						if($this->Anagrafica_model->create_associato($n_card,$privacy,$active,$note,$name,$surname,
 						$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato,$fk_collaboratore=NULL,$fk_cariche_direttivo))
 							{
-								
-								echo "Inserimento avvenuto correttamente senza file!";
-								return;
+								$this->session->set_flashdata('result',(new result_handling("Inserimento avvenuto correttamente senza file!",0))->build_html());
+								redirect($_SERVER['HTTP_REFERER']."#result");
 							}
 							else
 							{
 								
-								echo "Errore nel inserimento nel db!";
-								return;
+								$this->session->set_flashdata('result',(new result_handling("Errore nel inserimento nel db!",2))->build_html());
+								redirect($_SERVER['HTTP_REFERER']."#result");
 							}         
 					}
 			}

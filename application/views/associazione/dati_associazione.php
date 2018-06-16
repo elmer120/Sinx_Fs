@@ -17,7 +17,6 @@ $info=info_association();
 //var_dump($info);
 ?>
     
-    
 <fieldset class="uk-fieldset"> <!-- si occupa del padding nel form necessario per il form "orizzontali" -->
 
 <label class="uk-form-label">Logo</label>
@@ -112,6 +111,8 @@ $info=info_association();
 
     <button class="uk-button uk-button-default" type="submit" onclick="set_enable()">Invia</button>
     </fieldset>
+    <?php //mostro il risultato dell'invio del form 
+    echo $this->session->flashdata('result'); ?>
 </form>
 
         </div> <!-- fine container -->
