@@ -26,7 +26,7 @@ $links=quick_links();
         <div class="uk-inline">
         <span class="uk-form-icon" uk-icon="icon: world"></span>
         <input class="uk-input uk-form-width-large" class="uk-input" type="text" name="link_website"  
-            placeholder="https://www.associazione.it" value="<? echo $links['link_website'];?>"
+            placeholder="https://www.associazione.it" pattern="^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$" value="<? echo $links['link_website'];?>"
         >
         <?php echo form_error('link_website'); ?>
         </div>
@@ -39,7 +39,7 @@ $links=quick_links();
         <div class="uk-inline">
           <span class="uk-form-icon" uk-icon="icon: mail"></span>
         <input class="uk-input uk-form-width-large" type="text" name="link_webmail" 
-          placeholder="https://www.webmail.it" value="<? echo $links['link_webmail'];?>"
+          placeholder="https://www.webmail.it" pattern="^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$" value="<? echo $links['link_webmail'];?>"
           >
       <?php echo form_error('web_mail'); ?>
         </div>
@@ -52,7 +52,7 @@ $links=quick_links();
         <div class="uk-inline">
           <span class="uk-form-icon" uk-icon="icon: mail"></span>
           <input class="uk-input uk-form-width-large" type="text" name="link_webmail_pec" 
-          placeholder="https://www.webmail.pec.it" value="<? echo $links['link_webmail_pec'];?>"
+          placeholder="https://www.webmail.pec.it" pattern="^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$" value="<? echo $links['link_webmail_pec'];?>"
           >
       <?php echo form_error('web_mail_pec'); ?>
       </div>
@@ -65,7 +65,7 @@ $links=quick_links();
         <div class="uk-inline">
           <span class="uk-form-icon" uk-icon="icon: facebook"></span>
           <input class="uk-input uk-form-width-large" type="text" name="link_facebook" 
-          placeholder="https://www.facebook.com/associazione" value="<? echo $links['link_facebook'];?>"
+          placeholder="https://www.facebook.com/associazione" pattern="^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$" value="<? echo $links['link_facebook'];?>"
           >
       <?php echo form_error('facebook'); ?>
         </div>
@@ -78,7 +78,7 @@ $links=quick_links();
         <div class="uk-inline">
           <span class="uk-form-icon" uk-icon="icon: instagram"></span>
           <input class="uk-input uk-form-width-large" type="text" name="link_instagram" 
-          placeholder="https://www.instagram.com/" value="<? echo $links['link_instagram'];?>"
+          placeholder="https://www.instagram.com/" pattern="^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$" value="<? echo $links['link_instagram'];?>"
           >
       <?php echo form_error('instagram'); ?>
         </div>
@@ -91,7 +91,7 @@ $links=quick_links();
         <div class="uk-inline">
           <span class="uk-form-icon" uk-icon="icon: youtube"></span>
           <input class="uk-input uk-form-width-large" type="text" name="link_youtube" 
-          placeholder="https://www.youtube.com/associazione" value="<? echo $links['link_youtube'];?>"
+          placeholder="https://www.youtube.com/associazione" pattern="^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$" value="<? echo $links['link_youtube'];?>"
           >
       <?php echo form_error('youtube'); ?>
         </div>
@@ -104,7 +104,7 @@ $links=quick_links();
         <div class="uk-inline">
           <span class="uk-form-icon" uk-icon="icon: twitter"></span>
           <input class="uk-input uk-form-width-large" type="text" name="link_twitter" 
-          placeholder="https://twitter.com/associazione" value="<? echo $links['link_twitter'];?>"
+          placeholder="https://twitter.com/associazione" pattern="^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$" value="<? echo $links['link_twitter'];?>"
           >
       <?php echo form_error('twitter'); ?>
         </div>
@@ -117,7 +117,7 @@ $links=quick_links();
         <div class="uk-inline">
           <span class="uk-form-icon" uk-icon="icon: home"></span>
           <input class="uk-input uk-form-width-large" type="text" name="link_home_banking" 
-          placeholder="https://www.inbank.it" value="<? echo $links['link_home_banking']?>"
+          placeholder="https://www.inbank.it" pattern="^(https?://)?([a-zA-Z0-9]([a-zA-ZäöüÄÖÜ0-9\-]{0,61}[a-zA-Z0-9])?\.)+[a-zA-Z]{2,6}$" value="<? echo $links['link_home_banking']?>"
           >
       <?php echo form_error('home_banking'); ?>
         </div>
@@ -136,8 +136,4 @@ $links=quick_links();
 
 </div> <!--fine colonna -->
 
-<!-- passo array dati associazione a javascript -->
-<script type="text/javascript">
-    var array_dati_associazione = <?php echo json_encode($info); ?>;
-</script>
 

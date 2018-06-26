@@ -73,17 +73,17 @@ class Associazione extends MY_Controller {
 
 		//configuro la libreria di validazione form
 		//set_rules(nome input,nome error,regola)
-        $this->form_validation->set_rules('name', 'Website', 'trim|callback_valid_url_check');
-        $this->form_validation->set_rules('address', 'Webmail', 'trim|callback_valid_url_check');
-        $this->form_validation->set_rules('phone', 'Webmail pec', 'trim|callback_valid_url_check');
-        $this->form_validation->set_rules('fax', 'Facebook', 'trim|callback_valid_url_check');
-		$this->form_validation->set_rules('fiscal_code', 'Instagram', 'trim|callback_valid_url_check');
-		$this->form_validation->set_rules('email', 'Youtube', 'trim|callback_valid_url_check');
-        $this->form_validation->set_rules('pec', 'Twitter', 'trim|callback_valid_url_check');
-		$this->form_validation->set_rules('iban', 'Home_banking', 'trim|callback_valid_url_check');
-		$this->form_validation->set_rules('bic', 'Instagram', 'trim|callback_valid_url_check');
-		$this->form_validation->set_rules('iscrizione_odv_aps', 'Youtube', 'trim|callback_valid_url_check');
-		$this->form_validation->set_rules('fk_comune', 'Twitter', 'trim|callback_valid_url_check');
+        $this->form_validation->set_rules('name', 'Nome', 'required|trim');
+        $this->form_validation->set_rules('address', 'Indirizzo', 'required|trim');
+        $this->form_validation->set_rules('phone', 'Telefono', 'trim');
+        $this->form_validation->set_rules('fax', 'Fax', 'trim');
+		$this->form_validation->set_rules('fiscal_code', 'Codice fiscale', 'trim');
+		$this->form_validation->set_rules('email', 'Indirizzo E-mail', 'trim');
+        $this->form_validation->set_rules('pec', 'Indirizzo e-mail (pec)', 'trim');
+		$this->form_validation->set_rules('iban', 'Codice iban', 'trim');
+		$this->form_validation->set_rules('bic', 'codice bic', 'trim');
+		$this->form_validation->set_rules('iscrizione_odv_aps', 'iscrizione_odv_aps', 'trim');
+		$this->form_validation->set_rules('fk_comune', 'fk_comune', 'trim');
 		
         //errore personalizzato per le varie regole
 		$this->form_validation->set_message('required','{field} is required!');

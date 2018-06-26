@@ -134,10 +134,17 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 -- aggiunta gestione link rapidi
 -- aggiunti controlli aggiunti lato server in gestione e associazione model
 
+0.18.1-alpha
+- aggiornato numero versione 
+
+0.19.0-alpha
+-- bug validazione risolto dati associazione
+-- spostate info associazione nella sessione
+-- aggiungere pattern html5 a gestione link rapidi
+
 Roadmap to 1.0.0:
 
--- aggiungere pattern html5 a gestione link rapidi e dati associazione
--- mettere info associazione in $_Session
+-- aggiungere pattern html5 a dati associazione
 -- libro soci altri campi necessari (controllare se ci sono molte righe come viene la stampa)
 -- aggiungere eventi a calendario
 -- anagrafica minorenni

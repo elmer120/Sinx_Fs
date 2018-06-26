@@ -60,9 +60,11 @@ class User_model extends CI_Model {
                 $this->db->set('last_access', date("Y-m-d H:i:s"));
                 $this->db->where('username', $username);
                 $this->db->update('utenti');
-                //valorizzo la sessione
+                //valorizzo la sessione con l'utente
                 $this->set_session($username);
-
+                //valorizzo la sessione and con i dati dell'associazione
+                $this->load->model('associazione_model');
+                $this->associazione_model->get_dati_associazione();
                 return TRUE;
             }
             else
@@ -86,7 +88,6 @@ class User_model extends CI_Model {
     //popolo la sessione
     private function set_session($username)
     {
-        
         //seleziono l'utente
         $this->db->select('*');
         $this->db->from('utenti');
@@ -94,10 +95,6 @@ class User_model extends CI_Model {
         $query = $this->db->get();
         //inserisco i dati nella var globale sessione
         $_SESSION['user']= $query->row_array();
-        
-       
-
-        
     }
 
 }

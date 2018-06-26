@@ -10,7 +10,7 @@ class Stampa extends MY_Controller {
 			//carico gli helpers
 			
 			//carico i model
-			$this->load->model('Stampa_model');
+            $this->load->model('Stampa_model');
 			//carico la lingua selezionata
 			$this->lang->load('header', 'italian');
 			$this->lang->load('menu', 'italian');	

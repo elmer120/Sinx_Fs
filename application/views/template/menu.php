@@ -94,15 +94,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 
             </ul>
             <!--dati associazione-->    
-            <?php $info=info_association();?>
-                <ul class="uk-list">
-                    <li>
-                        <span uk-icon="info"></span>
-                        <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $info['name'];?></span>
-                    </li>
-                    <li>
-                        <span uk-icon="location"></span>
-                        <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $info['address'].' - '.$info['cap'].' - '.$info['c_name'].' - '.$info['p_name'].' - '.$info['r_name']; ?></span>
+            <?php $_SESSION['association']['r_name']; ?></span>
                     </li>
                 </ul>
         </div>
@@ -228,29 +220,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
         <div class="uk-card-footer">
             <!--dati associazione-->
-            <?php $info=info_association(); ?>
                 <ul class="uk-list">
                     <li>
                         <span uk-icon="info"></span>
-                        <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $info['name'];?></span>
+                        <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['association']['name'];?></span>
                     </li>
                     <li>
                         <span uk-icon="location"></span>
-                        <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $info['address'].' - '.$info['cap'].' - '.$info['c_name'].' - '.$info['p_name']; ?></span>
+                        <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['association']['address'].' - '.$_SESSION['association']['cap'].' - '.$_SESSION['association']['c_name'].' - '.$_SESSION['association']['p_name']; ?></span>
                     </li>
                 </ul>
             <!-- link rapidi ai siti attinenti all'associazione -->
             <?  $links=quick_links(); ?>
             <h6 class="uk-heading-line uk-text-center"><span>Link rapidi</span></h6>
             <ul class="uk-iconnav">
-            <li uk-tooltip="title:<? echo lang('sito_web'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_website']))? $links['link_website'] : '' ?>" target="_blank" uk-icon="icon: world"></a></li>
-            <li uk-tooltip="title:<? echo lang('web_mail'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_webmail'])) ? $links['link_webmail'] : '' ?>" target="_blank" uk-icon="icon: mail"></a></li>
-            <li uk-tooltip="title:<? echo lang('web_mail_pec'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_webmail_pec'])) ? $links['link_webmail_pec'] : '' ?>" target="_blank" uk-icon="icon: mail"></a></li>
-            <li uk-tooltip="title:<? echo lang('facebook'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_facebook'])) ? $links['link_facebook'] : '' ?>" target="_blank" uk-icon="icon: facebook"></a></li>
-            <li uk-tooltip="title:<? echo lang('instagram'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_instagram'])) ? $links['link_instagram'] : '' ?>" target="_blank" uk-icon="icon: instagram"></a></li>
-            <li uk-tooltip="title:<? echo lang('youtube'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_youtube'])) ? $links['link_youtube'] : '' ?>" target="_blank" uk-icon="icon: youtube"></a></li>
-            <li uk-tooltip="title:<? echo lang('twitter'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_twitter'])) ? $links['link_twitter'] : '' ?>" target="_blank" uk-icon="icon: twitter"></a></li>
-            <li uk-tooltip="title:<? echo lang('home_banking'); ?>; pos: bottom"><a href="<?php echo(isset($links['link_home_banking'])) ? $links['link_home_banking'] : "#" ?>" target="_blank" uk-icon="icon: home"></a></li>
+            <li uk-tooltip="title:<? echo lang('sito_web'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_website']))? $links['link_website'] : '' ?>" target="_blank" uk-icon="icon: world"></a></li>
+            <li uk-tooltip="title:<? echo lang('web_mail'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_webmail'])) ? $links['link_webmail'] : '' ?>" target="_blank" uk-icon="icon: mail"></a></li>
+            <li uk-tooltip="title:<? echo lang('web_mail_pec'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_webmail_pec'])) ? $links['link_webmail_pec'] : '' ?>" target="_blank" uk-icon="icon: mail"></a></li>
+            <li uk-tooltip="title:<? echo lang('facebook'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_facebook'])) ? $links['link_facebook'] : '' ?>" target="_blank" uk-icon="icon: facebook"></a></li>
+            <li uk-tooltip="title:<? echo lang('instagram'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_instagram'])) ? $links['link_instagram'] : '' ?>" target="_blank" uk-icon="icon: instagram"></a></li>
+            <li uk-tooltip="title:<? echo lang('youtube'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_youtube'])) ? $links['link_youtube'] : '' ?>" target="_blank" uk-icon="icon: youtube"></a></li>
+            <li uk-tooltip="title:<? echo lang('twitter'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_twitter'])) ? $links['link_twitter'] : '' ?>" target="_blank" uk-icon="icon: twitter"></a></li>
+            <li uk-tooltip="title:<? echo lang('home_banking'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_home_banking'])) ? $links['link_home_banking'] : '' ?>" target="_blank" uk-icon="icon: home"></a></li>
             </ul>
         </div>
     </div>
@@ -260,7 +251,8 @@ Rimuove l'attributo target dai link vuoti
 Usata nei link rapidi del menu
  */
 $(document).ready(function() {
-    $("a[href='']").removeAttr('target');
+    $("a[href='']").removeAttr("target");
+    $("a[href='']").attr("href","<?php echo site_url('gestione/link_rapidi')?>");
 });
 </script>
 

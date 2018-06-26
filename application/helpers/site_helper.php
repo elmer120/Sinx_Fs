@@ -3,7 +3,7 @@
 //dato l'fk_comune ritorna l'oggetto: "cap comune provincia regione"
 if ( ! function_exists('get_all_location'))
 {
-    function get_all_location($fk_comune = NULL)
+   /* function get_all_location($fk_comune = NULL)
     {
              //get main CodeIgniter object
      $ci=& get_instance();
@@ -18,7 +18,7 @@ if ( ! function_exists('get_all_location'))
         ON province.id=comuni.fk_provincia
         WHERE  comuni.id='7131' */
 
-        if(isset($fk_comune))
+      /*  if(isset($fk_comune))
         {
         //con fk_comune recupero il cap, id e nome di comune provincia e regione 
         $ci->db->select('comuni.cap,comuni.id as c_id,comuni.name as c_name,province.id as p_id,province.name as p_name,regioni.id as r_id,regioni.name as r_name');
@@ -38,13 +38,13 @@ if ( ! function_exists('get_all_location'))
         }
         
             echo 'parametro id comune assente!';
-    }
+    }*/
 }
 
 //dato l'fk_comune ritorna l'array: con info dell'associazione
 if ( ! function_exists('info_association'))
 {
-    function info_association ($fk_comune = NULL)
+    /*function info_association ($fk_comune = NULL)
     {
      //get main CodeIgniter object
      $ci=& get_instance();
@@ -68,7 +68,7 @@ if ( ! function_exists('info_association'))
              return array_merge($info_association[0],$all_location[0]);
         }
         echo 'Nessun risultato da dati associazione!';
-    }
+    }*/
 }
 
 //ritorna i link rapidi ai siti attinenti all'associazione
