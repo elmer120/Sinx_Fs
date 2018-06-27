@@ -31,13 +31,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <label class="uk-form-label">Nome</label>
     <div class="uk-form-controls uk-margin">
-      <input class="uk-input uk-form-width-medium" type="text" name="name" placeholder="Nome associazione" value="<?echo $_SESSION['association']['name'];?>" required>
+      <input class="uk-input uk-form-width-medium" type="text" name="name" placeholder="Nome associazione" pattern="[A-Za-z\s]+" value="<?echo $_SESSION['association']['name'];?>" required>
       <?php echo form_error('name'); ?>
     </div>
 
 <label class="uk-form-label">Regione</label>
     <div class="uk-form-controls">
-      <select class="uk-select uk-form-width-medium" id="select_regioni" required>
+      <select class="uk-select uk-form-width-medium" id="select_regioni">
+        <option value="<?php echo $_SESSION['association']['r_id'];?>" selected><?php echo $_SESSION['association']['r_name'];?></option>
       </select>
     </div>
 
@@ -81,13 +82,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <label class="uk-form-label">Indirizzo e-mail</label>
     <div class="uk-form-controls">
-      <input class="uk-input uk-form-width-medium" type="text" name="email" placeholder="info@mail.it" value="<?echo $_SESSION['association']['email'];?>">
+      <input class="uk-input uk-form-width-medium" type="email" name="email" placeholder="info@mail.it" value="<?echo $_SESSION['association']['email'];?>">
       <?php echo form_error('email'); ?>
     </div>
   
 <label class="uk-form-label">Indirizzo e-mail(PEC)</label>
     <div class="uk-form-controls">
-      <input class="uk-input uk-form-width-medium" type="text" name="pec" placeholder="info@mailPec.it" value="<?echo $_SESSION['association']['pec'];?>">
+      <input class="uk-input uk-form-width-medium" type="email" name="pec" placeholder="info@mailPec.it" value="<?echo $_SESSION['association']['pec'];?>">
       <?php echo form_error('pec'); ?>
     </div>
   

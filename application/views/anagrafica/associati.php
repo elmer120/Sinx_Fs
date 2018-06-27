@@ -31,13 +31,13 @@ tb associati id	n_card	create_date	privacy	active	note	fk_tipo_associato	fk_cari
 
       <label class="uk-form-label">Nome</label>
     <div class="uk-form-controls">
-      <input class="uk-input uk-form-width-medium" type="text" name="name" placeholder="Mario" required>
+      <input class="uk-input uk-form-width-medium" type="text" name="name" placeholder="Mario" pattern="[A-Za-z]+" required>
       <?php echo form_error('name'); ?>
     </div>
   
       <label class="uk-form-label">Cognome</label>
     <div class="uk-form-controls">
-        <input class="uk-input uk-form-width-medium" class="uk-input" type="text" name="Rossi" placeholder="Last Name">
+        <input class="uk-input uk-form-width-medium" class="uk-input" type="text" name="Rossi" pattern="[A-Za-z]+" placeholder="Last Name">
         <?php echo form_error('surname'); ?>
     </div>
   
@@ -49,7 +49,7 @@ tb associati id	n_card	create_date	privacy	active	note	fk_tipo_associato	fk_cari
 
       <label class="uk-form-label">Codice fiscale</label>
     <div class="uk-form-controls">
-      <input class="uk-input uk-form-width-medium" type="text" name="fiscal_code" placeholder="RSSMRA75L01H501A">
+      <input class="uk-input uk-form-width-medium" type="text" name="fiscal_code" pattern="[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]" placeholder="RSSMRA75L01H501A">
       <?php echo form_error('fiscal_code'); ?>
     </div>
   
@@ -91,7 +91,7 @@ tb associati id	n_card	create_date	privacy	active	note	fk_tipo_associato	fk_cari
   
       <label class="uk-form-label">Indirizzo e-mail</label>
     <div class="uk-form-controls">
-      <input class="uk-input uk-form-width-medium" type="text" name="email" placeholder="mario.rossi@gmail.com">
+      <input class="uk-input uk-form-width-medium" type="email" name="email" placeholder="mario.rossi@gmail.com">
       <?php echo form_error('email'); ?>
     </div>
   

@@ -78,8 +78,8 @@ class Associazione extends MY_Controller {
         $this->form_validation->set_rules('phone', 'Telefono', 'trim');
         $this->form_validation->set_rules('fax', 'Fax', 'trim');
 		$this->form_validation->set_rules('fiscal_code', 'Codice fiscale', 'trim');
-		$this->form_validation->set_rules('email', 'Indirizzo E-mail', 'trim');
-        $this->form_validation->set_rules('pec', 'Indirizzo e-mail (pec)', 'trim');
+		$this->form_validation->set_rules('email', 'Indirizzo E-mail', 'trim|valid_email');
+        $this->form_validation->set_rules('pec', 'Indirizzo e-mail (pec)', 'trim|valid_email');
 		$this->form_validation->set_rules('iban', 'Codice iban', 'trim');
 		$this->form_validation->set_rules('bic', 'codice bic', 'trim');
 		$this->form_validation->set_rules('iscrizione_odv_aps', 'iscrizione_odv_aps', 'trim');

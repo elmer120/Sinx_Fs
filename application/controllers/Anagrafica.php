@@ -27,6 +27,7 @@ class Anagrafica extends MY_Controller {
 			
 			//carico le librerie
 			$this->load->library('result_handling');
+			$this->load->library('pagination');
 
 			//carico i model
 			$this->load->model('Tipi_ajax_model');
@@ -135,12 +136,12 @@ class Anagrafica extends MY_Controller {
 		//persona
         $this->form_validation->set_rules('name', 'Nome', 'trim|required');
         $this->form_validation->set_rules('surname', 'surname', 'trim');
-        $this->form_validation->set_rules('fiscal_code', 'fiscal_code', 'trim');
+        $this->form_validation->set_rules('fiscal_code', 'codice fiscale', 'trim|valid_fiscal_code');
         $this->form_validation->set_rules('address', 'address', 'trim');
 		$this->form_validation->set_rules('phone', 'phone', 'trim');
 		$this->form_validation->set_rules('phone_ext', 'phone_ext', 'trim');
         $this->form_validation->set_rules('datebirth', 'datebirth', 'trim');
-        $this->form_validation->set_rules('email', 'email', 'trim');
+        $this->form_validation->set_rules('email', 'email', 'trim|valid_email');
         $this->form_validation->set_rules('avatar', 'avatar', 'trim');
 		//collaboratore
 		$this->form_validation->set_rules('mansione', 'mansione', 'trim|required');
@@ -148,6 +149,7 @@ class Anagrafica extends MY_Controller {
 
         //errore personalizzato per la regola required
 		$this->form_validation->set_message('required','{field} is required!');
+		$this->form_validation->set_message('valid_fiscal_code','{field} formato codice fiscale errato!');
 		//errore tag delimitatore
 		$this->form_validation->set_error_delimiters('<div class="uk-alert-danger" uk-alert>', '</div>');
 		            
@@ -223,8 +225,8 @@ class Anagrafica extends MY_Controller {
 			}
 			else
 			{
-				echo validation_errors('<div class="uk-alert-danger" uk-alert>', '</div>');
-				$this->index();
+				$this->session->set_flashdata('result',(new result_handling(validation_errors(),2))->build_html());
+				redirect($_SERVER['HTTP_REFERER']."#result");
 			}
 
 		return;
@@ -253,12 +255,12 @@ class Anagrafica extends MY_Controller {
 		//persona
         $this->form_validation->set_rules('name', 'Nome', 'trim|required');
         $this->form_validation->set_rules('surname', 'surname', 'trim');
-        $this->form_validation->set_rules('fiscal_code', 'fiscal_code', 'trim');
+        $this->form_validation->set_rules('fiscal_code', 'codice fiscale', 'trim|valid_fiscal_code');
         $this->form_validation->set_rules('address', 'address', 'trim');
 		$this->form_validation->set_rules('phone', 'phone', 'trim');
 		$this->form_validation->set_rules('phone_ext', 'phone_ext', 'trim');
         $this->form_validation->set_rules('datebirth', 'datebirth', 'trim');
-        $this->form_validation->set_rules('email', 'email', 'trim');
+        $this->form_validation->set_rules('email', 'email', 'trim|valid_email');
         $this->form_validation->set_rules('avatar', 'avatar', 'trim');
 		//associato
 		$this->form_validation->set_rules('n_card', 'n_card', 'trim|required');
@@ -270,6 +272,7 @@ class Anagrafica extends MY_Controller {
 
         //errore personalizzato per la regola required
 		$this->form_validation->set_message('required','{field} is required!');
+		$this->form_validation->set_message('valid_fiscal_code','{field} formato codice fiscale errato!');
 		//errore tag delimitatore
 		$this->form_validation->set_error_delimiters('<div class="uk-alert-danger" uk-alert>', '</div>');
 		            
@@ -343,8 +346,8 @@ class Anagrafica extends MY_Controller {
 			}
 			else
 			{
-				echo validation_errors('<div class="uk-alert-danger" uk-alert>', '</div>');
-				$this->index();
+				$this->session->set_flashdata('result',(new result_handling(validation_errors(),2))->build_html());
+				redirect($_SERVER['HTTP_REFERER']."#result");
 			}
 
 		return;
