@@ -11,26 +11,25 @@
             </h3>
 
             <div class="uk-overflow-auto"> <!-- x responsivita tabella -->
-                <table class="uk-table uk-table-small uk-table-striped uk-table-hover uk-table-responsive">
-
+                <table class="uk-table uk-table-small uk-table-justify uk-table-divider uk-table-striped">
+<!-- uk-table-hover uk-table-responsive -->
                 <h3  class="uk-text-center"></h3>
             
                 <thead>
                     <tr>
-                            <th class="uk-table-shrink">Nome</th>
-                            <th class="uk-table-shrink">Cognome</th>
-                            <th class="uk-table-shrink">Tel</th>
-                            <th class="uk-table-shrink">Tel.Extra</th>
-                            <th class="uk-table-shrink">E-mail</th>
-                            <th class="uk-table-shrink">Indirizzo</th>
-                            <th class="uk-table-shrink">Comune</th>
-                            <th class="uk-table-shrink">Prov.</th>
-                            <th class="uk-table-shrink">Cod.Fiscale</th>
-                            <th class="uk-table-shrink">Data di nascita</th>
+                            <th class="uk-width-auto">Nome</th>
+                            <th class="uk-width-auto">Cognome</th>
+                            <th class="uk-width-auto">Tel</th>
+                            <th class="uk-width-auto">Tel.Extra</th>
+                            <th class="uk-width-auto">E-mail</th>
+                            <th class="uk-width-auto">Indirizzo</th>
+                            <th class="uk-width-auto">Comune</th>
+                            <th class="uk-width-auto">Prov.</th>
+                            <th class="uk-width-auto">Data di nascita</th>
 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="uk-text-small">
                     <?php foreach ($lista as $array):?>
                     <tr>
                             <?php foreach ($array as $item):?>
@@ -40,6 +39,7 @@
                     <?php endforeach;?>
                 </tbody>
                 </table>
+                <?php echo $links ?>
             </div> <!-- x responsivita tabella -->
 
         </div> <!-- fine container -->

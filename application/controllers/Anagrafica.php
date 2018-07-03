@@ -78,9 +78,41 @@ class Anagrafica extends MY_Controller {
 	}
 	public function rubrica()
 	{
+		
+        $config["base_url"] = base_url() . "index.php/anagrafica/rubrica/";
+        $config["total_rows"] = $this->Anagrafica_model->get_persons_count();
+        $config["per_page"] = 15;
+		$config["uri_segment"] = 3;
+
+		//configuro l'output html della paginazione "<< < 1 2 3 > >>"
+		$config["full_tag_open"] = "\n<ul class='uk-pagination uk-flex-center' uk-margin>\n";
+		$config['first_link'] = '<<';
+		$config["prev_tag_open"] = "<li>";
+		$config["prev_link"] = " <span uk-pagination-previous></span> ";
+		$config["prev_tag_close"] = "</li>";
+		$config["cur_tag_open"] = "<li class='uk-active'><span>";
+		$config["cur_tag_close"] = "</span></li>";
+		$config["num_tag_open"] = "<li>";
+		$config["num_tag_close"] = "</li>";
+		$config["next_tag_open"] = "<li>";
+		$config["next_link"] = "<span uk-pagination-next>";
+		$config["next_tag_close"] = "</li>";
+		$config['last_link'] = '>>';
+		$config["full_tag_close"] = "</ul>";
+
+		$this->pagination->initialize($config);
+
+		$start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		
 		//chiamo il model 
-        $data['lista'] = $this->Anagrafica_model->get_all_persons();
-		foreach($data['lista'] as $array)
+        $data['lista'] = $this->Anagrafica_model->get_all_persons($start,$config["per_page"]);
+		
+
+		$data['links'] = $this->pagination->create_links();
+
+
+		
+		/*foreach($data['lista'] as $array)
 		{
 			foreach ($array as $key => &$value)
 			{	
@@ -91,7 +123,7 @@ class Anagrafica extends MY_Controller {
 					
 				}
 			}
-		}
+		}*/
 		
 		
 		$this->load->view('template/head');

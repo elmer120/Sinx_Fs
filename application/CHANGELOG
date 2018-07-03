@@ -146,7 +146,8 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 -- aggiunti pattern html5 a dati associazione
 -- aggiunta validazione (estesa libreria built-in codeigniter) lato server codice fiscale a collaboratori e associati
 
-
+0.21.0-alpha
+-- aggiunta paginazione a rubrica
 
 Roadmap to 1.0.0:
 
@@ -154,7 +155,7 @@ Roadmap to 1.0.0:
 -- aggiungere eventi a calendario
 -- anagrafica minorenni
 -- archivio contabilità anni precedenti
--- form quando va in errore ricompilare il form con i dati inseriti precedentemente
+-- bug form quando va in errore ricompilare il form con i dati inseriti precedentemente
 -- bug form se vanno in errore non vengono ricompilari i campi
 -- bug user model più username uguali check password -- vedere anche tipo di criptaggio gdpr
 -- bug calendario e altre query apostrofi ed altri caratteri
@@ -162,7 +163,6 @@ Roadmap to 1.0.0:
 -- bug associati e collaboratori aggiungere luogo di nascita, data assunzione a socio
 -- calendario cambiare colore alla selezione in base a chi ha creato l'appuntamento, 
    se l'appuntamento non è stato creato dall'utente corrente non permettere la cancellazione
--- calendario multilingua
 -- richieste ajax usare standard json per i dati
 -- aggiungere breadcrumb
 -- aggiungere tooltip su elementi non descritti

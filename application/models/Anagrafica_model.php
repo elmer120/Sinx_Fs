@@ -109,16 +109,91 @@ class Anagrafica_model extends CI_Model {
     { return true;}
     return false;
     }
-    //ritorna tutte le persone inserite in anagrafica
-    public function get_all_persons()
+
+    //ritorna il numero di persone presenti in anagrafica
+    public function get_persons_count() {
+        return $this->db->count_all("persone");
+    }
+
+    
+
+    //ritorna le persone presenti in anagrafica limitate dalla paginazione
+    public function get_all_persons($start,$limit)
     {
-        $query = $this->db->query('SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.fiscal_code,persone.datebirth
+        $this->db->limit($limit,$start); 
+        $query = $this->db->select('persone.name,persone.surname,persone.phone,persone.phone_ext,
+        persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.datebirth')
+        ->from('persone')
+        ->join('comuni','persone.fk_comune = comuni.id')
+
+        ->join('province','comuni.fk_provincia=province.id')
+        
+        ->join('regioni','province.fk_regione = regioni.id')
+        
+        ->order_by('persone.name', 'ASC')
+        ->get();
+
+        
+       
+        //not active record
+        /*$query2 = $this->db->query('SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,
+        persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.fiscal_code,persone.datebirth
+        FROM persone,regioni,province,comuni
+        WHERE   persone.fk_comune = comuni.id
+        AND   comuni.fk_provincia=province.id
+        AND   province.fk_regione = regioni.id
+        ORDER BY persone.name ASC');*/
+        
+
+        return $query->result_array();
+    }
+
+
+    //ritona i club della provincia richiesti dalla paginazione 
+    public function Get_clubs($prov,$limit,$start)
+    {       
+        /*$query = $this->db->query('SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,
+        persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.fiscal_code,persone.datebirth
         FROM persone,regioni,province,comuni
         WHERE   persone.fk_comune = comuni.id
         AND   comuni.fk_provincia=province.id
         AND   province.fk_regione = regioni.id
         ORDER BY persone.name ASC');
         return $query->result_array();
+                  
+              //per ogni comune recupero tutti i club
+              $query = $this->db->select('persone.name,persone.surname,persone.phone,persone.phone_ext,
+              persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.fiscal_code,persone.datebirth')
+              ->from('persone,regioni,province,comuni')
+              ->join('persone','persone.fk_comune = comuni.id')
+              ->join('comuni','comuni.fk_provincia=province.id')
+              ->join('province','province.fk_regione = regioni.id')
+              ->order_by('persone.name', 'ASC')
+              ->get();
+              
+              
+              ->limit($limit, $start); //impostato limite per la paginazione
+              $query_club_prov=$this->db->get();
+              
+              //ciclo i club
+              foreach ($query_club_prov->result() as $rows) 
+              {      
+                array_push($clubs ['denominazione'], $rows->denominazione);
+                //array_push($clubs ['comune'], $nome_comuni[$index]);
+                array_push($clubs ['mail'] , $rows->mail);
+                array_push($clubs ['url_sito'] , $rows->url_sito);
+                array_push($clubs ['facebook'] , $rows->facebook);
+                array_push($clubs ['telefono'] , $rows->telefono);
+                array_push($clubs ['logo'] , $rows->logo);
+                array_push($clubs ['membri'] , $rows->membri);
+                
+                $index++;
+              }
+        
+        
+        return $clubs;*/
+        
+        
     }
 
 

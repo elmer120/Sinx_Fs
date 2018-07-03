@@ -32,12 +32,11 @@
                             <th class="uk-table-shrink">Indirizzo</th>
                             <th class="uk-table-shrink">Comune</th>
                             <th class="uk-table-shrink">Prov.</th>
-                            <th class="uk-table-shrink">Cod.Fiscale</th>
                             <th class="uk-table-shrink">Data di nascita</th>
 
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="uk-text-small">
                     <?php foreach ($lista as $array):?>
                     <tr>
                             <?php foreach ($array as $item):?>
