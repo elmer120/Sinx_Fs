@@ -67,8 +67,76 @@ class Anagrafica extends MY_Controller {
 	}
 	public function ricerca()
 	{
+		//se è richiesta un'altra sezione della paginazione recupero la pag di partenza
+		$start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		
+		
+		$reset = $this->input->get('reset');
+		
+		if($reset == NULL)
+		{
+			//recupero il testo ricercato
+			$research = $this->input->post('text_search');
+			//recupero il filtro opzionale
+			$pre_filter = $this->input->post('pre_filter');
+			
+			//se vuoto (esempio cambio pagina nella paginazione)
+			if (empty($research))
+			{
+				//controllo se c'è stata una ricerca nella richiesta precedente
+				if($this->session->has_userdata('text_search'))
+				{	
+					$research = $this->session->userdata('text_search');
+					$pre_filter = $this->session->userdata('pre_filter');
+				}
+				
+			}
+			else //setto la sessione
+			{
+				$this->session->set_userdata('text_search', $research);
+				$this->session->set_userdata('pre_filter', $pre_filter);	
+			}
+		}
+		else //se è stato chiesto di resettare a default la ricerca
+		{
+			$research = NULL;
+			$pre_filter = "";
+			$this->session->unset_userdata('text_search');
+			$this->session->unset_userdata('pre_filter');
+		}
+		
+		//configuro la  paginazione
+		$config["base_url"] = base_url() . "index.php/anagrafica/ricerca/";
+		$config["per_page"] = 20; //con 15 ho un link di pagina in più??!?
+		
+		//righe totali -- se c'è una ricerca o no
+		$config["total_rows"] =  $this->Anagrafica_model->get_persons_filter_count($research,$pre_filter);
+
+		$config["uri_segment"] = 3;
+
+		//configuro l'output html della paginazione "<< < 1 2 3 > >>"
+		$config["full_tag_open"] = "\n<ul class='uk-pagination uk-flex-center' uk-margin>\n";
+		$config['first_link'] = '<<';
+		$config["prev_tag_open"] = "<li>";
+		$config["prev_link"] = " <span uk-pagination-previous></span> ";
+		$config["prev_tag_close"] = "</li>";
+		$config["cur_tag_open"] = "<li class='uk-active'><span>";
+		$config["cur_tag_close"] = "</span></li>";
+		$config["num_tag_open"] = "<li>";
+		$config["num_tag_close"] = "</li>";
+		$config["next_tag_open"] = "<li>";
+		$config["next_link"] = "<span uk-pagination-next>";
+		$config["next_tag_close"] = "</li>";
+		$config['last_link'] = '>>';
+		$config["full_tag_close"] = "</ul>";
+
+		$this->pagination->initialize($config);
+
 		//chiamo il model 
-        $data['lista'] = $this->Anagrafica_model->get_all_persons();
+		$data['lista'] = $this->Anagrafica_model->get_persons_filter($start,$config["per_page"],$research,$pre_filter);
+		$data['pre_filter'] = $pre_filter;
+		$data['links'] = $this->pagination->create_links();
+
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
@@ -105,27 +173,9 @@ class Anagrafica extends MY_Controller {
 		$start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
 		
 		//chiamo il model 
-        $data['lista'] = $this->Anagrafica_model->get_all_persons($start,$config["per_page"]);
-		
-
+        $data['lista'] = $this->Anagrafica_model->get_persons_filter($start,$config["per_page"]);
 		$data['links'] = $this->pagination->create_links();
 
-
-		
-		/*foreach($data['lista'] as $array)
-		{
-			foreach ($array as $key => &$value)
-			{	
-				if ($key=='id')
-				{
-					
-					$array[$key]='<button class="uk-button uk-button-default" type="button">'.$value.'</button>';
-					
-				}
-			}
-		}*/
-		
-		
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
@@ -142,7 +192,6 @@ class Anagrafica extends MY_Controller {
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
-	
 	public function create_collaboratore()
 	{
 		//var_dump($_REQUEST);return;

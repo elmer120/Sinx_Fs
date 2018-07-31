@@ -20,7 +20,7 @@ class Stampa_model extends CI_Model {
             associati.n_card,
                         persone.name,
                         persone.surname,
-                        persone.datebirth,
+                        DATE_FORMAT(persone.datebirth, "%d/%m/%Y"),
                         persone.address,
                         comuni.cap as cap,
                         comuni.name as comune,

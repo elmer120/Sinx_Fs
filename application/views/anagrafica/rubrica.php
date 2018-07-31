@@ -11,8 +11,8 @@
             </h3>
 
             <div class="uk-overflow-auto"> <!-- x responsivita tabella -->
-                <table class="uk-table uk-table-small uk-table-justify uk-table-divider uk-table-striped">
-<!-- uk-table-hover uk-table-responsive -->
+                <table class="uk-table uk-table-small uk-table-justify uk-table-divider uk-table-striped uk-table-responsive">
+                
                 <h3  class="uk-text-center"></h3>
             
                 <thead>

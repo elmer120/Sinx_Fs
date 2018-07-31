@@ -89,7 +89,7 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 -- work in progress su rubrica
 
 0.11.0-alpha
---  aggiunta rubrica con info essenziali e tabella responsiva
+-- aggiunta rubrica con info essenziali e tabella responsiva
 -- libro soci aggiunta carica direttivo mancante 
 
 0.12.0-alpha
@@ -149,8 +149,14 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 0.21.0-alpha
 -- aggiunta paginazione a rubrica
 
-Roadmap to 1.0.0:
+0.22.0-alpha
+-- ricerca in rubrica
+-- rubrica,ricerca e libro soci data di nascita in formato italiano
+-- numeri riga su rubrica ricerca
 
+Roadmap to 1.0.0:
+-- paginazione usare slidenav di uikit
+-- bug link rapidi javascript
 -- libro soci altri campi necessari (controllare se ci sono molte righe come viene la stampa)
 -- aggiungere eventi a calendario
 -- anagrafica minorenni

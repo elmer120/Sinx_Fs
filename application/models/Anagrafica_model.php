@@ -110,31 +110,122 @@ class Anagrafica_model extends CI_Model {
     return false;
     }
 
-    //ritorna il numero di persone presenti in anagrafica
-    public function get_persons_count() {
+    //ritorna il numero totale di persone presenti in anagrafica
+    public function get_persons_count($pre_filter = NULL) {
         return $this->db->count_all("persone");
     }
 
-    
 
-    //ritorna le persone presenti in anagrafica limitate dalla paginazione
-    public function get_all_persons($start,$limit)
-    {
-        $this->db->limit($limit,$start); 
+    //se ricerca è null e pre_filter è null
+		//ritorna totale // return $this->db->count_all("persone");
+		//se ricerca è null e pre_filter è valorizzato
+		//ritorno totale pre_filter ok 
+		//se ricerca è valorizzato e pre_filter è valorizzato
+		//ritorno totale pre_filter e filter (ricercato)
+
+    //ritorna il numero totale filtrato di persone presenti in anagrafica
+    public function get_persons_filter_count($research = NULL,$pre_filter = NULL) {
+        //se ricerca è null e pre_filter è null
+        if(empty($research) && empty($pre_filter))
+        {
+            //ritorna totale non ricercato/filtrato
+            return $this->db->count_all("persone");
+        }
+        //se ricerca è null e pre_filter è valorizzato
+        //oppure
+        //se ricerca è valorizzato e pre_filter è valorizzato
+        switch ($pre_filter)
+        {
+                //tutti
+                case NULL:
+                $pre_filter = "persone.fk_comune = comuni.id";
+                break;
+                
+                //solo associati
+                case 1:
+                $pre_filter = "persone.fk_comune = comuni.id AND persone.fk_associato != 0";
+                break;
+                
+                //solo collaboratori
+                case 2:
+                $pre_filter = "persone.fk_comune = comuni.id AND persone.fk_collaboratore != 0";
+                break;
+        }
+        
         $query = $this->db->select('persone.name,persone.surname,persone.phone,persone.phone_ext,
         persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.datebirth')
         ->from('persone')
-        ->join('comuni','persone.fk_comune = comuni.id')
+        ->join('comuni',$pre_filter)
 
         ->join('province','comuni.fk_provincia=province.id')
         
         ->join('regioni','province.fk_regione = regioni.id')
         
+        ->like('persone.name',$research)
+        ->or_like('persone.surname', $research)
+        ->or_like('persone.email', $research)
+        ->or_like('persone.datebirth', $research)
+        ->or_like('comuni.name', $research)
+        ->or_like('province.name', $research)
+        ->order_by('persone.name', 'ASC');
+
+        return $this->db->count_all_results();
+    }
+
+    //ritorna le persone presenti in anagrafica limitate dalla paginazione
+    public function get_persons_filter($start,$limit,$research = NULL, $pre_filter = NULL)
+    {
+        //imposto limite per paginazione
+        $this->db->limit($limit,$start);
+        //se ricerca è null e pre_filter è valorizzato
+        //oppure
+        //se ricerca è valorizzato e pre_filter è valorizzato
+        switch ($pre_filter)
+        {
+                //tutti
+                case NULL:
+                $pre_filter = "persone.fk_comune = comuni.id";
+                break;
+                
+                //solo associati
+                case 1:
+                $pre_filter = "persone.fk_comune = comuni.id AND persone.fk_associato != 0";
+                break;
+                
+                //solo collaboratori
+                case 2:
+                $pre_filter = "persone.fk_comune = comuni.id AND persone.fk_collaboratore != 0";
+                break;
+        }
+        $query = $this->db->select('persone.name,persone.surname,persone.phone,persone.phone_ext,
+        persone.email,persone.address,comuni.name as comune,province.name as provincia,DATE_FORMAT(persone.datebirth, "%d/%m/%Y")')
+        ->from('persone')
+        ->join('comuni',$pre_filter)
+
+        ->join('province','comuni.fk_provincia=province.id')
+        
+        ->join('regioni','province.fk_regione = regioni.id')
+       
+
+        ->like('persone.name',$research)
+        ->or_like('persone.surname', $research)
+        ->or_like('persone.email', $research)
+        ->or_like('persone.datebirth', $research)
+        ->or_like('comuni.name', $research)
+        ->or_like('province.name', $research)
         ->order_by('persone.name', 'ASC')
         ->get();
+/*
+SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,
+        persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.fiscal_code,persone.datebirth
+        FROM persone,regioni,province,comuni
+        WHERE   persone.fk_comune = comuni.id
+        AND   comuni.fk_provincia=province.id
+        AND   province.fk_regione = regioni.id
+        AND   persone.fk_collaboratore!=0
+        ORDER BY persone.name ASC
 
-        
-       
+*/
         //not active record
         /*$query2 = $this->db->query('SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,
         persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.fiscal_code,persone.datebirth
@@ -143,58 +234,32 @@ class Anagrafica_model extends CI_Model {
         AND   comuni.fk_provincia=province.id
         AND   province.fk_regione = regioni.id
         ORDER BY persone.name ASC');*/
-        
-
-        return $query->result_array();
-    }
 
 
-    //ritona i club della provincia richiesti dalla paginazione 
-    public function Get_clubs($prov,$limit,$start)
-    {       
-        /*$query = $this->db->query('SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,
+        //solo collaboratori
+        /*SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,
         persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.fiscal_code,persone.datebirth
         FROM persone,regioni,province,comuni
         WHERE   persone.fk_comune = comuni.id
         AND   comuni.fk_provincia=province.id
         AND   province.fk_regione = regioni.id
-        ORDER BY persone.name ASC');
-        return $query->result_array();
-                  
-              //per ogni comune recupero tutti i club
-              $query = $this->db->select('persone.name,persone.surname,persone.phone,persone.phone_ext,
-              persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.fiscal_code,persone.datebirth')
-              ->from('persone,regioni,province,comuni')
-              ->join('persone','persone.fk_comune = comuni.id')
-              ->join('comuni','comuni.fk_provincia=province.id')
-              ->join('province','province.fk_regione = regioni.id')
-              ->order_by('persone.name', 'ASC')
-              ->get();
-              
-              
-              ->limit($limit, $start); //impostato limite per la paginazione
-              $query_club_prov=$this->db->get();
-              
-              //ciclo i club
-              foreach ($query_club_prov->result() as $rows) 
-              {      
-                array_push($clubs ['denominazione'], $rows->denominazione);
-                //array_push($clubs ['comune'], $nome_comuni[$index]);
-                array_push($clubs ['mail'] , $rows->mail);
-                array_push($clubs ['url_sito'] , $rows->url_sito);
-                array_push($clubs ['facebook'] , $rows->facebook);
-                array_push($clubs ['telefono'] , $rows->telefono);
-                array_push($clubs ['logo'] , $rows->logo);
-                array_push($clubs ['membri'] , $rows->membri);
-                
-                $index++;
-              }
-        
-        
-        return $clubs;*/
-        
-        
-    }
+        AND   persone.fk_collaboratore != 0
+        ORDER BY persone.name ASC*/
 
+        //solo associati
+        /*
+        SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,
+        persone.email,persone.address,comuni.name as comune,province.name as provincia,persone.fiscal_code,persone.datebirth
+        FROM persone,regioni,province,comuni
+        WHERE   persone.fk_comune = comuni.id
+        AND   comuni.fk_provincia=province.id
+        AND   province.fk_regione = regioni.id
+        AND   persone.fk_associato != 0 
+        ORDER BY persone.name ASC
+        */
+
+
+        return $query->result_array();
+    }
 
 }

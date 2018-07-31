@@ -141,7 +141,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <li><a class="item" href='<? echo site_url("anagrafica/associati")?>'>Axxx -<?php echo lang('associati'); ?></a></li>
                         <li><a class="item" href='<? echo site_url("anagrafica/collaboratori")?>'>Axxx -<?php echo lang('altri'); ?></a></li>
                         <li><a class="item" href='<? echo site_url("anagrafica/csv")?>'>Axxx -<?php echo lang('importa_csv'); ?></a></li>
-                        <li><a class="item" href='<? echo site_url("anagrafica/ricerca")?>'>Aox- -<?php echo lang('cerca'); ?></a></li>
+                        <li><a class="item" href='<? echo site_url("anagrafica/ricerca?reset=1")?>'>Aox- -<?php echo lang('cerca'); ?></a></li>
                         <li><a class="item" href='<? echo site_url("anagrafica/rubrica")?>'>Aola -<?php echo lang('rubrica'); ?></a></li>
                         <li><a class="item" href='<? echo site_url("anagrafica/libro_soci")?>'>Aola -<?php echo lang('libro_soci'); ?></a></li>     
                     </ul>
@@ -246,14 +246,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         </div>
     </div>
 <script>
-/**
-Rimuove l'attributo target dai link vuoti
-Usata nei link rapidi del menu
- */
-$(document).ready(function() {
-    $("a[href='']").removeAttr("target");
-    $("a[href='']").attr("href","<?php echo site_url('gestione/link_rapidi')?>");
-});
+
+//Rimuove l'attributo target dai link vuoti
+//Usata nei link rapidi del menu
+ 
+//$(document).ready(function() {
+ //   $("a[href='']").removeAttr("target");
+ //   $("a[href='']").attr("href","<?php //echo site_url('gestione/link_rapidi')?>");
+//});
 </script>
 
 
