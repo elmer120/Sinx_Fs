@@ -1,6 +1,7 @@
 # Sinx_Fs - alpha
 Sinx From Scratch
 licenze summary -- https://tldrlegal.com/
+servizio x documentazione -- https://legacy.gitbook.com/pricing
 # Attenzione README INCOMPLETO!!!
 
 ```
