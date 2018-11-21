@@ -1,15 +1,10 @@
 # Sinx_Fs - alpha
-Sinx From Scratch
-licenze summary -- https://tldrlegal.com/
-servizio x documentazione -- https://legacy.gitbook.com/pricing
-# Attenzione README INCOMPLETO!!!
+Sinx From Scratch -- Gestionale per Associazioni senza scopo di lucro 
 
 ```
 	Gestionale per Associazioni senza scopo di lucro
 	SITO MANCANTE
 ```
-
-
 ## Iniziare
 
 LINK FORUM
@@ -17,7 +12,6 @@ LINK MANUALE
 LINK SITO
 
 ### Requisiti
-
 ```
 	Xampp V.3.2.2
 		- Apache/2.4.29
@@ -26,35 +20,13 @@ LINK SITO
 			- php.ini riga n° 455 = error_reporting=E_ALL  & ~E_NOTICE
 			- php.ini riga n° 192 = short_open_tag=On
 ```
-
 ### Installazione
 
 LINK MANUALE
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-
 ### Test
 
 Testato su Chrome V..... 
-
-```
-Give an example
-```
 
 ## Distribuzione
 
@@ -94,6 +66,8 @@ Nessuna garanzia. Nessun supporto. Versione alpha.
 
 ## Conoscenze utili
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+...
+
+Appunti personali:
+licenze summary -- https://tldrlegal.com/ <br>
+servizio x documentazione -- https://legacy.gitbook.com/pricing
