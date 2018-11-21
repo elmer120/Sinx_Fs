@@ -1,5 +1,7 @@
 # Sinx_Fs - alpha
 Sinx From Scratch -- Gestionale per Associazioni senza scopo di lucro 
+Questo è un fork in versione alpha del gestionale Six: 
+<a href="http://www.sinx.it/">Sinx</a>
 
 ```
 	Gestionale per Associazioni senza scopo di lucro
