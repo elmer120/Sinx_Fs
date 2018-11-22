@@ -1,15 +1,15 @@
 # Sinx_Fs - alpha
-Sinx From Scratch -- Gestionale per Associazioni senza scopo di lucro 
+Sinx From Scratch -- Gestionale per Associazioni senza scopo di lucro. </br> 
 Questo è un fork in versione alpha del gestionale Sinx: 
 <a href="http://www.sinx.it/">www.sinx.it</a>
 
 ```
 	Gestionale per Associazioni senza scopo di lucro
 	SITO MANCANTE
-Screenshot in anteprima:
-[![uikit banner](https://cloud.githubusercontent.com/assets/321047/21769911/474d7d9e-d681-11e6-9fe0-d95f8ccfd3a9.jpg)]
-[![Screenshot](https://github.com/elmer120/Sinx_Fs/blob/master/SinxFs_screenshots/SinxFs_login.PNG)]
 ```
+Screenshot in anteprima:
+[![uikit banner](https://github.com/elmer120/Sinx_Fs/blob/master/SinxFs_screenshots/SinxFs_login.PNG)](http://sinxfs.it/)
+
 ## Iniziare
 
 LINK FORUM
