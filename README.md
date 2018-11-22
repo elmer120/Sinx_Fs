@@ -6,6 +6,9 @@ Questo è un fork in versione alpha del gestionale Six:
 ```
 	Gestionale per Associazioni senza scopo di lucro
 	SITO MANCANTE
+Screenshot in anteprima
+
+
 ```
 ## Iniziare
 
