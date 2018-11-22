@@ -8,7 +8,7 @@ Questo è un fork in versione alpha del gestionale Sinx:
 	SITO MANCANTE
 Screenshot in anteprima:
 <img src=https://github.com/elmer120/Sinx_Fs/blob/master/SinxFs_screenshots/SinxFs_login.PNG/>
-      
+      ![Screenshot](SinxFs_screenshots/SinxFs_login.PNG)
 
 ```
 ## Iniziare
