@@ -6,8 +6,9 @@ Sinx From Scratch -- Gestionale per Associazioni senza scopo di lucro.
 Questo è un fork attualmente in sviluppo del software gestionale Sinx: 
 <a href="http://www.sinx.it/">www.sinx.it</a>
 
-Screenshot:
-[![uikit banner](https://github.com/elmer120/Sinx_Fs/blob/master/SinxFs_screenshots/SinxFs_login.PNG)](http://sinxfs.it/)
+Screenshots:
+[![login](https://github.com/elmer120/Sinx_Fs/blob/master/SinxFs_screenshots/SinxFs_login.PNG)](http://sinxfs.it/)
+[![inserimento](https://github.com/elmer120/Sinx_Fs/blob/master/SinxFs_screenshots/SinxFs_collaboratori.PNG)](http://sinxfs.it/)
 
 ## Iniziare
 
