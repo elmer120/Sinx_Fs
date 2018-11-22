@@ -27,7 +27,7 @@ LINK SITO
 ```
 ### Installazione
 
-LINK MANUALE
+In sviluppo
 
 ### Test
 
