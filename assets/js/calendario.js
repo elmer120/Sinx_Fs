@@ -59,7 +59,7 @@
 				$.ajax({
                 type: 'POST',
 				async: false,
-                url: "remove_event",
+                url: controller_url+"remove_event",
 				data: {"title" : events[id][index].name, "date" : id_us },
 				//processData: false,
                 //contentType: false,
@@ -67,7 +67,7 @@
 				    alert(data);
                 },
                 error: function(data) { 
-                    alert(data);
+                    alert("calendario.js: errore chiamata ajax!"+data);
                 }
            		});
 			    // Rimuovo l'appuntamento da js
@@ -151,7 +151,7 @@
             function save_event(title,date,all_users){
                 $.ajax({
                 type: 'POST',
-                url: "save_event",
+                url: controller_url+"save_event",
                 data: {"title" : title, "date" : date, "all_users" : all_users},
                 //processData: false,
                 //contentType: false,
@@ -159,7 +159,7 @@
 					alert(data);
                 },
                 error: function(data) { 
-                     alert(data);
+					alert("calendario.js: errore chiamata ajax!"+data);
                 }
            });
             }
@@ -169,7 +169,7 @@
                 $.ajax({
                 type: 'POST',
 				async: false,
-                url: "get_events",
+                url: controller_url+"get_events",
 				//processData: false,
                 //contentType: false,
                 success: function(data){
@@ -226,7 +226,7 @@
 				
                 },
                 error: function(data) { 
-                     alert(data);
+					alert("calendario.js: errore chiamata ajax!"+data);
                 }
            });
             }

@@ -1,49 +1,47 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');?>
-<? //var_dump($lista); ?>
-
+<?php defined('BASEPATH') OR exit('No direct script access allowed'); 
+/*echo '<pre>'; 
+var_dump($lista);
+echo '</pre>';*/
+?>
 <div class="uk-width-expand@m">   <!-- inizio colonna (prende il posto che rimane della "riga")  -->
-
+<?php echo_breadcrumbs($breadcrumbs)?>
     <div class="uk-section"> <!-- sezione -->
-        <div class="uk-container"> <!-- container (padding) -->
-
+		<div class="uk-container uk-container-expand uk-padding-remove"> <!-- container (padding) -->
             <h3 class="uk-text-center uk-heading-line"> <!-- titolo pagina -->
-                <span>Rubrica</span>
-            </h3>
+                <span>Rubrica soci</span>
+			</h3>
+			
+			<div id="table"></div>
 
-            <div class="uk-overflow-auto"> <!-- x responsivita tabella -->
-                <table class="uk-table uk-table-small uk-table-justify uk-table-divider uk-table-striped uk-table-responsive">
-                
-                <h3  class="uk-text-center"></h3>
-            
-                <thead>
-                    <tr>
-                            <th class="uk-width-auto">Nome</th>
-                            <th class="uk-width-auto">Cognome</th>
-                            <th class="uk-width-auto">Tel</th>
-                            <th class="uk-width-auto">Tel.Extra</th>
-                            <th class="uk-width-auto">E-mail</th>
-                            <th class="uk-width-auto">Indirizzo</th>
-                            <th class="uk-width-auto">Comune</th>
-                            <th class="uk-width-auto">Prov.</th>
-                            <th class="uk-width-auto">Data di nascita</th>
+<script>
+//definisco la tabella
+var table = new Tabulator("#table", {
+	layout:"fitDataFill", //colonne si restringono attorno ai dati, il restante spazio è vuoto ma sempre una "tabella"
+	responsiveLayout:"collapse", //le colonne si impilano quando non c'è abb spazio
+	placeholder:"No Data Available", //quando non ci sono dati
+	tooltips:true,
+ 	columns:[ //definisco le colonne
+		//title = titolo , field = chiave array
+		{ title:"id", field:"id", visible: false},
+		{ title:"Tessera n°", field:"tessera_numero"},
+		{ title:"Scadenza", field:"tessera_scadenza"},
+	 	{ title:"Nome", field:"nome"},
+		{ title:"Cognome", field:"cognome"},
+		{ title:"Indirizzo", field:"indirizzo"},
+		{ title:"Comune", field: "comune"},
+		{ title:"Provincia", field:"provincia"},
+	 	{ title:"Telefono", field:"telefono"},
+		{ title:"Telefono", field:"telefono_ext"},
+		{ title:"Email", field:"email"},
+		{ title:"Data Nascita", field:"data_nascita"},
+	 ],
+});
 
-                    </tr>
-                </thead>
-                <tbody class="uk-text-small">
-                    <?php foreach ($lista as $array):?>
-                    <tr>
-                            <?php foreach ($array as $item):?>
-                                <td><?php echo $item;?></td>
-                            <?php endforeach;?>    
-                    </tr>
-                    <?php endforeach;?>
-                </tbody>
-                </table>
-                <?php echo $links ?>
-            </div> <!-- x responsivita tabella -->
+//carico i dati
+table.setData(<? echo(json_encode($lista));?>);
+</script>
 
-        </div> <!-- fine container -->
-
+		</div>
     </div> <!-- fine sezione -->
 
 </div> <!--fine colonna -->

@@ -32,8 +32,6 @@ public function __construct(){
    
 
 }
-
-
 public function check()
 {
       if(!is_ajax())
@@ -41,6 +39,108 @@ public function check()
       
 }
 
+//form eseguito con successo
+public function form_success()
+{
+	$this->load->view('template/head');
+	$data['previous_page'] = $_SERVER['HTTP_REFERER'];
+	if(isset($data['previous_page']))
+	{
+		$this->load->view('template/form_success',$data);
+	}else{ die("Parametro previous_page nella funzione form_success non impostato");}	
+}
+
+//errore in un form
+public function form_error($error)
+{
+	if(isset($error))
+	{
+        $this->load->view('template/head');
+		$data['error'] = $error;
+		$data['previous_page'] = $_SERVER['HTTP_REFERER'];
+		$this->load->view('template/form_error',$data);
+	}else{ die("Parametro error nella funzione form_error non impostato");}	
+}
+//----------------------------------------------------------------------- AJAX ---------------------------------------------------------------
+//---- Luoghi ----
+ //richiamata da ajax ritorna tag option della select
+ function get_regioni()
+ {
+	 $regioni=$this->Luoghi_ajax_model->get_regioni();
+	 //echo'<pre>'.var_export($responsabili,true).'<pre>'; //x debug
+     echo '<option value="">Scegli la regione</option>'; //placeholder
+     for ($i=0; $i<count($regioni); $i++)
+     {
+         echo '<option value='.$regioni[$i]['id'].'>'.$regioni[$i]['nome'].'</option>';
+     }
+ }
+ 
+ //richiamata da ajax dato l'id ritorna le province della regione 
+ function get_province()
+ {
+	 $id=$this->input->post('region_select');
+	 //echo'<pre>'.var_export($responsabili,true).'<pre>'; //x debug
+	 $province=$this->Luoghi_ajax_model->get_province($id);
+     echo '<option value="" disabled selected>Scegli la provincia</option>'; //placeholder
+     for ($i=0; $i<count($province); $i++)
+     {
+         echo '<option value='.$province[$i]['id'].'>'.$province[$i]['nome'].'</option>';
+     }
+ }
+
+//richiamata da ajax dato l'id ritorna i comuni della provincia
+ 
+function get_comuni()
+ {
+	 $id=$this->input->post('provincia_select');
+	 //echo'<pre>'.var_export($responsabili,true).'<pre>'; //x debug
+     $comuni=$this->Luoghi_ajax_model->get_comuni($id);
+     echo '<option value="" disabled selected>Scegli il comune</option>';//placeholder
+     for ($i=0; $i<count($comuni); $i++)
+     {
+         echo '<option value='.$comuni[$i]['id'].'>'.$comuni[$i]['nome'].'</option>';
+     }
+ }
+
+//---- Tipi ----
+
+//richiamata da ajax ritorna tag option della select
+function get_tipi_associato()
+{
+	$tipi=$this->Tipi_ajax_model->get_tipi_associato();
+	//echo'<pre>'.var_export($responsabili,true).'<pre>'; //x debug
+    echo '<option value="">Tipo associato</option>'; //placeholder
+    for ($i=0; $i<count($tipi); $i++)
+    {
+        echo '<option value='.$tipi[$i]['id'].'>'.$tipi[$i]['nome'].'</option>';
+    }
+}
+//richiamata da ajax ritorna tag option della select
+function get_cariche_direttivo()
+{
+	$cariche=$this->Tipi_ajax_model->get_cariche_direttivo();
+	//echo'<pre>'.var_export($responsabili,true).'<pre>'; //x debug
+    echo '<option value="">Carica direttivo</option>'; //placeholder
+    for ($i=0; $i<count($cariche); $i++)
+    {		
+    echo '<option value='.$cariche[$i]['id'].'>'.$cariche[$i]['nome'].'</option>';
+    }
+}
+
+//richiamata da ajax ritorna tag option della select
+function get_responsabili()
+{
+	$responsabili = $this->Anagrafica_model->get_responsabili();
+	//echo'<pre>'.var_export($responsabili,true).'<pre>'; //x debug
+    echo '<option value="">Responsabile</option>'; //placeholder
+    for ($i=0; $i<count($responsabili); $i++)
+    {		
+    echo '<option value='.$responsabili[$i]['id'].'>'.$responsabili[$i]['nome'].' '.$responsabili[$i]['cognome'].'</option>';
+	}
+}
+
+
+//---- Calendario ----
 //funzione globale richiamata da ajax salva i nuovi eventi del calendario
   public function save_event()
   {
@@ -84,7 +184,7 @@ public function check()
          echo json_encode($query->result());
     }
 
-     //funzione globale richiamata da ajax rimouve un appuntamento dal db - calendario
+    //funzione globale richiamata da ajax rimuove un appuntamento dal db - calendario
   public function remove_event()
   {
      //load databse library

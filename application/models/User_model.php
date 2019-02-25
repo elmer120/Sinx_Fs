@@ -21,30 +21,31 @@ class User_model extends CI_Model {
     }
     
     //crea utente
-    public function create_user($username,$password,$name,$image=NULL,$email=NULL,$level)
+    public function create_user($name,$password,$image=NULL,$email=NULL,$level)
     {
         $data = array(
-            'username' => $username,
+            'nome' => $name,
             'password' => password_hash($password, PASSWORD_DEFAULT), //algoritmo bcrypt
-            'name' => $name,
-            'image' => $image,
-            'email' => $email,
-            'level' => $level,
-            'create_date' => date("Y-m-d H:i:s"),
-            'last_access' => NULL,
+			'immagine' => $image,
+			'email' => $email,
+			'livello' => $level,
+			'creato_al' => date("Y-m-d H:i:s"),
+			'aggiornato_al' => date("Y-m-d H:i:s"),			
+			'remember_token' => 'test',
+			'fk_associazioni' => 1,
+			'ultimo_accesso' => date("Y-m-d H:i:s")
     );
-    
     $this->db->insert('utenti', $data);
     
     }
     
     //Controlla le credenziali dell'utente
-    public function validate_user($username,$password)
+    public function validate_user($name,$password)
     {
         //seleziono l'utente
-        $this->db->select('username,password');
+        $this->db->select('nome,password');
         $this->db->from('utenti');
-        $this->db->where('username',$username);
+        $this->db->where('nome',$name);
         $query = $this->db->get();
         $result_obj = $query->row();
         
@@ -57,11 +58,11 @@ class User_model extends CI_Model {
             if(password_verify($password,$result_password))
             {
                 //aggiorno l'ultimo accesso
-                $this->db->set('last_access', date("Y-m-d H:i:s"));
-                $this->db->where('username', $username);
+                $this->db->set('ultimo_accesso', date("Y-m-d H:i:s"));
+                $this->db->where('nome', $name);
                 $this->db->update('utenti');
                 //valorizzo la sessione con l'utente
-                $this->set_session($username);
+                $this->set_session($name);
                 //valorizzo la sessione and con i dati dell'associazione
                 $this->load->model('associazione_model');
                 $this->associazione_model->get_dati_associazione();
@@ -86,15 +87,15 @@ class User_model extends CI_Model {
     }
 
     //popolo la sessione
-    private function set_session($username)
+    private function set_session($name)
     {
         //seleziono l'utente
         $this->db->select('*');
         $this->db->from('utenti');
-        $this->db->where('username',$username);
+        $this->db->where('nome',$name);
         $query = $this->db->get();
         //inserisco i dati nella var globale sessione
-        $_SESSION['user']= $query->row_array();
+        $_SESSION['user'] = $query->row_array();
     }
 
 }

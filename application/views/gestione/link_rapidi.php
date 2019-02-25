@@ -3,9 +3,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
 
 <div class="uk-width-expand@m">   <!-- inizio colonna (prende il posto che rimane della "riga")  -->
-
-<div class="uk-section uk-section-muted"> <!-- sezione -->
-        <div class="uk-container"> <!-- container (padding) -->
+<?php echo_breadcrumbs($breadcrumbs)?>
+<div class="uk-section uk-section-muted uk-padding-small"> <!-- sezione -->
+<div class="uk-container uk-container-expand uk-padding-remove"> <!-- container (padding) -->
 
             <h3 class="uk-text-center uk-heading-line"> <!-- titolo pagina -->
                 <span>Link rapidi</span>

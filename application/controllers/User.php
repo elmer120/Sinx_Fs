@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class User extends MY_Controller {
+class User extends CI_Controller {
 
 	 
 	public function __construct()
@@ -15,7 +15,8 @@ class User extends MY_Controller {
 	public function index()
 	{
         $this->load->model('User_model');
-        $this->User_model->create_user('admin','admin','elmer','','','1',time(),time());
+		$this->User_model->create_user('admin','admin','elmer','','','1');
+		//create_user($name,$password,$image=NULL,$email=NULL,$level)
 	}
 
 }

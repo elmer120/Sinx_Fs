@@ -1,5 +1,8 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+//var_dump($_SESSION['association']);
+//var_dump($_SESSION['user']);
+//die();
 ?>
 <!--colonna menu mobile (mostrata < 960px)-->
 <div class="uk-width-auto uk-hidden@m"> 
@@ -11,11 +14,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <ul class="uk-list">
                 <li>
                     <span uk-icon="user"></span>
-                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['name'];?></span>
+                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['nome'];?></span>
                 </li>
                 <li>
                     <span uk-icon="bolt"></span>
-                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['level']; ?></span>
+                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['livello']; ?></span>
                 </li>
             </ul>
             <ul class="uk-nav uk-nav-default uk-nav-parent-icon" uk-nav="multiple: true">
@@ -94,7 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 
             </ul>
             <!--dati associazione-->    
-            <?php $_SESSION['association']['r_name']; ?></span>
+            <?php $_SESSION['association']['r_nome']; ?></span>
                     </li>
                 </ul>
         </div>
@@ -102,7 +105,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 </div>
 
 <!--colonna menu desktop (mostrata > 960px)-->
-<div class="uk-width-1-6@m uk-visible@m">   <!-- inizio colonna 1/6 -->
+<div class="uk-width-auto uk-visible@m" style="min-width: 250px">   <!-- inizio colonna 1/6 -->
+
     <div class="uk-card uk-card-default uk-card-small uk-card-hover">
         <div class="uk-card-header">
             <!-- dati utente -->
@@ -110,11 +114,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <ul class="uk-list">
                 <li>
                     <span uk-icon="user"></span>
-                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['name'];?></span>
+                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['nome'];?></span>
+                </li>
+                <li>
+                    <span uk-icon="info"></span>
+                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['email'];?></span>
                 </li>
                 <li>
                     <span uk-icon="bolt"></span>
-                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['level']; ?></span>
+                    <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['user']['livello']; ?></span>
                 </li>
             </ul>
         </div>
@@ -127,7 +135,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php echo lang('associazione'); ?>
                     </a>
                         <ul class="uk-nav-sub">
-                            <li><a class="item" href='<? echo site_url("associazione/dati_associazione") ?>' title="Per gestire l'Associazione"><span>A--- -<? echo lang('dati_associazione'); ?></span></a></li>
+                            <li><a class="item" href='<? echo site_url("associazione/dati_associazione") ?>' title="Per gestire l'Associazione"><span class="uk-margin-small-right" uk-icon="italic"></span>A--- -<? echo lang('dati_associazione'); ?></a></li>
                         </ul>
                 </li>
 
@@ -138,69 +146,69 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                         <?php echo lang('anagrafica'); ?>
                     </a>
                     <ul class="uk-nav-sub">
-                        <li><a class="item" href='<? echo site_url("anagrafica/associati")?>'>Axxx -<?php echo lang('associati'); ?></a></li>
-                        <li><a class="item" href='<? echo site_url("anagrafica/collaboratori")?>'>Axxx -<?php echo lang('altri'); ?></a></li>
-                        <li><a class="item" href='<? echo site_url("anagrafica/csv")?>'>Axxx -<?php echo lang('importa_csv'); ?></a></li>
-                        <li><a class="item" href='<? echo site_url("anagrafica/ricerca?reset=1")?>'>Aox- -<?php echo lang('cerca'); ?></a></li>
-                        <li><a class="item" href='<? echo site_url("anagrafica/rubrica")?>'>Aola -<?php echo lang('rubrica'); ?></a></li>
-                        <li><a class="item" href='<? echo site_url("anagrafica/libro_soci")?>'>Aola -<?php echo lang('libro_soci'); ?></a></li>     
+                        <li><a class="item" href='<? echo site_url("anagrafica/associati")?>'><span class="uk-margin-small-right" uk-icon="users"></span>Axxx -<?php echo lang('associati'); ?></a></li>
+                        <li><a class="item" href='<? echo site_url("anagrafica/collaboratori")?>'><span class="uk-margin-small-right" uk-icon="user"></span>Axxx -<?php echo lang('altri'); ?></a></li>
+                        <li><a class="item" href='<? echo site_url("anagrafica/csv")?>'><span class="uk-margin-small-right" uk-icon="copy"></span>Axxx -<?php echo lang('importa_csv'); ?></a></li>
+                        <li><a class="item" href='<? echo site_url("anagrafica/ricerca")?>'><span class="uk-margin-small-right" uk-icon="search"></span>Aox- -<?php echo lang('cerca'); ?></a></li>
+                        <li><a class="item" href='<? echo site_url("anagrafica/rubrica")?>'><span class="uk-margin-small-right" uk-icon="list"></span>Aola -<?php echo lang('rubrica'); ?></a></li>
+                        <li><a class="item" href='<? echo site_url("anagrafica/libro_soci")?>'><span class="uk-margin-small-right" uk-icon="push"></span>Aola -<?php echo lang('libro_soci'); ?></a></li>     
                     </ul>
                 </li>
                     
 
                 <li class="uk-parent"> 
-                <!--contabilità-->
-                <a href="#">
-                    <span class="uk-margin-small-right" uk-icon="album"></span> <!-- icona -->
-                    <?php echo lang('contabilita'); ?>
-                </a>
+                	<!--contabilità-->
+						<a href="#">
+							<span class="uk-margin-small-right" uk-icon="album"></span> <!-- icona -->
+							<?php echo lang('contabilita'); ?>
+						</a>
                     
                         <ul class="uk-nav-sub">
-                            <li><a class="item" href='./InsPrimanota.php'>Aoxx -<?php echo lang('prima_nota'); ?></a></li>
-                            <li><a class="item" href='./InsRicFisc.php'>Aoxx -<?php echo lang('ricevuta'); ?></a></li>
-                            <li><a class="item" href='./InsFattura.php'>Aoxx -<?php echo lang('fattura'); ?></a></li>
-                            <li><a class="item" href='./InsContoEconomico.php'>Aox- -<?php echo lang('conto_economico'); ?></a></li>
-                            <li><a class="item" href='./InsStatoPatrimoniale.php'>Aox- -<?php echo lang('stato_patrimoniale'); ?></a></li>
-                            <li><a class="item" href='./Rendiconto.php'>Aox- -<?php echo lang('rendiconto'); ?></a></li>
-                            <li><a class="item" href='./Nuovo_Anno_soc.php'>Axxx -<?php echo lang('nuovo_anno_sociale'); ?></a></li> 
+                            <li><a class="item" href='./InsPrimanota.php'><span class="uk-margin-small-right" uk-icon="italic"></span>Aoxx -<?php echo lang('prima_nota'); ?></a></li>
+                            <li><a class="item" href='./InsRicFisc.php'><span class="uk-margin-small-right" uk-icon="italic"></span>Aoxx -<?php echo lang('ricevuta'); ?></a></li>
+                            <li><a class="item" href='./InsFattura.php'><span class="uk-margin-small-right" uk-icon="italic"></span>Aoxx -<?php echo lang('fattura'); ?></a></li>
+                            <li><a class="item" href='./InsContoEconomico.php'><span class="uk-margin-small-right" uk-icon="italic"></span>Aox- -<?php echo lang('conto_economico'); ?></a></li>
+                            <li><a class="item" href='./InsStatoPatrimoniale.php'><span class="uk-margin-small-right" uk-icon="italic"></span>Aox- -<?php echo lang('stato_patrimoniale'); ?></a></li>
+                            <li><a class="item" href='./Rendiconto.php'><span class="uk-margin-small-right" uk-icon="italic"></span>Aox- -<?php echo lang('rendiconto'); ?></a></li>
+                            <li><a class="item" href='./Nuovo_Anno_soc.php'><span class="uk-margin-small-right" uk-icon="italic"></span>Axxx -<?php echo lang('nuovo_anno_sociale'); ?></a></li> 
                         </ul>
-                    </li>
+                </li>
                     
 
                 <li class="uk-parent"> 
-                <!--gestione-->
-                <a href="#">
-                    <span class="uk-margin-small-right" uk-icon="cog"></span> <!-- icona -->
-                    <?php echo lang('gestione'); ?>
-                </a>         
+               			<!--gestione-->
+						<a href="#">
+							<span class="uk-margin-small-right" uk-icon="cog"></span> <!-- icona -->
+							<?php echo lang('gestione'); ?>
+						</a>         
                         
                         <ul class="uk-nav-sub">
-                            <li><a class="item" href='<? echo site_url("gestione/moduli")?>'>Aoxa -<?php echo lang('moduli'); ?></a></li>
-                            <li><a class="item" href='<? echo site_url("gestione/calendario")?>'>Aox- -<?php echo lang('calendario'); ?></a></li>
-                            <li><a class="item" href='<? echo site_url("gestione/link_rapidi")?>'>Axxx - <?php echo lang('link_rapidi'); ?></a></li>     
-                            <li><a class="item" href='<? echo site_url("gestione/blocco_note")?>'>Ao-a - <?php echo lang('blocco_note'); ?></a></li>
-                            <li><a class="item" href='<? echo site_url("gestione/e_mail")?>'>Aox- -<?php echo lang('e_mail');?></a></li>
-                            <li><a class="item" href='<? echo site_url("gestione/utenti")?>'>Aola -<?php echo lang('utenti'); ?></a></li>
-                            <li><a class="item" href='<? echo site_url("gestione/files")?>'>Axx- -<?php echo lang('files_immagini'); ?></a></li>
-                            <li><a class="item" href='<? echo site_url("gestione/log")?>'>Axxx -<?php echo lang('log'); ?></a></li>
-                            <li><a class="item" href='<? echo site_url("gestione/backup")?>'>Axxx - <?php echo lang('backup'); ?></a></li>        
+                            <li><a class="item" href='<? echo site_url("gestione/moduli")?>'><span class="uk-margin-small-right" uk-icon="italic"></span>Aoxa -<?php echo lang('moduli'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/calendario")?>'><span class="uk-margin-small-right" uk-icon="italic"></span>Aox- -<?php echo lang('calendario'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/rapidi")?>'><span class="uk-margin-small-right" uk-icon="link"></span>Axxx - <?php echo lang('rapidi'); ?></a></li>     
+                            <li><a class="item" href='<? echo site_url("gestione/blocco_note")?>'><span class="uk-margin-small-right" uk-icon="italic"></span>Ao-a - <?php echo lang('blocco_note'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/e_mail")?>'><span class="uk-margin-small-right" uk-icon="italic"></span>Aox- -<?php echo lang('e_mail');?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/utenti")?>'><span class="uk-margin-small-right" uk-icon="italic"></span>Aola -<?php echo lang('utenti'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/files")?>'><span class="uk-margin-small-right" uk-icon="italic"></span>Axx- -<?php echo lang('files_immagini'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/log")?>'><span class="uk-margin-small-right" uk-icon="italic"></span>Axxx -<?php echo lang('log'); ?></a></li>
+                            <li><a class="item" href='<? echo site_url("gestione/backup")?>'><span class="uk-margin-small-right" uk-icon="italic"></span>Axxx - <?php echo lang('backup'); ?></a></li>        
                         </ul>
-                    </li>
+                </li>
 
                 <li class="uk-parent"> 
-                <!--specifiche-->
-                <a href="#">
-                    <span class="uk-margin-small-right" uk-icon="info"></span> <!-- icona -->
-                    <?php  echo lang('specifiche'); ?>
-                </a>
+						<!--specifiche-->
+						<a href="#">
+							<span class="uk-margin-small-right" uk-icon="info"></span> <!-- icona -->
+							<?php  echo lang('specifiche'); ?>
+						</a>
                         
                         <ul class="uk-nav-sub">
-                            <li><a class="item" href='./Scheda_regioni.php'>A-x- -Regioni Province e Comuni</a></li>
-                            <li><a class="item" href='./nclasse.php'>A-x- -<?php echo lang('funzioni_associati'); ?></a></li>
-                            <li><a class="item" href='./nmateria.php'>A-x- -<?php echo lang('tipologia_associati'); ?></a></li>
-                            <li><a class="item" href='./Licenza.php'>Aola -<? echo lang('licenza'); ?></a></li>        
+                            <li><a class="item" href='./Scheda_regioni.php'><span class="uk-margin-small-right" uk-icon="italic"></span>A-x- -Regioni Province e Comuni</a></li>
+                            <li><a class="item" href='./nclasse.php'><span class="uk-margin-small-right" uk-icon="italic"></span>A-x- -<?php echo lang('funzioni_associati'); ?></a></li>
+                            <li><a class="item" href='./nmateria.php'><span class="uk-margin-small-right" uk-icon="italic"></span>A-x- -<?php echo lang('tipologia_associati'); ?></a></li>
+                            <li><a class="item" href='./Licenza.php'><span class="uk-margin-small-right" uk-icon="italic"></span>Aola -<? echo lang('licenza'); ?></a></li>        
                         </ul>
-                    </li>
+                </li>
 
                     <li>
                         <a class="item" href='./Manuale.php'>
@@ -223,40 +231,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <ul class="uk-list">
                     <li>
                         <span uk-icon="info"></span>
-                        <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['association']['name'];?></span>
+                        <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['association']['nome'];?></span>
                     </li>
                     <li>
                         <span uk-icon="location"></span>
-                        <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['association']['address'].' - '.$_SESSION['association']['cap'].' - '.$_SESSION['association']['c_name'].' - '.$_SESSION['association']['p_name']; ?></span>
+                        <span class="uk-text-small uk-text-meta uk-text-capitalize"><? echo $_SESSION['association']['indirizzo'].' - '.$_SESSION['association']['cap'].' - <br>'.$_SESSION['association']['c_nome'].' - '.$_SESSION['association']['p_sigla']; ?></span>
                     </li>
                 </ul>
             <!-- link rapidi ai siti attinenti all'associazione -->
-            <?  $links=quick_links(); ?>
+			<? $links=quick_links(); //var_dump($links);
+			?>
             <h6 class="uk-heading-line uk-text-center"><span>Link rapidi</span></h6>
             <ul class="uk-iconnav">
-            <li uk-tooltip="title:<? echo lang('sito_web'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_website']))? $links['link_website'] : '' ?>" target="_blank" uk-icon="icon: world"></a></li>
-            <li uk-tooltip="title:<? echo lang('web_mail'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_webmail'])) ? $links['link_webmail'] : '' ?>" target="_blank" uk-icon="icon: mail"></a></li>
-            <li uk-tooltip="title:<? echo lang('web_mail_pec'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_webmail_pec'])) ? $links['link_webmail_pec'] : '' ?>" target="_blank" uk-icon="icon: mail"></a></li>
-            <li uk-tooltip="title:<? echo lang('facebook'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_facebook'])) ? $links['link_facebook'] : '' ?>" target="_blank" uk-icon="icon: facebook"></a></li>
-            <li uk-tooltip="title:<? echo lang('instagram'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_instagram'])) ? $links['link_instagram'] : '' ?>" target="_blank" uk-icon="icon: instagram"></a></li>
-            <li uk-tooltip="title:<? echo lang('youtube'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_youtube'])) ? $links['link_youtube'] : '' ?>" target="_blank" uk-icon="icon: youtube"></a></li>
-            <li uk-tooltip="title:<? echo lang('twitter'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_twitter'])) ? $links['link_twitter'] : '' ?>" target="_blank" uk-icon="icon: twitter"></a></li>
-            <li uk-tooltip="title:<? echo lang('home_banking'); ?>; pos: bottom"><a href="<?php echo (isset($links['link_home_banking'])) ? $links['link_home_banking'] : '' ?>" target="_blank" uk-icon="icon: home"></a></li>
+				<li uk-tooltip="title:<? echo lang('sito_web'); ?>; pos: bottom"><a href="<?php echo (!empty($links['web_site']))? $links['web_site'] : '' ?>" target="_blank" uk-icon="icon: world"></a></li>
+				<li uk-tooltip="title:<? echo lang('web_mail'); ?>; pos: bottom"><a href="<?php echo (!empty($links['web_mail'])) ? $links['web_mail'] : '' ?>" target="_blank" uk-icon="icon: mail"></a></li>
+				<li uk-tooltip="title:<? echo lang('web_mail_pec'); ?>; pos: bottom"><a href="<?php echo (!empty($links['web_mail_pec'])) ? $links['web_mail_pec'] : '' ?>" target="_blank" uk-icon="icon: mail"></a></li>
+				<li uk-tooltip="title:<? echo lang('facebook'); ?>; pos: bottom"><a href="<?php echo (!empty($links['facebook'])) ? $links['facebook'] : '' ?>" target="_blank" uk-icon="icon: facebook"></a></li>
+				<li uk-tooltip="title:<? echo lang('instagram'); ?>; pos: bottom"><a href="<?php echo (!empty($links['instagram'])) ? $links['instagram'] : '' ?>" target="_blank" uk-icon="icon: instagram"></a></li>
+				<li uk-tooltip="title:<? echo lang('youtube'); ?>; pos: bottom"><a href="<?php echo (!empty($links['youtube'])) ? $links['youtube'] : site_url("gestione/rapidi") ?>" target="_blank" uk-icon="icon: youtube"></a></li>
+			</ul>
+			<ul class="uk-iconnav">
+        		<li uk-tooltip="title:<? echo lang('twitter'); ?>; pos: bottom"><a href="<?php echo (!empty($links['twitter'])) ? $links['twitter'] : '' ?>" target="_blank" uk-icon="icon: twitter"></a></li>
+            	<li uk-tooltip="title:<? echo lang('home_banking'); ?>; pos: bottom"><a href="<?php echo (!empty($links['home_banking'])) ? $links['home_banking'] : '' ?>" target="_blank" uk-icon="icon: home"></a></li>
             </ul>
+            
         </div>
     </div>
-<script>
-
-//Rimuove l'attributo target dai link vuoti
-//Usata nei link rapidi del menu
- 
-//$(document).ready(function() {
- //   $("a[href='']").removeAttr("target");
- //   $("a[href='']").attr("href","<?php //echo site_url('gestione/link_rapidi')?>");
-//});
-</script>
-
-
 </div> <!--fine colonna -->
 
 

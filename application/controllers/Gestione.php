@@ -44,16 +44,26 @@ class Gestione extends MY_Controller {
     
     public function link_rapidi()
 	{
+		$breadcrumbs = array(
+			"Home" => site_url(),
+			"Link rapidi" => "" 
+		   );
+		$data['breadcrumbs'] = $breadcrumbs;
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		$this->load->view('gestione/link_rapidi');
+		$this->load->view('gestione/link_rapidi',$data);
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
 	
 	public function update_link_rapidi()
 	{
+		$breadcrumbs = array(
+			"Home" => site_url(),
+			"Link rapidi" => "" 
+		   );
+		$data['breadcrumbs'] = $breadcrumbs;
 		//carico la libreria di validazione form
 		$this->load->library('form_validation');
 
@@ -89,19 +99,21 @@ class Gestione extends MY_Controller {
 							//chiamo il model 
 							if($this->Gestione_model->update_link_rapidi($link_website,$link_webmail,$link_webmail_pec,$link_facebook,$link_instagram,$link_youtube,$link_twitter,$link_home_banking))
 							{
-								$this->session->set_flashdata('result',(new result_handling("Operazione conclusa con successo!!!",0))->build_html());
-								redirect($_SERVER['HTTP_REFERER']."#result");
+								$this->form_success();
 							}
 							else
 							{
-								$this->session->set_flashdata('result',(new result_handling("Errore nel inserimento nel db!",2))->build_html());
-								redirect($_SERVER['HTTP_REFERER']."#result");
+								$this->form_error("Aggiornamento database fallito!");
 							}         
 			}
 			else //dati non validati
 			{
-				$this->session->set_flashdata('result',(new result_handling(validation_errors(),2))->build_html());
-				redirect($_SERVER['HTTP_REFERER']."#result");
+				$this->load->view('template/head');
+				$this->load->view('template/navbar');
+				$this->load->view('template/menu');
+				$this->load->view('gestione/link_rapidi',$data);
+				$this->load->view('template/side_bar');
+				$this->load->view('template/footer');
 			}
 	}
 

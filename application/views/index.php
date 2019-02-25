@@ -5,13 +5,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 <div class="uk-width-expand@m">   <!-- inizio colonna (prende il posto che rimane della "riga")  -->
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris luctus massa urna, nec vulputate eros tristique id. Sed tincidunt tincidunt consequat. Integer convallis lobortis tellus, a tempus leo rutrum sit amet. Vivamus cursus ante a tincidunt lobortis. In ullamcorper lectus non ligula cursus sagittis. Pellentesque a urna nec arcu pulvinar venenatis. Vivamus non aliquet elit, et efficitur mauris. Sed malesuada mauris sit amet quam venenatis feugiat. Nam auctor odio sed neque pharetra, et eleifend velit sodales. Suspendisse sagittis scelerisque mauris ut ornare. Mauris felis quam, bibendum in aliquam non, sollicitudin sit amet est. Aliquam sagittis tempor sem, in condimentum lectus sodales ac. Maecenas iaculis nunc quis varius tincidunt. Maecenas eget nibh a neque luctus ultrices.
+<pre>
 
-In vitae tincidunt purus, sed sagittis tortor. Proin pretium at nulla at finibus. Aenean metus metus, efficitur a lorem nec, venenatis dapibus diam. Vivamus vitae sagittis nisi. Curabitur iaculis cursus leo et dictum. Donec tincidunt ipsum leo, ut ullamcorper nisi feugiat non. Praesent aliquam pulvinar gravida. Nam venenatis tristique dolor, ac gravida magna vestibulum eu. Mauris fringilla arcu odio. Fusce a ligula vel eros fringilla sagittis.
+1. Gli enti del Terzo settore devono redigere il 
+   bilancio di esercizio formato dallo stato patrimoniale, 
+   dal rendiconto ((gestionale)), con l'indicazione, dei proventi e degli oneri, dell'ente, 
+   e dalla relazione di missione che illustra le poste di bilancio, 
+   l'andamento economico e ((gestionale)) dell'ente e le modalita' di perseguimento delle finalita' statutarie.
 
-Donec eu ultricies felis, et ullamcorper orci. Quisque tempus interdum nibh in condimentum. Nunc faucibus, orci ut cursus semper, nulla enim finibus sapien, nec placerat diam orci iaculis metus. Mauris at elit porttitor, sollicitudin sapien vitae, posuere mauris. Maecenas purus augue, dignissim in hendrerit vitae, venenatis at arcu. Ut nisi nunc, gravida nec pulvinar in, mollis mattis diam. Cras porttitor dignissim fermentum.
+2. Il bilancio degli enti del Terzo settore con ricavi, rendite, 
+   proventi o entrate comunque denominate inferiori a 220.000,00 euro 
+   puo' essere redatto nella forma del rendiconto ((...)) per cassa. 
 
-Duis nec dolor venenatis, condimentum nulla varius, aliquet eros. Praesent est erat, feugiat ac lacinia id, lobortis a libero. Phasellus egestas, lacus sed suscipit varius, augue diam gravida tellus, et hendrerit odio turpis at nisi. Nulla fringilla, enim vitae pretium egestas, urna erat sodales elit, ac pharetra odio nunc vitae sem. Sed vel eros nec leo sagittis fringilla sit amet ac tellus. Pellentesque in lorem mattis ligula pharetra porta in nec nisi. Aliquam in imperdiet lectus, sed volutpat felis. Phasellus varius sapien nisl. Donec fermentum nulla at eros tristique, sed tincidunt est sollicitudin. Aliquam nec arcu mauris. Donec vitae tincidunt nunc. Praesent a rhoncus turpis.
+3. Il bilancio di cui ai commi 1 e 2 deve essere redatto in conformita' 
+   alla modulistica definita con decreto del Ministro del lavoro e delle 
+   politiche sociali, sentito il consiglio nazionale del terzo settore.
 
-In eleifend vitae augue ut iaculis. Vestibulum et ex a magna suscipit sagittis. Donec id urna facilisis ipsum porta laoreet. Fusce tristique lobortis pellentesque. Proin ex ante, sagittis eget nunc eu, ullamcorper elementum purus. Donec non orci dui. Fusce malesuada condimentum nisl at tempus. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean bibendum, justo ut condimentum aliquet, dui lorem malesuada ante, eu dignissim ligula erat ut mi. Cras nisl nibh, tincidunt vestibulum est sit amet, finibus commodo tortor. Pellentesque id auctor sem. Donec pellentesque lectus vitae convallis ullamcorper. Pellentesque lobortis suscipit accumsan. Nunc finibus nisl sed fringilla placerat. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+</pre>
 </div>

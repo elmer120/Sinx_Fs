@@ -1,18 +1,22 @@
-//var base_url="http://localhost/sinxEasy/";
 //form inizializzo le opzioni di selezione
 function Get_regioni() {
     //faccio una chiamata ajax per popolare il select
     $.ajax({
         type: 'POST',
-        url: "get_regioni",
+        url: controller_url+"get_regioni",
         data: '',
         processData: false,
         contentType: false,
         success: function(data){
           $('#select_regioni').html(data);
+          if(typeof regione_sel !== 'undefined')
+          {
+              set_selected("select_regioni",regione_sel);
+          }
+
         },
         error: function(data) { 
-             alert("Errore nella chiamata ajax!");
+             alert(" Luoghi.js: Errore nella chiamata ajax!");
         }
    });
 }
@@ -23,7 +27,7 @@ $(document).ready(Get_regioni());
        $('#select_regioni').change(function Get_province() {
         // faccio un chiamata ajax per popolare il select delle provincie
           $.ajax({
-             url: 'get_province',
+             url: controller_url+'get_province',
               type: 'POST',
               dataType : "text",
               data: {"region_select" : $(this).val()},
@@ -37,7 +41,7 @@ $(document).ready(Get_regioni());
                   $('#select_comuni').attr('disabled',true);
               },
               error: function(data) { 
-                  console.log(data);
+                alert("Luoghi.js: Errore nella chiamata ajax!");
               }
          });
      });
@@ -48,7 +52,7 @@ $(document).ready(Get_regioni());
        $('#select_province').change(function get_comuni(){
           // faccio un chiamata ajax per popolare il select dei comuni
             $.ajax({
-               url: 'get_comuni',
+               url: controller_url+'get_comuni',
                 type: 'POST',
                 dataType : "text",
                 data: {"provincia_select" : $(this).val().toString()},
@@ -60,7 +64,7 @@ $(document).ready(Get_regioni());
                     
                 },
                 error: function(data) { 
-                    console.log(data);
+                    alert("Luoghi.js: Errore nella chiamata ajax!");
                 }
            });
        });

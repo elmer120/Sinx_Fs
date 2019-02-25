@@ -37,25 +37,87 @@ class Anagrafica extends MY_Controller {
 			$this->lang->load('header', 'italian');
 			$this->lang->load('menu', 'italian');	
     }
-
 	public function associati()
 	{
+		$breadcrumbs = array(
+			"Home" => site_url(),
+			"Associati" => "" 
+		   );
+		$data['breadcrumbs'] = $breadcrumbs;
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		$this->load->view('anagrafica/associati');
+		$this->load->view('anagrafica/associati',$data);
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
+	public function modifica_persona($id)
+	{
+		$breadcrumbs = array(
+			"Home" => site_url(),
+			"Ricerca" => site_url("/anagrafica/ricerca?reset=1"),
+			"Modifica Persona" => "" 
+		   );
+		$data['breadcrumbs'] = $breadcrumbs;
+
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
+		$this->load->view('template/menu');
+		$data['persona'] = $this->Anagrafica_model->select_person($id);
+		//se associato
+		if(isset($data['persona']->fk_associato))
+		{
+			$this->load->view('anagrafica/modifica_associato',$data);
+		} 
+		else // se collaboratore
+		{
+			$this->load->view('anagrafica/modifica_collaboratore',$data);
+		}
+
+		$this->load->view('template/side_bar');
+		$this->load->view('template/footer');
+	}
+	public function visualizza_persona($id)
+	{
+		$breadcrumbs = array(
+			"Home" => site_url(),
+			"Ricerca" => site_url("/anagrafica/ricerca?reset=1"),
+			"Visualizza Persona" => "" 
+		   );
+		$data['breadcrumbs'] = $breadcrumbs;
+		$this->load->view('template/head');
+		$this->load->view('template/navbar');
+		$this->load->view('template/menu');
+		$data['persona'] = $this->Anagrafica_model->select_person($id);
+		//se associato
+		if(isset($data['persona']->fk_associato))
+		{
+			$this->load->view('anagrafica/visualizza_associato',$data);
+		} 
+		else // se collaboratore
+		{
+			$this->load->view('anagrafica/visualizza_collaboratore',$data);
+		}
+
+		$this->load->view('template/side_bar');
+		$this->load->view('template/footer');
+	}
+
 	public function collaboratori()
 	{
+		$breadcrumbs = array(
+			"Home" => site_url(),
+			"Collaboratori" => "" 
+		   );
+		$data['breadcrumbs'] = $breadcrumbs;
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		$this->load->view('anagrafica/collaboratori');
+		$this->load->view('anagrafica/collaboratori',$data);
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
+
 	public function csv()
 	{
 		$this->load->view('template/head');
@@ -65,78 +127,18 @@ class Anagrafica extends MY_Controller {
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
+
 	public function ricerca()
-	{
-		//se è richiesta un'altra sezione della paginazione recupero la pag di partenza
-		$start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+	{   
+		$breadcrumbs = array(
+			"Home" => site_url(),
+			"Ricerca" => "" );
+		$data['breadcrumbs'] = $breadcrumbs;
 		
-		
-		$reset = $this->input->get('reset');
-		
-		if($reset == NULL)
-		{
-			//recupero il testo ricercato
-			$research = $this->input->post('text_search');
-			//recupero il filtro opzionale
-			$pre_filter = $this->input->post('pre_filter');
-			
-			//se vuoto (esempio cambio pagina nella paginazione)
-			if (empty($research))
-			{
-				//controllo se c'è stata una ricerca nella richiesta precedente
-				if($this->session->has_userdata('text_search'))
-				{	
-					$research = $this->session->userdata('text_search');
-					$pre_filter = $this->session->userdata('pre_filter');
-				}
-				
-			}
-			else //setto la sessione
-			{
-				$this->session->set_userdata('text_search', $research);
-				$this->session->set_userdata('pre_filter', $pre_filter);	
-			}
-		}
-		else //se è stato chiesto di resettare a default la ricerca
-		{
-			$research = NULL;
-			$pre_filter = "";
-			$this->session->unset_userdata('text_search');
-			$this->session->unset_userdata('pre_filter');
-		}
-		
-		//configuro la  paginazione
-		$config["base_url"] = base_url() . "index.php/anagrafica/ricerca/";
-		$config["per_page"] = 20; //con 15 ho un link di pagina in più??!?
-		
-		//righe totali -- se c'è una ricerca o no
-		$config["total_rows"] =  $this->Anagrafica_model->get_persons_filter_count($research,$pre_filter);
-
-		$config["uri_segment"] = 3;
-
-		//configuro l'output html della paginazione "<< < 1 2 3 > >>"
-		$config["full_tag_open"] = "\n<ul class='uk-pagination uk-flex-center' uk-margin>\n";
-		$config['first_link'] = '<<';
-		$config["prev_tag_open"] = "<li>";
-		$config["prev_link"] = " <span uk-pagination-previous></span> ";
-		$config["prev_tag_close"] = "</li>";
-		$config["cur_tag_open"] = "<li class='uk-active'><span>";
-		$config["cur_tag_close"] = "</span></li>";
-		$config["num_tag_open"] = "<li>";
-		$config["num_tag_close"] = "</li>";
-		$config["next_tag_open"] = "<li>";
-		$config["next_link"] = "<span uk-pagination-next>";
-		$config["next_tag_close"] = "</li>";
-		$config['last_link'] = '>>';
-		$config["full_tag_close"] = "</ul>";
-
-		$this->pagination->initialize($config);
-
 		//chiamo il model 
-		$data['lista'] = $this->Anagrafica_model->get_persons_filter($start,$config["per_page"],$research,$pre_filter);
-		$data['pre_filter'] = $pre_filter;
-		$data['links'] = $this->pagination->create_links();
-
+		$data['lista'] = $this->parse_persons($this->Anagrafica_model->get_persons());
+		//var_dump($data['lista']);
+		
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
@@ -144,37 +146,34 @@ class Anagrafica extends MY_Controller {
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
+
+	public function get_list()
+	{
+		$lista = $this->parse_persons($this->Anagrafica_model->get_persons());
+		echo json_encode($lista);
+	}
+
+	public function get_person()
+	{
+		$id = $this->input->post('id');
+		if(isset($id))
+		{
+			$persona = $this->Anagrafica_model->get_person($id);
+			echo json_encode($persona);
+		}
+	}
+
 	public function rubrica()
 	{
-		
-        $config["base_url"] = base_url() . "index.php/anagrafica/rubrica/";
-        $config["total_rows"] = $this->Anagrafica_model->get_persons_count();
-        $config["per_page"] = 15;
-		$config["uri_segment"] = 3;
-
-		//configuro l'output html della paginazione "<< < 1 2 3 > >>"
-		$config["full_tag_open"] = "\n<ul class='uk-pagination uk-flex-center' uk-margin>\n";
-		$config['first_link'] = '<<';
-		$config["prev_tag_open"] = "<li>";
-		$config["prev_link"] = " <span uk-pagination-previous></span> ";
-		$config["prev_tag_close"] = "</li>";
-		$config["cur_tag_open"] = "<li class='uk-active'><span>";
-		$config["cur_tag_close"] = "</span></li>";
-		$config["num_tag_open"] = "<li>";
-		$config["num_tag_close"] = "</li>";
-		$config["next_tag_open"] = "<li>";
-		$config["next_link"] = "<span uk-pagination-next>";
-		$config["next_tag_close"] = "</li>";
-		$config['last_link'] = '>>';
-		$config["full_tag_close"] = "</ul>";
-
-		$this->pagination->initialize($config);
-
-		$start = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;
+		$breadcrumbs = array(
+			"Home" => site_url(),
+			"Rubrica" => "" 
+		   );
+		$data['breadcrumbs'] = $breadcrumbs;
+		//$config["base_url"] = base_url() . "index.php/anagrafica/rubrica/";
 		
 		//chiamo il model 
-        $data['lista'] = $this->Anagrafica_model->get_persons_filter($start,$config["per_page"]);
-		$data['links'] = $this->pagination->create_links();
+		$data['lista'] = $this->parse_persons($this->Anagrafica_model->get_persons_rubrica());
 
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
@@ -183,16 +182,40 @@ class Anagrafica extends MY_Controller {
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
+
+	private function parse_persons($persons){
+		
+		foreach ($persons as $row) {
+			if(isset($row->fk_collaboratore))
+			{	
+				$row->type = "C";
+			}
+			elseif(isset($row->fk_associato))
+			{	
+				$row->type = "A";
+			}
+			unset($row->fk_associato);
+		    unset($row->fk_collaboratore);
+		}
+		return $persons;
+	}
+
 	public function libro_soci()
 	{
+		$breadcrumbs = array(
+			"Home" => site_url(),
+			"Libro soci" => "" 
+		   );
+		$data['breadcrumbs'] = $breadcrumbs;
 		$this->load->view('template/head');
 		$this->load->view('template/navbar');
 		$this->load->view('template/menu');
-		$this->load->view('anagrafica/libro_soci');
+		$this->load->view('anagrafica/libro_soci',$data);
 		$this->load->view('template/side_bar');
 		$this->load->view('template/footer');
 	}
-	public function create_collaboratore()
+
+	public function update_collaboratore($id)
 	{
 		//var_dump($_REQUEST);return;
 		//load library form - upload(file)
@@ -203,7 +226,7 @@ class Anagrafica extends MY_Controller {
 		$config['upload_path']          = './assets/img/collaboratori/';
 		$config['file_name']            = 'logo';
 		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = '2048'; //in kb
+		$config['max_size']             = '999'; //in kb
 		$config['max_width']            = '512';
 		$config['max_height']           = '512';
 		$config['file_ext_tolower']     = TRUE; //estensione to lower es. win10
@@ -217,7 +240,261 @@ class Anagrafica extends MY_Controller {
 		//persona
         $this->form_validation->set_rules('name', 'Nome', 'trim|required');
         $this->form_validation->set_rules('surname', 'surname', 'trim');
-        $this->form_validation->set_rules('fiscal_code', 'codice fiscale', 'trim|valid_fiscal_code');
+		$this->form_validation->set_rules('fiscal_code', 'codice fiscale', 'trim|valid_fiscal_code');
+		$this->form_validation->set_rules('fk_comune', 'comune', 'trim|required');
+        $this->form_validation->set_rules('address', 'address', 'trim');
+		$this->form_validation->set_rules('phone', 'phone', 'trim');
+		$this->form_validation->set_rules('phone_ext', 'phone_ext', 'trim');
+        $this->form_validation->set_rules('datebirth', 'datebirth', 'trim');
+        $this->form_validation->set_rules('email', 'email', 'trim|valid_email');
+        $this->form_validation->set_rules('avatar', 'avatar', 'trim');
+		//collaboratore
+		$this->form_validation->set_rules('mansione', 'mansione', 'trim|required');
+        $this->form_validation->set_rules('note', 'note', 'trim');
+
+        //errore personalizzato per la regola required
+		$this->form_validation->set_message('required','{field} is required!');
+		$this->form_validation->set_message('valid_fiscal_code','{field} formato codice fiscale errato!');
+		//errore tag delimitatore
+		$this->form_validation->set_error_delimiters('<div class="uk-alert-danger" uk-alert>', '</div>');
+
+            //se i parametri del form sono validati corretamente 
+			if ($this->form_validation->run() === TRUE)
+			{
+						
+			//predispongo l'array
+			$data_person = array(
+				'id' => $id,
+				'name' =>  $this->input->post('name'),
+				'surname' =>  $this->input->post('surname'),
+				'fiscal_code' => $this->input->post('fiscal_code'),
+				'address' => $this->input->post('address'),
+				'phone' =>  $this->input->post('phone'),
+				'phone_ext' => $this->input->post('phone_ext'),
+				'datebirth' => $this->input->post('datebirth'),
+				'email' => $this->input->post('email'),
+				'avatar' => $this->input->post('avatar'),
+				'create_date'=> date("Y-m-d H:i:s"),
+				'fk_comune' => $this->input->post('fk_comune'),
+				'fk_collaboratore' => $this->input->post('fk_collaboratore'),
+				'fk_associato' => NULL
+				);
+			//istanzio la classe person
+			$this->load->library('person',$data_person);
+			//predispongo l'array
+			$data_collaboratore = array(
+				'id' => $this->input->post('fk_collaboratore'),
+				'mansione' =>  $this->input->post('mansione'),
+				'note' =>  $this->input->post('note')
+				);
+			//istanzio la classe collaboratore
+			$this->load->library('collaboratore',$data_collaboratore);
+					//se c'è un file
+					if(is_uploaded_file($_FILES['avatar']['tmp_name']))
+					{
+						//eseguo l'upload
+						if($this->upload->do_upload('avatar'))
+						{   
+						    $this->person->avatar = $this->upload->data('file_name');
+							//chiamo il model (passo anche il nome del file)
+							if($this->Anagrafica_model->update_collaboratore($this->person,$this->collaboratore))
+							{
+								$this->form_success();
+							}
+							else
+							{
+								$this->form_error("Aggiornamento database fallito!");
+							}         
+						}
+						else //upload fallito
+						{
+							$this->form_error("Upload fallito!".$this->upload->display_errors());
+						}
+
+					}
+					else
+					{
+						$this->person->avatar = "avatar.jpg";
+						if($this->Anagrafica_model->update_collaboratore($this->person,$this->collaboratore))
+							{
+								$this->form_success();
+							}
+							else
+							{
+								$this->form_error("Aggiornamento database fallito!");
+							}         
+					}
+			}
+			else
+			{
+				$this->modifica_persona($id);
+			}
+	}
+
+	public function update_associato($id)
+	{
+		//var_dump($_REQUEST);return;
+		//load library form - upload(file)
+		$this->load->library('form_validation');
+		$this->load->library('upload');
+		 
+	    //configuro la libreria di upload
+		$config['upload_path']          = './assets/img/associati/';
+		$config['allowed_types']        = 'jpg|png';
+		$config['max_size']             = '999'; //in kb
+		$config['max_width']            = '512';
+		$config['max_height']           = '512';
+		$config['file_ext_tolower']     = TRUE; //estensione to lower es. win10
+		$config['overwrite']            = FALSE; //file stesso nome nn vengono sovrascritti
+		 
+		//aggiorno la libreria
+		$this->upload->initialize($config);
+
+		//configuro la libreria di validazione form
+		//set_rules(nome input,nome error,regola)
+		//persona
+        $this->form_validation->set_rules('name', 'Nome', 'trim|required');
+        $this->form_validation->set_rules('surname', 'surname', 'trim');
+		$this->form_validation->set_rules('fiscal_code', 'codice fiscale', 'trim|valid_fiscal_code');
+		$this->form_validation->set_rules('fk_comune', 'comune', 'trim|required');
+        $this->form_validation->set_rules('address', 'address', 'trim');
+		$this->form_validation->set_rules('phone', 'phone', 'trim');
+		$this->form_validation->set_rules('phone_ext', 'phone_ext', 'trim');
+        $this->form_validation->set_rules('datebirth', 'datebirth', 'trim');
+        $this->form_validation->set_rules('email', 'email', 'trim|valid_email');
+        $this->form_validation->set_rules('avatar', 'avatar', 'trim');
+		//associato
+		$this->form_validation->set_rules('n_card', 'n_card', 'trim|required');
+        $this->form_validation->set_rules('privacy', 'privacy', 'trim');
+		$this->form_validation->set_rules('active', 'active', 'trim');
+		$this->form_validation->set_rules('fk_tipo_associato', 'tipo associato', 'trim|required');
+        $this->form_validation->set_rules('fk_cariche_direttivo', 'carica direttivo', 'trim|required');
+        $this->form_validation->set_rules('note', 'note', 'trim');
+
+        //errore personalizzato per la regola required
+		$this->form_validation->set_message('required','{field} è richiesto!');
+		$this->form_validation->set_message('valid_fiscal_code','{field} formato codice fiscale errato!');
+		//errore tag delimitatore
+		$this->form_validation->set_error_delimiters('<div class="uk-alert-danger" uk-alert>', '</div>');
+
+            //se i parametri del form sono validati corretamente 
+			if ($this->form_validation->run() === TRUE)
+			{
+						
+			//predispongo l'array
+			$data_person = array(
+					'id' => $id,
+					'name' =>  $this->input->post('name'),
+					'surname' =>  $this->input->post('surname'),
+					'fiscal_code' => $this->input->post('fiscal_code'),
+					'address' => $this->input->post('address'),
+					'phone' =>  $this->input->post('phone'),
+					'phone_ext' => $this->input->post('phone_ext'),
+					'datebirth' => $this->input->post('datebirth'),
+					'email' => $this->input->post('email'),
+					'avatar' => $this->input->post('avatar'),
+					'create_date'=>date("Y-m-d H:i:s"),
+					'fk_comune' => $this->input->post('fk_comune'),
+					'fk_collaboratore' => NULL,
+					'fk_associato' => $this->input->post('fk_associato')
+					);
+			//istanzio la classe person
+			$this->load->library('person',$data_person);
+			//predispongo l'array 
+			$data_associato = array(
+				'id' =>  $this->input->post('fk_associato'),
+				'n_card' =>  $this->input->post('n_card'),
+				'privacy' =>  $this->input->post('privacy'),
+				'active' => $this->input->post('active'),
+				'note' => $this->input->post('note'),
+				'fk_tipo_associato' =>  $this->input->post('fk_tipo_associato'),
+				//se l'associato non fa parte del direttivo, imposto l'fk a null
+				'fk_cariche_direttivo' => ($this->input->post('fk_cariche_direttivo')=="Nessuna")? NULL : $this->input->post('fk_cariche_direttivo')
+				);
+			//istanzio la classe associato
+			$this->load->library('Associato',$data_associato);
+					//se c'è un file
+					if(is_uploaded_file($_FILES['avatar']['tmp_name']))
+					{
+						//eseguo l'upload
+						if($this->upload->do_upload('avatar'))
+						{   
+						    $this->person->avatar = $this->upload->data('file_name');
+							//chiamo il model (passo anche il nome del file)
+							if($this->Anagrafica_model->update_associato($this->person,$this->associato))
+							{
+								$this->form_success();
+							}
+							else
+							{
+								$this->form_error("Aggiornamento database fallito!");
+							}         
+						}
+						else //upload fallito
+						{
+							$this->form_error("Upload fallito!".$this->upload->display_errors());
+						}
+
+					}
+					else
+					{
+						$this->person->avatar = "avatar.jpg";
+						if($this->Anagrafica_model->update_associato($this->person,$this->associato))
+							{
+								$this->form_success();
+							}
+							else
+							{
+								$this->form_error("Aggiornamento database fallito!");
+							}         
+					}
+			}
+			else
+			{
+				$this->modifica_persona($id);
+			}
+	}
+
+	public function elimina_persona($id)
+	{
+		if($this->Anagrafica_model->delete($id))
+		{
+			$this->form_success();
+		}
+		else
+		{
+			$this->form_error("Eliminazione dal database fallita!");
+		}
+
+	}
+	
+	public function create_collaboratore()
+	{
+		//var_dump($_REQUEST);return;
+		//load library form - upload(file)
+		$this->load->library('form_validation');
+		$this->load->library('upload');
+		 
+	    //configuro la libreria di upload
+		$config['upload_path']          = './assets/img/collaboratori/';
+		$config['file_name']            = 'logo';
+		$config['allowed_types']        = 'gif|jpg|png';
+		$config['max_size']             = '999'; //in kb
+		$config['max_width']            = '512';
+		$config['max_height']           = '512';
+		$config['file_ext_tolower']     = TRUE; //estensione to lower es. win10
+		$config['overwrite']            = FALSE; //file stesso nome nn vengono sovrascritti
+		 
+		//aggiorno la libreria
+		$this->upload->initialize($config);
+
+		//configuro la libreria di validazione form
+		//set_rules(nome input,nome error,regola)
+		//persona
+        $this->form_validation->set_rules('name', 'Nome', 'trim|required');
+        $this->form_validation->set_rules('surname', 'surname', 'trim');
+		$this->form_validation->set_rules('fiscal_code', 'codice fiscale', 'trim|valid_fiscal_code');
+		$this->form_validation->set_rules('fk_comune', 'comune', 'trim|required');
         $this->form_validation->set_rules('address', 'address', 'trim');
 		$this->form_validation->set_rules('phone', 'phone', 'trim');
 		$this->form_validation->set_rules('phone_ext', 'phone_ext', 'trim');
@@ -237,24 +514,35 @@ class Anagrafica extends MY_Controller {
             //se i parametri del form sono validati corretamente 
 			if ($this->form_validation->run() === TRUE)
 			{
-				//persona
-				$name = $this->input->post('name');
-				$surname = $this->input->post('surname');
-				$fiscal_code = $this->input->post('fiscal_code');
-				$address = $this->input->post('address');
-				$phone = $this->input->post('phone');
-				$phone_ext = $this->input->post('phone_ext');
-				$datebirth = $this->input->post('datebirth');
-				$email = $this->input->post('email');
-				$avatar = $this->input->post('avatar');
-				$fk_comune = $this->input->post('fk_comune');
+				//predispongo l'array
+				$data_person = array(
+					'id' => NULL,
+					'name' =>  $this->input->post('name'),
+					'surname' =>  $this->input->post('surname'),
+					'fiscal_code' => $this->input->post('fiscal_code'),
+					'address' => $this->input->post('address'),
+					'phone' =>  $this->input->post('phone'),
+					'phone_ext' => $this->input->post('phone_ext'),
+					'datebirth' => $this->input->post('datebirth'),
+					'email' => $this->input->post('email'),
+					'avatar' => $this->input->post('avatar'),
+					'create_date'=>date("Y-m-d H:i:s"),
+					'fk_comune' => $this->input->post('fk_comune'),
+					'fk_collaboratore' => NULL,
+					'fk_associato' => NULL
+					);
+				//istanzio la classe person
+				$this->load->library('person',$data_person);
 
-				//collaboratore
-				$mansione = $this->input->post('mansione');
-				$note = $this->input->post('note');
+				//predispongo l'array
+				$data_collaboratore = array(
+					'id' => NULL,
+					'mansione' =>  $this->input->post('mansione'),
+					'note' =>  $this->input->post('note')
+					);
+				//istanzio la classe collaboratore
+				$this->load->library('collaboratore',$data_collaboratore);
 				
-				
-					
 					//se c'è un file
 					if(is_uploaded_file($_FILES['avatar']['tmp_name']))
 					{
@@ -262,234 +550,256 @@ class Anagrafica extends MY_Controller {
 						//eseguo l'upload
 						if($this->upload->do_upload('avatar'))
 						{   
-							$avatar = $this->upload->data('file_name');
+							
+							$this->person->avatar = $this->upload->data('file_name');
 							//chiamo il model (passo anche il nome del file)
-							if($this->Anagrafica_model->create_collaboratore($mansione,$note,$name,$surname,
-							$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato=NULL,$fk_collaboratore=NULL,$fk_cariche_direttivo=NULL))
+							if($this->Anagrafica_model->create_collaboratore($this->person,$this->collaboratore))
 							{
-
-								$this->session->set_flashdata('result',(new result_handling("Inserimento avvenuto correttamente con file!",0))->build_html());
-								redirect($_SERVER['HTTP_REFERER']."#result");
-								
+								$this->form_success();
 							}
 							else
 							{
-								
-								$this->session->set_flashdata('result',(new result_handling("Errore nel inserimento nel db!",2))->build_html());
-								redirect($_SERVER['HTTP_REFERER']."#result");
+								$this->form_error("Aggiornamento database fallito!");
 							}         
 						}
 						else //upload fallito
 						{
-							
-							$this->session->set_flashdata('result',(new result_handling($this->upload->display_errors(),2))->build_html());
-							redirect($_SERVER['HTTP_REFERER']."#result");
+							$this->form_error("Upload fallito!".$this->upload->display_errors());
 						}
-
 					}
 					else
 					{
-						if($this->Anagrafica_model->create_collaboratore($mansione,$note,$name,$surname,
-						$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato=NULL,$fk_collaboratore=NULL,$fk_cariche_direttivo=NULL))
+						$this->person->avatar = "avatar.jpg";
+						if($this->Anagrafica_model->create_collaboratore($this->person,$this->collaboratore))
 						{
-								
-								$this->session->set_flashdata('result',(new result_handling("Inserimento avvenuto correttamente senza file!",0))->build_html());
-								redirect($_SERVER['HTTP_REFERER']."#result");
+							$this->form_success();
 						}
-							else
-							{
-								
-								$this->session->set_flashdata('result',(new result_handling("Errore nel inserimento nel db!",2))->build_html());
-								redirect($_SERVER['HTTP_REFERER']."#result");
-							}         
+						else
+						{
+							$this->form_error("Aggiornamento database fallito!");
+						}         
 					}
 			}
 			else
 			{
-				$this->session->set_flashdata('result',(new result_handling(validation_errors(),2))->build_html());
-				redirect($_SERVER['HTTP_REFERER']."#result");
+				$this->load->view('template/head');
+				$this->load->view('template/navbar');
+				$this->load->view('template/menu');
+				$this->load->view('anagrafica/collaboratori');
+				$this->load->view('template/side_bar');
+				$this->load->view('template/footer');
 			}
-
-		return;
 	}
 	public function create_associato()
 	{
-		//var_dump($_REQUEST);return;
+		
 		//load library form - upload(file)
-		$this->load->library('form_validation');
 		$this->load->library('upload');
 		 
 	    //configuro la libreria di upload
 		$config['upload_path']          = './assets/img/associati/';
-		$config['allowed_types']        = 'gif|jpg|png';
-		$config['max_size']             = '2048'; //in kb
+		$config['allowed_types']        = 'jpg|png';
+		$config['max_size']             = '999'; //in kb
 		$config['max_width']            = '512';
 		$config['max_height']           = '512';
 		$config['file_ext_tolower']     = TRUE; //estensione to lower es. win10
 		$config['overwrite']            = FALSE; //file stesso nome nn vengono sovrascritti
-		 
+
 		//aggiorno la libreria
 		$this->upload->initialize($config);
-
-		//configuro la libreria di validazione form
-		//set_rules(nome input,nome error,regola)
-		//persona
-        $this->form_validation->set_rules('name', 'Nome', 'trim|required');
-        $this->form_validation->set_rules('surname', 'surname', 'trim');
-        $this->form_validation->set_rules('fiscal_code', 'codice fiscale', 'trim|valid_fiscal_code');
-        $this->form_validation->set_rules('address', 'address', 'trim');
-		$this->form_validation->set_rules('phone', 'phone', 'trim');
-		$this->form_validation->set_rules('phone_ext', 'phone_ext', 'trim');
-        $this->form_validation->set_rules('datebirth', 'datebirth', 'trim');
-        $this->form_validation->set_rules('email', 'email', 'trim|valid_email');
-        $this->form_validation->set_rules('avatar', 'avatar', 'trim');
-		//associato
-		$this->form_validation->set_rules('n_card', 'n_card', 'trim|required');
-        $this->form_validation->set_rules('privacy', 'privacy', 'trim');
-		$this->form_validation->set_rules('active', 'active', 'trim');
-		$this->form_validation->set_rules('fk_tipo_associato', 'tipo associato', 'trim|required');
-        $this->form_validation->set_rules('fk_cariche_direttivo', 'carica direttivo', 'trim|required');
-        $this->form_validation->set_rules('note', 'note', 'trim');
-
-        //errore personalizzato per la regola required
-		$this->form_validation->set_message('required','{field} is required!');
-		$this->form_validation->set_message('valid_fiscal_code','{field} formato codice fiscale errato!');
-		//errore tag delimitatore
-		$this->form_validation->set_error_delimiters('<div class="uk-alert-danger" uk-alert>', '</div>');
-		            
-            //se i parametri del form sono validati corretamente 
-			if ($this->form_validation->run() === TRUE)
+		$this->load->library('form_validation');
+		
+		//r = required
+		if( $this->input->post('socio') != NULL) 
+		{
+			$this->form_validation->set_rules('approvazione_data', 'Data di approvazione', 'required');
+			$this->form_validation->set_rules('fk_soci_tipologie', 'Tipo socio', 'required');
+			if($this->form_validation->run())
 			{
-				//persona
-				$name = $this->input->post('name');
-				$surname = $this->input->post('surname');
-				$fiscal_code = $this->input->post('fiscal_code');
-				$address = $this->input->post('address');
-				$phone = $this->input->post('phone');
-				$phone_ext = $this->input->post('phone_ext');
-				$datebirth = $this->input->post('datebirth');
-				$email = $this->input->post('email');
-				$avatar = $this->input->post('avatar');
-				$fk_comune = $this->input->post('fk_comune');
+				//predispongo l'array 
+				$socio = array(
+					'id' => NULL,
+					'richiesta_data' =>  $this->input->post('richiesta_data'),
+					'approvazione_data' => $this->input->post('approvazione_data'), //r
+					'scadenza_data' => $this->input->post('scadenza_data'),
+					'fk_soci_tipologie' =>  $this->input->post('fk_soci_tipologie'), //r
+					'certificato_scadenza_al' =>  $this->input->post('certificato_scadenza_al')
+					);
+					//le stringe vuote le imposto a null
+					foreach ($socio as $key => $value) {
+						if($socio[$key]=='')
+						{$socio[$key]= NULL;}
+					}
+					//echo'<pre>'.var_export($socio,true).'<pre>';
+					//echo "<br>";
 
-				//associato
-				$n_card = $this->input->post('n_card');
-				$privacy = $this->input->post('privacy');
-				$active = $this->input->post('active');
-				$note = $this->input->post('note');
-				$fk_tipo_associato = $this->input->post('fk_tipo_associato');
-				$fk_cariche_direttivo = $this->input->post('fk_cariche_direttivo');
-				
+					//inserisco il socio e recupero id
+					$fk_soci = $this->Anagrafica_model->create_socio($socio);
+					if($fk_soci==-1)
+					{
+						echo json_encode(array(
+							'status'=>"danger",
+							"message"=>"Errore nell'inserimento del socio"
+						));
+						die();
+					}
 					
-					//se c'è un file
-					if(is_uploaded_file($_FILES['avatar']['tmp_name']))
-					{
-						
-						//eseguo l'upload
-						if($this->upload->do_upload('avatar'))
-						{   
-							$avatar = $this->upload->data('file_name');
-							//chiamo il model (passo anche il nome del file)
-							if($this->Anagrafica_model->create_associato($n_card,$privacy,$active,$note,$name,$surname,
-							$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato,$fk_collaboratore=NULL,$fk_cariche_direttivo))
-							{
-								$this->session->set_flashdata('result',(new result_handling("Inserimento avvenuto correttamente con file!",0))->build_html());
-								redirect($_SERVER['HTTP_REFERER']."#result");
-							}
-							else
-							{
-								$this->session->set_flashdata('result',(new result_handling("Errore nel inserimento nel db!",2))->build_html());
-								redirect($_SERVER['HTTP_REFERER']."#result");
-							}         
-						}
-						else //upload fallito
-						{
-							$this->session->set_flashdata('result',(new result_handling($this->upload->display_errors(),2))->build_html());
-							redirect($_SERVER['HTTP_REFERER']."#result");
-						}
-
-					}
-					else
-					{
-						if($this->Anagrafica_model->create_associato($n_card,$privacy,$active,$note,$name,$surname,
-						$fiscal_code,$address,$phone,$phone_ext,$datebirth,$email,$avatar,$fk_comune,$fk_tipo_associato,$fk_collaboratore=NULL,$fk_cariche_direttivo))
-							{
-								$this->session->set_flashdata('result',(new result_handling("Inserimento avvenuto correttamente senza file!",0))->build_html());
-								redirect($_SERVER['HTTP_REFERER']."#result");
-							}
-							else
-							{
-								
-								$this->session->set_flashdata('result',(new result_handling("Errore nel inserimento nel db!",2))->build_html());
-								redirect($_SERVER['HTTP_REFERER']."#result");
-							}         
-					}
 			}
 			else
 			{
-				$this->session->set_flashdata('result',(new result_handling(validation_errors(),2))->build_html());
-				redirect($_SERVER['HTTP_REFERER']."#result");
+				//echo validation_errors();
+				echo json_encode(array(
+					'status'=>"warning",
+					"message"=>validation_errors('<p>','</p>')
+				));
+				$this->form_validation->reset_validation();
+				die();
 			}
+		}
 
-		return;
-	}
-	//richiamata da ajax ritorna tag option della select
-	function get_tipi_associato()
-	{
-		$tipi=$this->Tipi_ajax_model->get_tipi_associato();
-		echo '<option value="">Tipo associato</option>'; //placeholder
-		for ($i=0; $i<count($tipi['id']); $i++)
+		//persona
+		//$this->form_validation->set_error_delimiters('<p>','</p>');
+		$this->form_validation->set_rules('nome', 'Nome', 'required');
+		$this->form_validation->set_rules('cognome', 'Cognome', 'required');
+		$this->form_validation->set_rules('data_nascita', 'Data di nascita', 'required');
+		$this->form_validation->set_rules('fk_comuni', 'Comune di residenza', 'required');
+		$this->form_validation->set_rules('fk_comuni_nascita', 'Comune di nascita', 'required');
+		if($this->form_validation->run())
 		{
-			echo '<option value='.$tipi['id'][$i].'>'.$tipi['name'][$i].'</option>';
-		}
-	}
-	//richiamata da ajax ritorna tag option della select
-	function get_cariche_direttivo()
-	{
-		$cariche=$this->Tipi_ajax_model->get_cariche_direttivo();
-		echo '<option value="">Carica direttivo</option>'; //placeholder
-		echo '<option>Nessuna</option>';
-		for ($i=0; $i<count($cariche['id']); $i++)
-		{		
-		echo '<option value='.$cariche['id'][$i].'>'.$cariche['name'][$i].'</option>';
-		}
-	}
-	
-	 //richiamata da ajax ritorna tag option della select
-	 function get_regioni()
-	 {
-		 $regioni=$this->Luoghi_ajax_model->get_regioni();
-		 echo '<option value="">Scegli la regione</option>'; //placeholder
-		 for ($i=0; $i<count($regioni['id']); $i++)
-		 {
-			 echo '<option value='.$regioni['id'][$i].'>'.$regioni['name'][$i].'</option>';
-		 }
-	 }
-	 
-	 //richiamata da ajax dato l'id ritorna le province della regione 
-	 function get_province()
-	 {
-		 $id=$this->input->post('region_select');
-		 $province=$this->Luoghi_ajax_model->get_province($id);
-		 echo '<option value="">Scegli la provincia</option>'; //placeholder
-		 for ($i=0; $i<count($province['id']); $i++)
-		 {
-			 echo '<option value='.$province['id'][$i].'>'.$province['name'][$i].'</option>';
-		 }
-	 }
+			
+			//predispongo l'array persona
+			$persona = array(
+					'id' => NULL,
+					'nome' =>  $this->input->post('nome'), //r
+					'cognome' =>  $this->input->post('cognome'), //r
+					'data_nascita' => $this->input->post('data_nascita'),//r
+					'codice_fiscale' => $this->input->post('codice_fiscale'),
+					'partita_iva' => $this->input->post('partita_iva'),
+					'indirizzo' =>  $this->input->post('indirizzo'),
+					'privacy' => $this->input->post('privacy'),
+					'telefono' => $this->input->post('telefono'),
+					'telefono_ext' => $this->input->post('telefono_ext'),
+					'email' => $this->input->post('email'),
+					'iban' => $this->input->post('iban'),
+					'banca' => $this->input->post('banca'),
+					'note'=>$this->input->post("note"),
+					'fk_associazioni' => 1, //r
+					'fk_soci' => $this->input->post('socio') != NULL ? $fk_soci : NULL, //r
+					'fk_comuni' => $this->input->post('fk_comuni'), //r
+					'fk_comuni_nascita' => $this->input->post('fk_comuni_nascita'), //r
+					'fk_responsabile' => $this->input->post('fk_responsabile')
+					);
+					//le stringe vuote le imposto a null
+					foreach ($persona as $key => $value) {
+						if($persona[$key]=='')
+						{$persona[$key]= NULL;}
+					}
+					//echo'<pre>'.var_export($persona,true).'<pre>';
+		
+					//inserisco persona e recupero id
+					$fk_persona = $this->Anagrafica_model->create_person($persona);
+					if($fk_persona==-1)
+					{
+						echo json_encode(array(
+							'status'=>"danger",
+							"message"=>"Errore nell'inserimento della persona"
+						));
+						die();
+					}
+					
 
-	//richiamata da ajax dato l'id ritorna i comuni della provincia
-	 function get_comuni()
-	 {
-		 $id=$this->input->post('provincia_select');
-		 $comuni=$this->Luoghi_ajax_model->get_comuni($id);
-		 echo '<option value="">Scegli il comune</option>';//placeholder
-		 for ($i=0; $i<count($comuni['id']); $i++)
-		 {
-			 echo '<option value='.$comuni['id'][$i].'>'.$comuni['name'][$i].'</option>';
-		 }
-	 }
+		}
+		else
+		{
+			//echo validation_errors();
+			echo json_encode(array(
+				'status'=>"warning",
+				"message"=>validation_errors('<p>','</p>')
+			));
+			$this->form_validation->reset_validation();
+			die();
+		}
+		
+		if( $this->input->post('carica_direttivo') != NULL)
+		{
+			$this->form_validation->set_rules('fk_cariche_direttivo', 'Carica', 'required');
 
+			if($this->form_validation->run('carica_direttivo'))
+			{
+				$carica_direttivo = array(
+					'carica_direttivo_dal' =>  $this->input->post('carica_direttivo_dal'),
+					'carica_direttivo_al'  =>  $this->input->post('carica_direttivo_al'),
+					'fk_soci' => $fk_soci, //r
+					'fk_cariche_direttivo' =>  $this->input->post('fk_cariche_direttivo') //r
+				);
+
+				//echo'<pre>'.var_export($carica_direttivo,true).'<pre>';
+				//echo "<br>";
+				$fk_carica = $this->Anagrafica_model->create_carica($carica_direttivo);
+				if($fk_carica==-1)
+				{
+					echo json_encode(array(
+						'status'=>"danger",
+						"message"=>"Errore nell'inserimento della carica"
+					));
+					die();
+				}
+			}
+			else
+			{
+				//echo validation_errors();
+				echo json_encode(array(
+					'status'=>"warning",
+					"message"=>validation_errors('<p>','</p>')
+				));
+				$this->form_validation->reset_validation();
+				die();
+			}
+		}
+
+		if( $this->input->post('tessere') != NULL)
+		{
+			$this->form_validation->set_rules('numero', 'Numero tessera', 'required');
+
+			if($this->form_validation->run('carica_direttivo'))
+			{
+				$tessera = array(
+					'numero' => $this->input->post('numero'), //r
+					'tessere_dal' =>  $this->input->post('tessere_dal'),
+					'tessere_al'  =>  $this->input->post('tessere_al'),
+					'tessere_tipo' =>  $this->input->post('tessere_tipo'),
+					'fk_soci' => $fk_soci //r
+				);
+
+				//echo'<pre>'.var_export($tessera,true).'<pre>';
+				$fk_tessera = $this->Anagrafica_model->create_tessera($tessera);
+				if($fk_tessera==-1)
+				{
+					echo json_encode(array(
+						'status'=>"danger",
+						"message"=>"Errore nell'inserimento della tessera"
+					));
+					die();
+				}
+				
+			}
+			else
+			{
+				//echo validation_errors();
+				echo json_encode(array(
+					'status'=>"warning",
+					"message"=>validation_errors('<p>','</p>')
+				));
+				$this->form_validation->reset_validation();
+				die();
+			}		
+			
+		}
+		echo json_encode(array(
+			'status'=>"success",
+			"message"=>('<p>Invio avvenuto correttamente</p>')
+		));
+		
+
+	}
 }
-
-

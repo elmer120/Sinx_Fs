@@ -1,44 +1,39 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 //dato l'fk_comune ritorna l'oggetto: "cap comune provincia regione"
-if ( ! function_exists('get_all_location'))
+if ( ! function_exists('echo_breadcrumbs'))
 {
-   /* function get_all_location($fk_comune = NULL)
-    {
-             //get main CodeIgniter object
-     $ci=& get_instance();
-       
-     //load databse library
-     $ci->load->database();
-        /* SELECT comuni.cap,comuni.name,province.name,regioni.name
-        FROM regioni
-        INNER JOIN province
-        ON regioni.id=province.fk_regione
-        INNER JOIN comuni
-        ON province.id=comuni.fk_provincia
-        WHERE  comuni.id='7131' */
+	/*<ul class="uk-breadcrumb">
 
-      /*  if(isset($fk_comune))
-        {
-        //con fk_comune recupero il cap, id e nome di comune provincia e regione 
-        $ci->db->select('comuni.cap,comuni.id as c_id,comuni.name as c_name,province.id as p_id,province.name as p_name,regioni.id as r_id,regioni.name as r_name');
-        $ci->db->from('regioni');
-        $ci->db->join('province','regioni.id = province.fk_regione','inner');
-        $ci->db->join('comuni','province.id=comuni.fk_provincia','inner');
-        $ci->db->where('comuni.id',$fk_comune);
-        $query = $ci->db->get();
-        
-       $result_array = $query->result_array();
-       //se ci sono risultati
-        if(isset($result_array))
-            {
-               return $result_array;
-            }
-            echo 'Nessun risultato!';
-        }
-        
-            echo 'parametro id comune assente!';
-    }*/
+    <li><a href="#">Item</a></li>
+    <li><a href="#">Item</a></li>
+    <li class="uk-disabled"><a>Disabled</a></li>
+	<li><span>Active</span></li>
+	
+</ul>*/
+   function echo_breadcrumbs($breadcrumbs)
+   {
+	   if(isset($breadcrumbs))
+	   {
+		echo '<ul class="uk-breadcrumb">';
+			foreach ($breadcrumbs as $key=>$value) {
+				if($value!='')
+				{
+				echo "<li> <a href='$value'>$key</a></li>";
+				}
+				else
+				{
+				echo "<li><span>$key</span></li>";
+				}
+			}
+		echo '</ul>';
+	   }
+	   else
+	   {
+		die("No breadcrumbs found");
+	   }
+	   
+   }
 }
 
 //dato l'fk_comune ritorna l'array: con info dell'associazione
@@ -83,9 +78,10 @@ if ( ! function_exists('quick_links'))
      $ci->load->database();
 
         //seleziono i link rapidi ai siti attinenti all'associazione
-        $ci->db->select('link_website,link_webmail,link_webmail_pec,link_facebook,link_instagram,link_youtube,link_twitter,link_home_banking');
-        $ci->db->from('associazioni');
-        $ci->db->where('id','1');  // <---- x modifiche future in caso di più associazioni
+        $ci->db->select('web_site,web_mail,web_mail_pec,facebook,instagram,youtube,twitter,home_banking');
+		$ci->db->from('associazioni_links');
+		$ci->db->join('associazioni','associazioni.fk_associazioni_links = associazioni_links.id');
+        $ci->db->where('associazioni.id','1');  // <---- x modifiche future in caso di più associazioni
         $query = $ci->db->get();
         $links = $query->result_array();
         if(isset($links))

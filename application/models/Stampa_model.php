@@ -16,31 +16,39 @@ class Stampa_model extends CI_Model {
     {
         if(isset($ordinamento))
         {
-            $query = $this->db->query('SELECT 
-            associati.n_card,
-                        persone.name,
-                        persone.surname,
-                        DATE_FORMAT(persone.datebirth, "%d/%m/%Y"),
-                        persone.address,
-                        comuni.cap as cap,
-                        comuni.name as comune,
-                        province.name as provincia,
-                        regioni.name as regione,
-                        persone.fiscal_code,
-                        persone.phone,
-                        persone.email,
-                        tipo_associato.name as tipo_associato,
-                        cariche_direttivo.name as carica
-            FROM persone
-            INNER JOIN comuni
-            on persone.fk_comune = comuni.id
-            INNER JOIN province 
-            on comuni.fk_provincia = province.id
-            INNER JOIN regioni 
-            on province.fk_regione = regioni.id
-            INNER JOIN associati on persone.fk_associato = associati.id
-            INNER JOIN tipo_associato on associati.fk_tipo_associato= tipo_associato.id
-            LEFT JOIN cariche_direttivo on associati.fk_cariche_direttivo = cariche_direttivo.id 
+			//libro soci tesserati e non
+			$query = $this->db->query
+			('SELECT tessere.numero as tessera_numero,
+			persone.nome,
+			persone.cognome,
+			DATE_FORMAT(persone.data_nascita, "%d/%m/%Y") as data_nascita,
+			persone.comune_nascita,
+			persone.indirizzo,
+			comuni.cap as cap,
+			comuni.nome as comune,
+			province.nome as provincia,
+			regioni.nome as regione,
+			persone.email,
+			persone.codice_fiscale,
+			persone.telefono,
+			soci_tipologie.nome as tipo_socio, 
+			carica_direttivo.nome as carica_direttivo
+			FROM   persone INNER JOIN comuni
+			ON     persone.fk_comuni = comuni.id
+			INNER JOIN province
+			ON comuni.fk_province = province.id
+			INNER JOIN regioni
+			ON province.fk_regioni = regioni.id
+			INNER JOIN soci
+			ON persone.fk_soci = soci.id
+			INNER JOIN soci_tipologie
+			ON soci.fk_soci_tipologie = soci_tipologie.id
+			LEFT JOIN tessere
+			ON tessere.fk_soci = soci.id
+			LEFT JOIN soci_carica_direttivo
+			on soci.id = soci_carica_direttivo.fk_soci
+			LEFT JOIN carica_direttivo
+			on soci_carica_direttivo.fk_carica_direttivo = carica_direttivo.id
             ORDER BY '.$ordinamento);
             return $query->result_array();
         }

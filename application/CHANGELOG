@@ -154,15 +154,54 @@ Esempio: 1.0.0-alpha < 1.0.0-alpha.1 < 1.0.0-alpha.beta < 1.0.0-beta < 1.0.0-bet
 -- rubrica,ricerca e libro soci data di nascita in formato italiano
 -- numeri riga su rubrica ricerca
 
+0.23.0-alpha
+-- bug link rapidi javascript ok 
+-- bug footer stampa libro soci ok 
+-- aggiunte icone ai sotto menu ok
+-- aggiunto num riga libro soci ok
+-- aggiunta preview su associati ok
+-- aggiunte icone azione in ricerca
+-- rivista implementazione form
+-- ricerca aggiunta possiblità di modificare/eliminare e visualizzare socio/collaboratore
+-- create pagine standard di errore e successo
+-- create classi associato collaboratore e persona
+-- aggiunti breadcrumbs
+-- sistemata rubrica
+-- in section container impostato ad expand
+-- nascosto calendario con off-canvas
+-- sostituite tabelle con tabulator.js
+
+	da guardare: 
+	form tipo carta: http://kumailht.com/gridforms/
+	form validation: https://formvalidation.io
+	framework : http://getflakes.com/
+
+	strani framework:
+	https://www.getpapercss.com/docs/
+
+	creazione sfondi:
+	https://trianglify.io/
+
+
+
+  da fare:
+					-- rubrica mail to
+					-- conversione in tabelle tabulator finire filters in ricerca
+          -- controllare libro soci e provare stampa
+          -- controllare ricerca
+          -- controllare calendario 
+					-- leader tabelle conto economico
+          
+
+BUG NOTI codeigniter : UPLOAD MAX SIZE FILE NOT VA impostato a 999
+
 Roadmap to 1.0.0:
--- paginazione usare slidenav di uikit
--- bug link rapidi javascript
--- libro soci altri campi necessari (controllare se ci sono molte righe come viene la stampa)
--- aggiungere eventi a calendario
+
+-- log accessi usare user_agent per info browser
+-- libro soci altri campi necessari
 -- anagrafica minorenni
 -- archivio contabilità anni precedenti
--- bug form quando va in errore ricompilare il form con i dati inseriti precedentemente
--- bug form se vanno in errore non vengono ricompilari i campi
+-- bug avatar preview se dimensione maggiore di 2mb nome file non si cancella
 -- bug user model più username uguali check password -- vedere anche tipo di criptaggio gdpr
 -- bug calendario e altre query apostrofi ed altri caratteri
 -- bug associati/collaboratori controllare avatar nome upload univoco, nome del file selezionato
@@ -173,7 +212,6 @@ Roadmap to 1.0.0:
 -- aggiungere breadcrumb
 -- aggiungere tooltip su elementi non descritti
 -- multilingua + testo dinamico
--- organizzare le view in directory pagine,stampa,ecc.
 -- cancellare commenti superflui
 -- aggiungere stringa di sicurezza php su tutte le view
 -- vedere i file ci-session generati
@@ -181,42 +219,55 @@ Roadmap to 1.0.0:
 -- jsCalendar rimuovere file esempio da cartella assets/jsCalendar
 -- Favicon
 -- Titoli tab
+-- cancellare result_handling.php
 
 Funzionalità completate:
--Rubrica
--Calendario
 -Dati associazione
 -Associati
 -Collaboratori
+-Ricerca
+-Rubrica
 -Libro soci
+-Calendario
 
 Funzionalità parzialmente completate:
--Ricerca
+
 
 Funzionalità mancanti:
-
+Home ( dashboard riepilogo soldi numero soci note)
+Wizard per cominciare
 Importa da csv
-Cerca
 Prima nota
-Ricevuta
+Ricevuta x soci aziende e terzi
 Fattura
+Associati non attivi
 Conto Economico
 Stato patrimoniale
 Rendiconto
 Nuovo anno sociale
 Moduli
 Blocco note
-E-mail
+E-mail XX
 Utenti
 Log di sistema
 Licenza
 Installazione
 
+Appunti utili allo sviluppo:
 
-appunti utili allo sviluppo:
+visual studio code: 
 
-//estesa library form validation (in application/library)
+collapse all blocks ctrl+k+ctrl+0
+select all instance ctrl+shift+l
+
+//Pattern html5
+nome solo lettere:  pattern="[A-Za-z]+"
+codice iban:        pattern="[a-zA-Z0-9]{27}"
+codice fiscale:     pattern="[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]"
+
+//estesa libreria form validation con nuove regole (in application/library)
 //estesa classe ci_controller (in application/core)
+//create classi custom es. associato (in application/library)
 
 /* recupera tutti gli associati e il tipo di associato
 SELECT DISTINCT persone.name,persone.surname,persone.phone,persone.phone_ext,persone.datebirth,persone.address,comuni.name,province.name as provincia,regioni.name as 	    regione,persone.fiscal_code,associati.n_card,tipo_associato.name
@@ -251,8 +302,3 @@ FROM persone,regioni,province,comuni
 WHERE   persone.fk_comune = comuni.id
 AND   comuni.fk_provincia=province.id
 AND   province.fk_regione = regioni.id
-
-//Pattern html5
-nome solo lettere:  pattern="[A-Za-z]+"
-codice iban:        pattern="[a-zA-Z0-9]{27}"
-codice fiscale:     pattern="[a-zA-Z]{6}[0-9]{2}[a-zA-Z][0-9]{2}[a-zA-Z][0-9]{3}[a-zA-Z]"
